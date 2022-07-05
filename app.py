@@ -1,5 +1,6 @@
 from flask import Flask, request
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 
@@ -14,13 +15,18 @@ def process():
                 if json[key] == "-1":
                     continue
                 else:
+                    measurement_path=os.path.join("SQM", key)
+                    if not os.path.exists(measurement_path):
+                        os.mkdir(measurement_path)
                     temp_val = (datetime.now().strftime('%H:%M') + "\t" + json[key] + "\n").encode('ascii')
                     print(temp_val)
-                    with open(key[0:2].upper() + datetime.now().strftime('%Y')[2:4]+ datetime.now().strftime('%m%d')+".dat", 'ab') as f:
+                    with open(os.path.join(measurement_path, key[0:2].upper() + datetime.now().strftime('%Y')[2:4]+ datetime.now().strftime('%m%d')+".dat"), 'ab') as f:
                         f.write(temp_val)
             f.close()
             return ""
 
 
 if __name__ == '__main__':
+    if not os.path.exists("SQM"):
+        os.mkdir("SQM")
     app.run(host='0.0.0.0', port=5000, threaded=True)

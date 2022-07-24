@@ -2,6 +2,9 @@
 
 
 # create .exe
+pip install pyinstaller
+
+
 without console
 '''
 pyinstaller --onefile --noconsole .\app.py

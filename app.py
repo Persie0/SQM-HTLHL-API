@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # if the files should be saved in a specified directory (eg "C:/Users")
 # else leave it as "" - and it saves it in the same as the script gets run
-SPECIFIC_DIRECTORY = Path('C:/Users/Persie/Pictures')
+SPECIFIC_DIRECTORY = Path('')
 
 
 @app.route('/SQM', methods=['POST'])

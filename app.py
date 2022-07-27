@@ -14,22 +14,28 @@ SPECIFIC_DIRECTORY = Path('')
 def process():
     if request.method == 'POST':
         content_type = request.headers.get('Content-Type')
+        #is content in json format?
         if content_type == 'application/json':
+            #get current datetime
+            timestamp=datetime.now()
             json = request.json
+            #write the current datetime as alst measurement datetime
             with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'w') as file:
-                file.write(datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)"))
+                file.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
                 file.close()
             for key in json.keys():
+                # -1 means no data
                 if json[key] == "-1":
                     continue
                 else:
+                    #create a directory for each sensor and write append the values to the current file
                     measurement_path = SPECIFIC_DIRECTORY / "SQM" / key
                     if not measurement_path.is_dir():
                         measurement_path.mkdir()
-                    temp_val = (datetime.now().strftime('%H:%M') + "\t" + json[key] + "\n").encode('ascii')
+                    temp_val = (timestamp.strftime('%H:%M') + "\t" + json[key] + "\n").encode('ascii')
                     with open(measurement_path / (key[0:2].upper() +
-                                                  datetime.now().strftime('%Y')[2:4] +
-                                                  datetime.now().strftime('%m%d') + ".dat"), 'ab') as f:
+                                                  timestamp.strftime('%Y')[2:4] +
+                                                  timestamp.strftime('%m%d') + ".dat"), 'ab') as f:
                         f.write(temp_val)
             f.close()
             return ""
@@ -37,6 +43,7 @@ def process():
 
 @app.route('/')
 def show_if_online():
+    #show when the last measurement was as a website
     if (SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt").is_file():
         with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'r') as file:
             loaded_time = datetime.strptime(file.read(), "%d-%b-%Y (%H:%M:%S.%f)")

@@ -1,7 +1,10 @@
-from flask import Flask, request
+import os
+import sys
 from datetime import datetime
-import flask
 from pathlib import Path
+
+import flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -14,12 +17,12 @@ SPECIFIC_DIRECTORY = Path('')
 def process():
     if request.method == 'POST':
         content_type = request.headers.get('Content-Type')
-        #is content in json format?
+        # is content in json format?
         if content_type == 'application/json':
-            #get current datetime
-            timestamp=datetime.now()
+            # get current datetime
+            timestamp = datetime.now()
             json = request.json
-            #write the current datetime as alst measurement datetime
+            # write the current datetime as alst measurement datetime
             with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'w') as file:
                 file.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
                 file.close()
@@ -28,7 +31,7 @@ def process():
                 if json[key] == "-1":
                     continue
                 else:
-                    #create a directory for each sensor and write append the values to the current file
+                    # create a directory for each sensor and write append the values to the current file
                     measurement_path = SPECIFIC_DIRECTORY / "SQM" / key
                     if not measurement_path.is_dir():
                         measurement_path.mkdir()
@@ -43,7 +46,7 @@ def process():
 
 @app.route('/')
 def show_if_online():
-    #show when the last measurement was as a website
+    # show when the last measurement was as a website
     if (SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt").is_file():
         with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'r') as file:
             loaded_time = datetime.strptime(file.read(), "%d-%b-%Y (%H:%M:%S.%f)")

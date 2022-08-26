@@ -6,7 +6,7 @@ console:
 https://github.com/Persie0/SQM-HTLHL-API/raw/master/SQM_API_CL.exe
 
 # create .exe
-pip install pyinstaller
+`pip install pyinstaller`
 
 without console
 

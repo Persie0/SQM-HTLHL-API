@@ -1,0 +1,564 @@
+[2022-08-26T15:23:16.635859 1072 ] === CCACHE 4.6 STARTED =========================================
+[2022-08-26T15:23:16.635859 10492] Config: (default) absolute_paths_in_stderr = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) base_dir = 
+[2022-08-26T15:23:16.635859 10492] Config: (environment) cache_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache
+[2022-08-26T15:23:16.635859 10492] Config: (default) compiler = 
+[2022-08-26T15:23:16.635859 10492] Config: (default) compiler_check = mtime
+[2022-08-26T15:23:16.635859 10492] Config: (default) compiler_type = auto
+[2022-08-26T15:23:16.635859 10492] Config: (default) compression = true
+[2022-08-26T15:23:16.635859 10492] Config: (default) compression_level = 0
+[2022-08-26T15:23:16.635859 10492] Config: (default) cpp_extension = 
+[2022-08-26T15:23:16.635859 10492] Config: (default) debug = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) debug_dir = 
+[2022-08-26T15:23:16.635859 10492] Config: (default) depend_mode = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) direct_mode = true
+[2022-08-26T15:23:16.635859 10492] Config: (default) disable = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) extra_files_to_hash = 
+[2022-08-26T15:23:16.635859 10492] Config: (default) file_clone = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) hard_link = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) hash_dir = true
+[2022-08-26T15:23:16.635859 10492] Config: (default) ignore_headers_in_manifest = 
+[2022-08-26T15:23:16.635859 10492] Config: (default) ignore_options = 
+[2022-08-26T15:23:16.635859 10492] Config: (default) inode_cache = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) keep_comments_cpp = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) limit_multiple = 0.8
+[2022-08-26T15:23:16.635859 10492] Config: (environment) log_file = D:\PycharmProjects\SQM_API\app.build\ccache-13512.txt
+[2022-08-26T15:23:16.635859 10492] Config: (default) max_files = 0
+[2022-08-26T15:23:16.635859 10492] Config: (default) max_size = 5.0G
+[2022-08-26T15:23:16.635859 10492] Config: (default) namespace = 
+[2022-08-26T15:23:16.635859 10492] Config: (default) path = 
+[2022-08-26T15:23:16.635859 10492] Config: (default) pch_external_checksum = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) prefix_command = 
+[2022-08-26T15:23:16.635859 10492] Config: (default) prefix_command_cpp = 
+[2022-08-26T15:23:16.635859 10492] Config: (default) read_only = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) read_only_direct = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) recache = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) reshare = false
+[2022-08-26T15:23:16.635859 10492] Config: (default) run_second_cpp = true
+[2022-08-26T15:23:16.635859 10492] Config: (default) secondary_storage = 
+[2022-08-26T15:23:16.635859 10492] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-08-26T15:23:16.635859 10492] Config: (default) stats = true
+[2022-08-26T15:23:16.635859 10492] Config: (default) stats_log = 
+[2022-08-26T15:23:16.635859 10492] Config: (default) temporary_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp
+[2022-08-26T15:23:16.635859 10492] Config: (default) umask = 
+[2022-08-26T15:23:16.636855 10492] Command line: C:\Users\Persie\AppData\Local\Nuitka\Nuitka\ccache\v4.6\ccache.exe C:\Users\Persie\AppData\Local\Nuitka\Nuitka\gcc\x86_64\11.3.0-14.0.3-10.0.0-msvcrt-r3\mingw64\bin\gcc.exe -o __helpers.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -O3 -D_WIN32_WINNT=0x0501 -D__NUITKA_NO_ASSERT__ -DMS_WIN64 -D_NUITKA_CONSTANTS_FROM_RESOURCE -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -IC:\Users\Persie\AppData\Local\Programs\Python\Python310\include -I. -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\include -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\static_src __helpers.c
+.c
+[2022-08-26T15:23:16.636855 2468 ] === CCACHE 4.6 STARTED =========================================
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) absolute_paths_in_stderr = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) base_dir = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (environment) cache_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) compiler = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) compiler_check = mtime
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) compiler_type = auto
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) compression = true
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) compression_level = 0
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) cpp_extension = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) debug = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) debug_dir = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) depend_mode = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) direct_mode = true
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) disable = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) extra_files_to_hash = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) file_clone = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) hard_link = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) hash_dir = true
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) ignore_headers_in_manifest = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) ignore_options = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) inode_cache = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) keep_comments_cpp = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) limit_multiple = 0.8
+[2022-08-26T15:23:16.636855 2468 ] Config: (environment) log_file = D:\PycharmProjects\SQM_API\app.build\ccache-13512.txt
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) max_files = 0
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) max_size = 5.0G
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) namespace = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) path = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) pch_external_checksum = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) prefix_command = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) prefix_command_cpp = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) read_only = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) read_only_direct = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) recache = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) reshare = false
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) run_second_cpp = true
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) secondary_storage = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) stats = true
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) stats_log = 
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) temporary_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp
+[2022-08-26T15:23:16.636855 2468 ] Config: (default) umask = 
+[2022-08-26T15:23:16.641736 2468 ] Command line: C:\Users\Persie\AppData\Local\Nuitka\Nuitka\ccache\v4.6\ccache.exe C:\Users\Persie\AppData\Local\Nuitka\Nuitka\gcc\x86_64\11.3.0-14.0.3-10.0.0-msvcrt-r3\mingw64\bin\gcc.exe -o module.__main__.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -O3 -D_WIN32_WINNT=0x0501 -D__NUITKA_NO_ASSERT__ -DMS_WIN64 -D_NUITKA_CONSTANTS_FROM_RESOURCE -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -IC:\Users\Persie\AppData\Local\Programs\Python\Python310\include -I. -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\include -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\static_src module.__main__.c
+[2022-08-26T15:23:16.641736 11700] === CCACHE 4.6 STARTED =========================================
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) absolute_paths_in_stderr = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) base_dir = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (environment) cache_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) compiler = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) compiler_check = mtime
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) compiler_type = auto
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) compression = true
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) compression_level = 0
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) cpp_extension = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) debug = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) debug_dir = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) depend_mode = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) direct_mode = true
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) disable = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) extra_files_to_hash = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) file_clone = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) hard_link = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) hash_dir = true
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) ignore_headers_in_manifest = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) ignore_options = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) inode_cache = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) keep_comments_cpp = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) limit_multiple = 0.8
+[2022-08-26T15:23:16.636855 1972 ] Config: (environment) log_file = D:\PycharmProjects\SQM_API\app.build\ccache-13512.txt
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) max_files = 0
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) max_size = 5.0G
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) namespace = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) path = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) pch_external_checksum = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) prefix_command = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) prefix_command_cpp = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) read_only = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) read_only_direct = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) recache = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) reshare = false
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) run_second_cpp = true
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) secondary_storage = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) stats = true
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) stats_log = 
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) temporary_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp
+[2022-08-26T15:23:16.636855 1972 ] Config: (default) umask = 
+[2022-08-26T15:23:16.641736 1972 ] Command line: C:\Users\Persie\AppData\Local\Nuitka\Nuitka\ccache\v4.6\ccache.exe C:\Users\Persie\AppData\Local\Nuitka\Nuitka\gcc\x86_64\11.3.0-14.0.3-10.0.0-msvcrt-r3\mingw64\bin\gcc.exe -o static_src\MainProgram.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -O3 -D_WIN32_WINNT=0x0501 -D__NUITKA_NO_ASSERT__ -DMS_WIN64 -D_NUITKA_CONSTANTS_FROM_RESOURCE -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -IC:\Users\Persie\AppData\Local\Programs\Python\Python310\include -I. -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\include -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\static_src static_src\MainProgram.c
+[2022-08-26T15:23:16.641736 11700] Config: (default) absolute_paths_in_stderr = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) base_dir = 
+[2022-08-26T15:23:16.641736 11700] Config: (environment) cache_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache
+[2022-08-26T15:23:16.641736 11700] Config: (default) compiler = 
+[2022-08-26T15:23:16.641736 11700] Config: (default) compiler_check = mtime
+[2022-08-26T15:23:16.641736 11700] Config: (default) compiler_type = auto
+[2022-08-26T15:23:16.641736 11700] Config: (default) compression = true
+[2022-08-26T15:23:16.641736 11700] Config: (default) compression_level = 0
+[2022-08-26T15:23:16.641736 11700] Config: (default) cpp_extension = 
+[2022-08-26T15:23:16.641736 11700] Config: (default) debug = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) debug_dir = 
+[2022-08-26T15:23:16.641736 11700] Config: (default) depend_mode = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) direct_mode = true
+[2022-08-26T15:23:16.641736 11700] Config: (default) disable = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) extra_files_to_hash = 
+[2022-08-26T15:23:16.641736 11700] Config: (default) file_clone = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) hard_link = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) hash_dir = true
+[2022-08-26T15:23:16.641736 11700] Config: (default) ignore_headers_in_manifest = 
+[2022-08-26T15:23:16.641736 11700] Config: (default) ignore_options = 
+[2022-08-26T15:23:16.641736 11700] Config: (default) inode_cache = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) keep_comments_cpp = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) limit_multiple = 0.8
+[2022-08-26T15:23:16.641736 11700] Config: (environment) log_file = D:\PycharmProjects\SQM_API\app.build\ccache-13512.txt
+[2022-08-26T15:23:16.641736 11700] Config: (default) max_files = 0
+[2022-08-26T15:23:16.641736 11700] Config: (default) max_size = 5.0G
+[2022-08-26T15:23:16.641736 11700] Config: (default) namespace = 
+[2022-08-26T15:23:16.641736 11700] Config: (default) path = 
+[2022-08-26T15:23:16.641736 11700] Config: (default) pch_external_checksum = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) prefix_command = 
+[2022-08-26T15:23:16.641736 11700] Config: (default) prefix_command_cpp = 
+[2022-08-26T15:23:16.641736 11700] Config: (default) read_only = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) read_only_direct = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) recache = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) reshare = false
+[2022-08-26T15:23:16.641736 11700] Config: (default) run_second_cpp = true
+[2022-08-26T15:23:16.641736 11700] Config: (default) secondary_storage = 
+[2022-08-26T15:23:16.641736 11700] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-08-26T15:23:16.641736 11700] Config: (default) stats = true
+[2022-08-26T15:23:16.641736 11700] Config: (default) stats_log = 
+[2022-08-26T15:23:16.641736 11700] Config: (default) temporary_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp
+[2022-08-26T15:23:16.641736 11700] Config: (default) umask = 
+[2022-08-26T15:23:16.641736 11700] Command line: C:\Users\Persie\AppData\Local\Nuitka\Nuitka\ccache\v4.6\ccache.exe C:\Users\Persie\AppData\Local\Nuitka\Nuitka\gcc\x86_64\11.3.0-14.0.3-10.0.0-msvcrt-r3\mingw64\bin\gcc.exe -o static_src\CompiledCellType.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -O3 -D_WIN32_WINNT=0x0501 -D__NUITKA_NO_ASSERT__ -DMS_WIN64 -D_NUITKA_CONSTANTS_FROM_RESOURCE -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -IC:\Users\Persie\AppData\Local\Programs\Python\Python310\include -I. -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\include -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\static_src static_src\CompiledCellType.c
+[2022-08-26T15:23:16.674856 2468 ] Hostname: DESKTOP-4579SCO
+[2022-08-26T15:23:16.674856 2468 ] Working directory: D:/PycharmProjects/SQM_API/app.build
+[2022-08-26T15:23:16.674856 2468 ] Compiler type: gcc
+[2022-08-26T15:23:16.674856 1972 ] Hostname: DESKTOP-4579SCO
+[2022-08-26T15:23:16.674856 1972 ] Working directory: D:/PycharmProjects/SQM_API/app.build
+[2022-08-26T15:23:16.674856 1972 ] Compiler type: gcc
+[2022-08-26T15:23:16.674856 10492] Working directory: D:/PycharmProjects/SQM_API/app.build
+[2022-08-26T15:23:16.674856 10492] Compiler type: gcc
+:/PycharmProjects/SQM_API/app.build
+[2022-08-26T15:23:16.674856 11240] Compiler type: gcc
+[2022-08-26T15:23:16.674856 1072 ] Hostname: DESKTOP-4579SCO
+[2022-08-26T15:23:16.674856 1072 ] Working directory: D:/PycharmProjects/SQM_API/app.build
+[2022-08-26T15:23:16.674856 1072 ] Compiler type: gcc
+[2022-08-26T15:23:16.676850 1072 ] Source file: __constants.c[2022-08-26T1[2022-08-26T15:23:16.676850 2468 ] Source file: module.__main__.c
+[2022-08-26T15:23:16.676850 1072 ] Object file: __constants.o
+Program.o
+[2022-08-26T15:23:16.676850 2468 ] Object file: module.__main__.o
+CellType.o
+[2022-08-26T15:23:16.676850 1072 ] Trying direct lookup
+[2022-08-26T15:23:16.676850 11240] Trying direct lookup
+[2022-08-26T15:23:16.676850 11700] Trying direct lookup
+[2022-08-26T15:23:16.676850 1972 ] Trying direct lookup
+[2022-08-26T15:23:16.678079 11240] No bbd2k29volsbe60bn0uo77v0tvl8ape9k in primary storage
+[2022-08-26T15:23:16.678079 11700] No d3b28e1p7fg7qstkdf9afrgrv8j4b4u7c in primary storage
+[2022-08-26T15:23:16.678079 10492] No 0be028mcb45f7jas3f3iblpj3vbem6hd4 in primary storage
+[2022-08-26T15:23:16.678079 1072 ] No d1bfoil663scufdqvscs57qc1iot361c0 in primary storage
+[2022-08-26T15:23:16.678079 1972 ] No 7922lb6rndu7qi588ho21ob3ai4aqpnuq in primary storage
+[2022-08-26T15:23:16.678079 2468 ] No dd22hjpbthep3flh6q2p2h5or5ortncam in primary storage
+[2022-08-26T15:23:16.686058 1072 ] Running preprocessor
+[2022-08-26T15:23:16.686058 10492] Running preprocessor
+[2022-08-26T15:23:16.686058 1972 ] Running preprocessor
+[2022-08-26T15:23:16.686058 11240] Running preprocessor
+[2022-08-26T15:23:16.686058 2468 ] Running preprocessor
+[2022-08-26T15:23:16.686058 11700] Running preprocessor
+[2022-08-26T15:23:17.262957 9224 ] === CCACHE 4.6 STARTED =========================================
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) absolute_paths_in_stderr = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) base_dir = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (environment) cache_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) compiler = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) compiler_check = mtime
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) compiler_type = auto
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) compression = true
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) compression_level = 0
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) cpp_extension = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) debug = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) debug_dir = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) depend_mode = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) direct_mode = true
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) disable = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) extra_files_to_hash = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) file_clone = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) hard_link = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) hash_dir = true
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) ignore_headers_in_manifest = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) ignore_options = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) inode_cache = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) keep_comments_cpp = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) limit_multiple = 0.8
+[2022-08-26T15:23:17.262957 9224 ] Config: (environment) log_file = D:\PycharmProjects\SQM_API\app.build\ccache-13512.txt
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) max_files = 0
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) max_size = 5.0G
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) namespace = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) path = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) pch_external_checksum = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) prefix_command = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) prefix_command_cpp = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) read_only = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) read_only_direct = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) recache = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) reshare = false
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) run_second_cpp = true
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) secondary_storage = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) stats = true
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) stats_log = 
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) temporary_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp
+[2022-08-26T15:23:17.262957 9224 ] Config: (default) umask = 
+[2022-08-26T15:23:17.262957 9224 ] Command line: C:\Users\Persie\AppData\Local\Nuitka\Nuitka\ccache\v4.6\ccache.exe C:\Users\Persie\AppData\Local\Nuitka\Nuitka\gcc\x86_64\11.3.0-14.0.3-10.0.0-msvcrt-r3\mingw64\bin\gcc.exe -o static_src\CompiledFunctionType.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -O3 -D_WIN32_WINNT=0x0501 -D__NUITKA_NO_ASSERT__ -DMS_WIN64 -D_NUITKA_CONSTANTS_FROM_RESOURCE -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -IC:\Users\Persie\AppData\Local\Programs\Python\Python310\include -I. -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\include -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\static_src static_src\CompiledFunctionType.c
+[2022-08-26T15:23:17.269699 9224 ] Hostname: DESKTOP-4579SCO
+[2022-08-26T15:23:17.269699 9224 ] Working directory: D:/PycharmProjects/SQM_API/app.build
+[2022-08-26T15:23:17.269699 9224 ] Compiler type: gcc
+[2022-08-26T15:23:17.270737 9224 ] Source file: static_src\CompiledFunctionType.c
+[2022-08-26T15:23:17.270737 9224 ] Object file: static_src\CompiledFunctionType.o
+[2022-08-26T15:23:17.270737 9224 ] Trying direct lookup
+[2022-08-26T15:23:17.271735 9224 ] No 365akil758q9d6ftt18tn6f19gp5ee6ha in primary storage
+[2022-08-26T15:23:17.274154 9224 ] Running preprocessor
+[2022-08-26T15:23:17.335469 9572 ] === CCACHE 4.6 STARTED =========================================
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) absolute_paths_in_stderr = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) base_dir = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (environment) cache_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) compiler = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) compiler_check = mtime
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) compiler_type = auto
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) compression = true
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) compression_level = 0
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) cpp_extension = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) debug = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) debug_dir = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) depend_mode = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) direct_mode = true
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) disable = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) extra_files_to_hash = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) file_clone = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) hard_link = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) hash_dir = true
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) ignore_headers_in_manifest = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) ignore_options = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) inode_cache = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) keep_comments_cpp = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) limit_multiple = 0.8
+[2022-08-26T15:23:17.335469 9572 ] Config: (environment) log_file = D:\PycharmProjects\SQM_API\app.build\ccache-13512.txt
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) max_files = 0
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) max_size = 5.0G
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) namespace = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) path = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) pch_external_checksum = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) prefix_command = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) prefix_command_cpp = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) read_only = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) read_only_direct = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) recache = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) reshare = false
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) run_second_cpp = true
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) secondary_storage = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) stats = true
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) stats_log = 
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) temporary_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp
+[2022-08-26T15:23:17.335469 9572 ] Config: (default) umask = 
+[2022-08-26T15:23:17.335469 9572 ] Command line: C:\Users\Persie\AppData\Local\Nuitka\Nuitka\ccache\v4.6\ccache.exe C:\Users\Persie\AppData\Local\Nuitka\Nuitka\gcc\x86_64\11.3.0-14.0.3-10.0.0-msvcrt-r3\mingw64\bin\gcc.exe -o static_src\CompiledGeneratorType.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -O3 -D_WIN32_WINNT=0x0501 -D__NUITKA_NO_ASSERT__ -DMS_WIN64 -D_NUITKA_CONSTANTS_FROM_RESOURCE -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -IC:\Users\Persie\AppData\Local\Programs\Python\Python310\include -I. -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\include -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\static_src static_src\CompiledGeneratorType.c
+[2022-08-26T15:23:17.342178 9572 ] Hostname: DESKTOP-4579SCO
+[2022-08-26T15:23:17.342178 9572 ] Working directory: D:/PycharmProjects/SQM_API/app.build
+[2022-08-26T15:23:17.342178 9572 ] Compiler type: gcc
+[2022-08-26T15:23:17.342178 9572 ] Source file: static_src\CompiledGeneratorType.c
+[2022-08-26T15:23:17.342178 9572 ] Object file: static_src\CompiledGeneratorType.o
+[2022-08-26T15:23:17.342178 9572 ] Trying direct lookup
+[2022-08-26T15:23:17.343176 9572 ] No 5a83tc79n8hu7934p2l7j0ebi4hdh4d86 in primary storage
+[2022-08-26T15:23:17.344619 9572 ] Running preprocessor
+[2022-08-26T15:23:18.513315 11240] Got result key from preprocessor
+[2022-08-26T15:23:18.513315 11240] No 512d0ugs3gen02to86n53ffl6mg99cv0m in primary storage
+[2022-08-26T15:23:18.513315 11240] Running real compiler
+[2022-08-26T15:23:18.756118 11240] Using default compression level 1
+[2022-08-26T15:23:18.756118 11240] Storing embedded entry #0 .o (9387 bytes) from __loader.o
+[2022-08-26T15:23:18.757926 11240] Stored 512d0ugs3gen02to86n53ffl6mg99cv0m in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/5/1/2d0ugs3gen02to86n53ffl6mg99cv0mR)
+[2022-08-26T15:23:18.757926 11240] Adding result key to C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/b/b/d2k29volsbe60bn0uo77v0tvl8ape9kM
+[2022-08-26T15:23:18.765336 11240] Using default compression level 1
+[2022-08-26T15:23:18.767513 11240] Stored bbd2k29volsbe60bn0uo77v0tvl8ape9k in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/b/b/d2k29volsbe60bn0uo77v0tvl8ape9kM)
+[2022-08-26T15:23:18.768509 11240] Result: cache_miss
+[2022-08-26T15:23:18.768509 11240] Result: direct_cache_miss
+[2022-08-26T15:23:18.768509 11240] Result: preprocessed_cache_miss
+[2022-08-26T15:23:18.768509 11240] Result: primary_storage_miss
+[2022-08-26T15:23:18.768509 11240] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/b/stats.lock
+[2022-08-26T15:23:18.769507 11240] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/b/stats.lock
+[2022-08-26T15:23:18.770504 11240] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/5/stats.lock
+[2022-08-26T15:23:18.770504 11240] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/5/stats.lock
+[2022-08-26T15:23:18.771502 11240] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stderr.H0iERZ
+[2022-08-26T15:23:18.771502 11240] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stdout.OriLF0
+[2022-08-26T15:23:18.771502 11240] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stderr.NTsGgU
+[2022-08-26T15:23:18.771502 11240] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.C4dltu.i
+[2022-08-26T15:23:18.772499 11240] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.C4dltu
+[2022-08-26T15:23:20.046640 10492] Got result key from preprocessor
+[2022-08-26T15:23:20.046640 10492] No 33e22fnvj0l5eqqu680lf44892qfhijt2 in primary storage
+[2022-08-26T15:23:20.046640 10492] Running real compiler
+[2022-08-26T15:23:20.051737 11700] Got result key from preprocessor
+[2022-08-26T15:23:20.051737 11700] No fbc3p11apdio7s1effn636pd88llshvoe in primary storage
+[2022-08-26T15:23:20.051737 11700] Running real compiler
+[2022-08-26T15:23:20.060240 1072 ] Got result key from preprocessor
+[2022-08-26T15:23:20.060240 1072 ] No 0cdd8nki3ed2chnj8h8hpfl8dcavn56i0 in primary storage
+[2022-08-26T15:23:20.060240 1072 ] Running real compiler
+[2022-08-26T15:23:20.082012 9572 ] Got result key from preprocessor
+[2022-08-26T15:23:20.082012 9572 ] No e835p7le5hsm6n3atgapb4u0bu5brhekg in primary storage
+[2022-08-26T15:23:20.082012 9572 ] Running real compiler
+[2022-08-26T15:23:20.090034 2468 ] Got result key from preprocessor
+[2022-08-26T15:23:20.090034 2468 ] No 237e9fiijtr8uu472meuhch06f0gd60aq in primary storage
+[2022-08-26T15:23:20.090034 2468 ] Running real compiler
+[2022-08-26T15:23:21.076891 1972 ] Got result key from preprocessor
+[2022-08-26T15:23:21.076891 1972 ] No 89d42sfjak8acu4eiscgtkuciqfb7k592 in primary storage
+[2022-08-26T15:23:21.076891 1972 ] Running real compiler
+[2022-08-26T15:23:21.639669 10492] Using default compression level 1
+[2022-08-26T15:23:21.639669 10492] Storing embedded entry #0 .o (2647 bytes) from __helpers.o
+[2022-08-26T15:23:21.641241 10492] Stored 33e22fnvj0l5eqqu680lf44892qfhijt2 in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/3/3/e22fnvj0l5eqqu680lf44892qfhijt2R)
+[2022-08-26T15:23:21.642239 10492] Adding result key to C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/0/b/e028mcb45f7jas3f3iblpj3vbem6hd4M
+[2022-08-26T15:23:21.666099 10492] Using default compression level 1
+[2022-08-26T15:23:21.667531 10492] Stored 0be028mcb45f7jas3f3iblpj3vbem6hd4 in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/0/b/e028mcb45f7jas3f3iblpj3vbem6hd4M)
+[2022-08-26T15:23:21.668609 10492] Result: cache_miss
+[2022-08-26T15:23:21.668609 10492] Result: direct_cache_miss
+[2022-08-26T15:23:21.668609 10492] Result: preprocessed_cache_miss
+[2022-08-26T15:23:21.668609 10492] Result: primary_storage_miss
+[2022-08-26T15:23:21.668609 10492] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/0/stats.lock
+[2022-08-26T15:23:21.669607 10492] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/0/stats.lock
+[2022-08-26T15:23:21.670605 10492] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/3/stats.lock
+[2022-08-26T15:23:21.671740 10492] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/3/stats.lock
+[2022-08-26T15:23:21.671740 10492] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stderr.63IgeF
+[2022-08-26T15:23:21.673962 10492] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stdout.svieND
+[2022-08-26T15:23:21.675136 10492] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stderr.YKbY4l
+[2022-08-26T15:23:21.676136 10492] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.Dl3O5V.i
+[2022-08-26T15:23:21.677131 10492] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.Dl3O5V
+[2022-08-26T15:23:21.792503 1072 ] Using default compression level 1
+[2022-08-26T15:23:21.792503 1072 ] Storing embedded entry #0 .o (14215 bytes) from __constants.o
+[2022-08-26T15:23:21.795361 1072 ] Stored 0cdd8nki3ed2chnj8h8hpfl8dcavn56i0 in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/0/c/dd8nki3ed2chnj8h8hpfl8dcavn56i0R)
+[2022-08-26T15:23:21.796383 1072 ] Adding result key to C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/1/bfoil663scufdqvscs57qc1iot361c0M
+[2022-08-26T15:23:21.836089 11700] Using default compression level 1
+[2022-08-26T15:23:21.836089 11700] Storing embedded entry #0 .o (35875 bytes) from static_src\CompiledCellType.o
+[2022-08-26T15:23:21.845014 1072 ] Using default compression level 1
+[2022-08-26T15:23:21.847010 1072 ] Stored d1bfoil663scufdqvscs57qc1iot361c0 in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/1/bfoil663scufdqvscs57qc1iot361c0M)
+[2022-08-26T15:23:21.848007 1072 ] Result: cache_miss
+[2022-08-26T15:23:21.848007 1072 ] Result: direct_cache_miss
+[2022-08-26T15:23:21.848007 1072 ] Result: preprocessed_cache_miss
+[2022-08-26T15:23:21.848007 1072 ] Result: primary_storage_miss
+[2022-08-26T15:23:21.848007 1072 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/stats.lock
+[2022-08-26T15:23:21.849005 1072 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/stats.lock
+[2022-08-26T15:23:21.850002 1072 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/0/stats.lock
+[2022-08-26T15:23:21.850999 1072 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/0/stats.lock
+[2022-08-26T15:23:21.851997 1072 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stderr.U4UG5y
+[2022-08-26T15:23:21.851997 1072 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stdout.KI72r0
+[2022-08-26T15:23:21.851997 1072 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stderr.6jKMd7
+[2022-08-26T15:23:21.851997 1072 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.JDRiLk.i
+[2022-08-26T15:23:21.852996 1072 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.JDRiLk
+[2022-08-26T15:23:21.869476 11700] Stored fbc3p11apdio7s1effn636pd88llshvoe in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/f/b/c3p11apdio7s1effn636pd88llshvoeR)
+[2022-08-26T15:23:21.870473 11700] Adding result key to C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/3/b28e1p7fg7qstkdf9afrgrv8j4b4u7cM
+[2022-08-26T15:23:21.897934 11700] Using default compression level 1
+[2022-08-26T15:23:21.899930 11700] Stored d3b28e1p7fg7qstkdf9afrgrv8j4b4u7c in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/3/b28e1p7fg7qstkdf9afrgrv8j4b4u7cM)
+[2022-08-26T15:23:21.900929 11700] Result: cache_miss
+[2022-08-26T15:23:21.900929 11700] Result: direct_cache_miss
+[2022-08-26T15:23:21.900929 11700] Result: preprocessed_cache_miss
+[2022-08-26T15:23:21.900929 11700] Result: primary_storage_miss
+[2022-08-26T15:23:21.900929 11700] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/stats.lock
+[2022-08-26T15:23:21.902616 11700] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/stats.lock
+[2022-08-26T15:23:21.903614 11700] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/f/stats.lock
+[2022-08-26T15:23:21.905819 11700] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/f/stats.lock
+[2022-08-26T15:23:21.906816 11700] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stderr.ehWhQ6
+[2022-08-26T15:23:21.906816 11700] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stdout.Oltt3C
+[2022-08-26T15:23:21.907562 11700] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stderr.Li3wK3
+[2022-08-26T15:23:21.907562 11700] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.UdOeSc.i
+[2022-08-26T15:23:21.908559 11700] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.UdOeSc
+[2022-08-26T15:23:22.201575 2468 ] Using default compression level 1
+[2022-08-26T15:23:22.201575 2468 ] Storing embedded entry #0 .o (173329 bytes) from module.__main__.o
+[2022-08-26T15:23:22.203938 2468 ] Stored 237e9fiijtr8uu472meuhch06f0gd60aq in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/2/3/7e9fiijtr8uu472meuhch06f0gd60aqR)
+[2022-08-26T15:23:22.204935 2468 ] Adding result key to C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/d/22hjpbthep3flh6q2p2h5or5ortncamM
+[2022-08-26T15:23:22.231434 2468 ] Using default compression level 1
+[2022-08-26T15:23:22.233788 2468 ] Stored dd22hjpbthep3flh6q2p2h5or5ortncam in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/d/22hjpbthep3flh6q2p2h5or5ortncamM)
+[2022-08-26T15:23:22.234786 2468 ] Result: cache_miss
+[2022-08-26T15:23:22.234786 2468 ] Result: direct_cache_miss
+[2022-08-26T15:23:22.234786 2468 ] Result: preprocessed_cache_miss
+[2022-08-26T15:23:22.234786 2468 ] Result: primary_storage_miss
+[2022-08-26T15:23:22.235262 2468 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/stats.lock
+[2022-08-26T15:23:22.236261 2468 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/d/stats.lock
+[2022-08-26T15:23:22.236261 2468 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/2/stats.lock
+[2022-08-26T15:23:22.237840 2468 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/2/stats.lock
+[2022-08-26T15:23:22.237840 2468 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stderr.J6D0lz
+[2022-08-26T15:23:22.237840 2468 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stdout.Z7Vs3v
+[2022-08-26T15:23:22.238837 2468 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stderr.RsrH6E
+[2022-08-26T15:23:22.238837 2468 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.Uqim1H.i
+[2022-08-26T15:23:22.239421 2468 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.Uqim1H
+[2022-08-26T15:23:22.353664 9572 ] Using default compression level 1
+[2022-08-26T15:23:22.353664 9572 ] Storing embedded entry #0 .o (366265 bytes) from static_src\CompiledGeneratorType.o
+[2022-08-26T15:23:22.357512 9572 ] Stored e835p7le5hsm6n3atgapb4u0bu5brhekg in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/e/8/35p7le5hsm6n3atgapb4u0bu5brhekgR)
+[2022-08-26T15:23:22.358511 9572 ] Adding result key to C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/5/a/83tc79n8hu7934p2l7j0ebi4hdh4d86M
+[2022-08-26T15:23:22.387354 9572 ] Using default compression level 1
+[2022-08-26T15:23:22.389390 9572 ] Stored 5a83tc79n8hu7934p2l7j0ebi4hdh4d86 in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/5/a/83tc79n8hu7934p2l7j0ebi4hdh4d86M)
+[2022-08-26T15:23:22.389390 9572 ] Result: cache_miss
+[2022-08-26T15:23:22.390389 9572 ] Result: direct_cache_miss
+[2022-08-26T15:23:22.390389 9572 ] Result: preprocessed_cache_miss
+[2022-08-26T15:23:22.390389 9572 ] Result: primary_storage_miss
+[2022-08-26T15:23:22.390752 9572 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/5/stats.lock
+[2022-08-26T15:23:22.391750 9572 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/5/stats.lock
+[2022-08-26T15:23:22.391750 9572 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/e/stats.lock
+[2022-08-26T15:23:22.393744 9572 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/e/stats.lock
+[2022-08-26T15:23:22.393744 9572 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stderr.uWb51y
+[2022-08-26T15:23:22.393744 9572 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stdout.Wkb6aD
+[2022-08-26T15:23:22.393744 9572 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stderr.evmntj
+[2022-08-26T15:23:22.393744 9572 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.yKWEd8.i
+[2022-08-26T15:23:22.394752 9572 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.yKWEd8
+[2022-08-26T15:23:22.488969 3192 ] === CCACHE 4.6 STARTED =========================================
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) absolute_paths_in_stderr = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) base_dir = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (environment) cache_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) compiler = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) compiler_check = mtime
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) compiler_type = auto
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) compression = true
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) compression_level = 0
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) cpp_extension = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) debug = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) debug_dir = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) depend_mode = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) direct_mode = true
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) disable = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) extra_files_to_hash = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) file_clone = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) hard_link = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) hash_dir = true
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) ignore_headers_in_manifest = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) ignore_options = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) inode_cache = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) keep_comments_cpp = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) limit_multiple = 0.8
+[2022-08-26T15:23:22.488969 3192 ] Config: (environment) log_file = D:\PycharmProjects\SQM_API\app.build\ccache-13512.txt
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) max_files = 0
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) max_size = 5.0G
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) namespace = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) path = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) pch_external_checksum = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) prefix_command = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) prefix_command_cpp = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) read_only = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) read_only_direct = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) recache = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) reshare = false
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) run_second_cpp = true
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) secondary_storage = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (environment) sloppiness = include_file_mtime, include_file_ctime
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) stats = true
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) stats_log = 
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) temporary_dir = C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp
+[2022-08-26T15:23:22.488969 3192 ] Config: (default) umask = 
+[2022-08-26T15:23:22.489966 3192 ] Command line: C:\Users\Persie\AppData\Local\Nuitka\Nuitka\ccache\v4.6\ccache.exe C:\Users\Persie\AppData\Local\Nuitka\Nuitka\gcc\x86_64\11.3.0-14.0.3-10.0.0-msvcrt-r3\mingw64\bin\gcc.exe -o static_src\InspectPatcher.o -c -flto -fuse-linker-plugin -fno-fat-lto-objects -std=c11 -fvisibility=hidden -fwrapv -pipe -fpartial-inlining -ftrack-macro-expansion=0 -Wno-deprecated-declarations -fno-var-tracking -Wno-misleading-indentation -fcompare-debug-second -O3 -D_WIN32_WINNT=0x0501 -D__NUITKA_NO_ASSERT__ -DMS_WIN64 -D_NUITKA_CONSTANTS_FROM_RESOURCE -D_NUITKA_FROZEN=0 -D_NUITKA_EXE -IC:\Users\Persie\AppData\Local\Programs\Python\Python310\include -I. -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\include -ID:\PycharmProjects\SQM_API\venv\lib\SITE-P~1\nuitka\build\static_src static_src\InspectPatcher.c
+[2022-08-26T15:23:22.497981 3192 ] Hostname: DESKTOP-4579SCO
+[2022-08-26T15:23:22.498997 3192 ] Working directory: D:/PycharmProjects/SQM_API/app.build
+[2022-08-26T15:23:22.498997 3192 ] Compiler type: gcc
+[2022-08-26T15:23:22.499326 3192 ] Source file: static_src\InspectPatcher.c
+[2022-08-26T15:23:22.499326 3192 ] Object file: static_src\InspectPatcher.o
+[2022-08-26T15:23:22.499326 3192 ] Trying direct lookup
+[2022-08-26T15:23:22.500326 3192 ] No fdb253a7mq1b4epgnd3525u4isn2oiqsm in primary storage
+[2022-08-26T15:23:22.502319 3192 ] Running preprocessor
+[2022-08-26T15:23:23.085433 1972 ] Using default compression level 1
+[2022-08-26T15:23:23.085433 1972 ] Storing embedded entry #0 .o (28415 bytes) from static_src\MainProgram.o
+[2022-08-26T15:23:23.087428 1972 ] Stored 89d42sfjak8acu4eiscgtkuciqfb7k592 in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/8/9/d42sfjak8acu4eiscgtkuciqfb7k592R)
+[2022-08-26T15:23:23.089430 1972 ] Adding result key to C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/7/9/22lb6rndu7qi588ho21ob3ai4aqpnuqM
+[2022-08-26T15:23:23.116919 1972 ] Using default compression level 1
+[2022-08-26T15:23:23.118986 1972 ] Stored 7922lb6rndu7qi588ho21ob3ai4aqpnuq in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/7/9/22lb6rndu7qi588ho21ob3ai4aqpnuqM)
+[2022-08-26T15:23:23.119985 1972 ] Result: cache_miss
+[2022-08-26T15:23:23.119985 1972 ] Result: direct_cache_miss
+[2022-08-26T15:23:23.119985 1972 ] Result: preprocessed_cache_miss
+[2022-08-26T15:23:23.119985 1972 ] Result: primary_storage_miss
+[2022-08-26T15:23:23.120985 1972 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/7/stats.lock
+[2022-08-26T15:23:23.121979 1972 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/7/stats.lock
+[2022-08-26T15:23:23.122978 1972 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/8/stats.lock
+[2022-08-26T15:23:23.124974 1972 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/8/stats.lock
+[2022-08-26T15:23:23.125969 1972 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stderr.CIMV5D
+[2022-08-26T15:23:23.125969 1972 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stdout.oi62p5
+[2022-08-26T15:23:23.125969 1972 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stderr.nwBn2b
+[2022-08-26T15:23:23.125969 1972 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.Dm2kBB.i
+[2022-08-26T15:23:23.126968 1972 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.Dm2kBB
+[2022-08-26T15:23:23.333552 3192 ] Got result key from preprocessor
+[2022-08-26T15:23:23.333552 3192 ] No bd964tscdj7rm12qhe2upa079sakoa5ba in primary storage
+[2022-08-26T15:23:23.333552 3192 ] Running real compiler
+[2022-08-26T15:23:23.464396 9224 ] Got result key from preprocessor
+[2022-08-26T15:23:23.464396 9224 ] No 970avl3mml65psa3odlku693d2u6ghdp6 in primary storage
+[2022-08-26T15:23:23.464396 9224 ] Running real compiler
+[2022-08-26T15:23:24.097458 3192 ] Using default compression level 1
+[2022-08-26T15:23:24.098456 3192 ] Storing embedded entry #0 .o (44129 bytes) from static_src\InspectPatcher.o
+[2022-08-26T15:23:24.099166 3192 ] Stored bd964tscdj7rm12qhe2upa079sakoa5ba in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/b/d/964tscdj7rm12qhe2upa079sakoa5baR)
+[2022-08-26T15:23:24.099166 3192 ] Adding result key to C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/f/d/b253a7mq1b4epgnd3525u4isn2oiqsmM
+[2022-08-26T15:23:24.122288 3192 ] Using default compression level 1
+[2022-08-26T15:23:24.124540 3192 ] Stored fdb253a7mq1b4epgnd3525u4isn2oiqsm in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/f/d/b253a7mq1b4epgnd3525u4isn2oiqsmM)
+[2022-08-26T15:23:24.124540 3192 ] Result: cache_miss
+[2022-08-26T15:23:24.124540 3192 ] Result: direct_cache_miss
+[2022-08-26T15:23:24.124540 3192 ] Result: preprocessed_cache_miss
+[2022-08-26T15:23:24.124540 3192 ] Result: primary_storage_miss
+[2022-08-26T15:23:24.124540 3192 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/f/stats.lock
+[2022-08-26T15:23:24.231869 3192 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/f/stats.lock
+[2022-08-26T15:23:24.232868 3192 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/b/stats.lock
+[2022-08-26T15:23:24.237025 3192 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/b/stats.lock
+[2022-08-26T15:23:24.238021 3192 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stderr.k1gsgM
+[2022-08-26T15:23:24.239018 3192 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stdout.MtwSOM
+[2022-08-26T15:23:24.240016 3192 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stderr.U6klex
+[2022-08-26T15:23:24.240016 3192 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.E6XqUc.i
+[2022-08-26T15:23:24.245005 3192 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.E6XqUc
+[2022-08-26T15:23:29.823273 9224 ] Using default compression level 1
+[2022-08-26T15:23:29.824271 9224 ] Storing embedded entry #0 .o (2966670 bytes) from static_src\CompiledFunctionType.o
+[2022-08-26T15:23:29.840090 9224 ] Stored 970avl3mml65psa3odlku693d2u6ghdp6 in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/9/7/0avl3mml65psa3odlku693d2u6ghdp6R)
+[2022-08-26T15:23:29.841056 9224 ] Adding result key to C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/3/6/5akil758q9d6ftt18tn6f19gp5ee6haM
+[2022-08-26T15:23:29.878303 9224 ] Using default compression level 1
+[2022-08-26T15:23:29.881077 9224 ] Stored 365akil758q9d6ftt18tn6f19gp5ee6ha in primary storage (C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/3/6/5akil758q9d6ftt18tn6f19gp5ee6haM)
+[2022-08-26T15:23:29.881077 9224 ] Result: cache_miss
+[2022-08-26T15:23:29.881077 9224 ] Result: direct_cache_miss
+[2022-08-26T15:23:29.881077 9224 ] Result: preprocessed_cache_miss
+[2022-08-26T15:23:29.881077 9224 ] Result: primary_storage_miss
+[2022-08-26T15:23:29.882569 9224 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/3/stats.lock
+[2022-08-26T15:23:29.891132 9224 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/3/stats.lock
+[2022-08-26T15:23:29.891132 9224 ] Acquired lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/9/stats.lock
+[2022-08-26T15:23:29.892619 9224 ] Releasing lock C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/9/stats.lock
+[2022-08-26T15:23:29.892619 9224 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stderr.fh3moY
+[2022-08-26T15:23:29.892619 9224 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.stdout.FJl36K
+[2022-08-26T15:23:29.893614 9224 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stderr.9ejHwL
+[2022-08-26T15:23:29.893614 9224 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.xmIBkj.i
+[2022-08-26T15:23:29.894612 9224 ] Unlink C:\Users\Persie\AppData\Local\Nuitka\Nuitka\Cache\ccache/tmp/tmp.cpp_stdout.xmIBkj

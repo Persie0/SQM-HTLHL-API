@@ -16,4 +16,7 @@ with console
 
 `pyinstaller --add-data "templates;templates" --onefile .\app.py`
 
+or
+
+ nuitka --onefile .\app.py
 

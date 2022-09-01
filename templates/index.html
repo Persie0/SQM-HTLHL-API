@@ -2,7 +2,9 @@
 <html>
 <head>
     {{ turbo() }}
+    <title>SQM Status Page</title>
     <link rel="stylesheet" href="../static/status.css">
+    <link rel="stylesheet" href="../static/dark.css">
 </head>
 <body>
 
@@ -17,7 +19,7 @@
             <span class="reddot"></span>
 
         {% endif %}
-        <span class='siteHeader__title'>{{ running }}</span>
+        <span class='siteHeader__title'> {{ running }}</span>
     </div>
 </header>
 
@@ -39,7 +41,7 @@
                     {% if (raining==0) %}
                         <p class='serviceList__status'><span class="ok">Not raining</span></p>
                     {% else %}
-                        <p class='serviceList__status'><span class="outage">raining</span></p>
+                        <p class='serviceList__status'><span class="ok">raining</span></p>
 
                     {% endif %}
 
@@ -48,7 +50,7 @@
 
                 {% endif %}
                 <p class='serviceList__name'>
-                    Raining
+                    Weather
                 </p>
             </li>
             <li class='serviceList__item'>
@@ -88,8 +90,8 @@
                 </p>
             </li>
             <li class='serviceList__item'>
-                {% if (mySQMreading!=-1) %}
-                    <p class='serviceList__status'><span class="ok">{{mySQMreading}} mpsas</span></p>
+                {% if (SQMreading!=-1) %}
+                    <p class='serviceList__status'><span class="ok">{{SQMreading}} mpsas</span></p>
 
                 {% else %}
                     <p class='serviceList__status'><span class="outage">No value yet</span></p>
@@ -156,10 +158,56 @@
     </section>
 </div>
 
-<footer class='siteFooter'>
-    <div class='container'>
-    </div>
-</footer>
+<br>
+<div class='container'>
+
+    <section class='ongoingIssues'>
+        <div class='issueBanner issueBanner--monitoring'>
+            <h2>Current Settings</h2>
+        </div>
+    </section>
+
+            <section class='serviceGroup'>
+            <ul class='serviceList serviceGroup__list'>
+
+                <li class='serviceList__item'>
+                            {% if (DISPLAY_ON==-1) %}
+                    <p class='serviceList__status'><span class="ok">On
+                        </span></p>
+
+                {% else %}
+                     <p class='serviceList__status'><span class="ok">Off
+                        </span></p>
+
+                {% endif %}
+
+                    <p class='serviceList__name'>
+                        Display (on/off)
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+                    <p class='serviceList__status'><span class="ok">{{DISPLAY_TIMEOUT_s}}</span></p>
+                    <p class='serviceList__name'>
+                        Seconds until the display turns itself off (0 for never)
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+                    <p class='serviceList__status'><span class="ok">{{SLEEPTIME_s}}</span></p>
+
+                    <p class='serviceList__name'>
+                        Seconds the ESP32 should sleep between measurements
+                    </p>
+                </li>
+
+                <li class='serviceList__item'>
+                    <p class='serviceList__status'><form action="/" method="post"><span class="outage"><button class="button button5" type="submit">Change</button></span></form>
+
+                </li>
+
+
+            </ul>
+        </section>
+</div>
 </div>
 </body>
 </html>

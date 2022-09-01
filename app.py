@@ -4,7 +4,7 @@ from datetime import datetime
 from pathlib import Path
 import json
 import flask
-from flask import Flask, request
+from flask import Flask, request, redirect, url_for
 from turbo_flask import Turbo
 
 app = Flask(__name__)
@@ -23,7 +23,7 @@ sensor_values = {
     "ambient": -1,
     "object": -1,
     "lux": -1,
-    "mySQMreading": -1,
+    "SQMreading": -1,
     "irradiance": -1,
     "lightning_distanceToStorm": -1,
     "nelm": -1,
@@ -69,9 +69,11 @@ def process():
             return ""
 
 
-@app.route('/')
-def show_if_online():
+@app.route('/', methods=["GET", "POST"])
+def statuspage():
     # show when the last measurement was as a website
+    if request.method == "POST":
+        return redirect(url_for('settingspage'))
     if (SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt").is_file():
         with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'r') as file:
             loaded_time = datetime.strptime(file.read(), "%d-%b-%Y (%H:%M:%S.%f)")
@@ -94,6 +96,21 @@ def show_if_online():
                 days[0], hours[0], minutes[0], seconds[0])
             return flask.render_template('index.html', running=running, last_transm=last_transm, min_ago=min_ago)
     return flask.render_template('index.html', running="SQM files not available", last_transm="", min_ago="")
+
+
+@app.route('/settings', methods=["GET", "POST"])
+def settingspage():
+    if request.method == "POST":
+        global settings
+        # getting input with name = fname in HTML form
+        settings["DISPLAY_ON"] = request.form.get("DISPLAY", type=int)
+        # getting input with name = lname in HTML form
+        settings["DISPLAY_TIMEOUT_s"] = request.form.get("DISPLAY_TIMEOUT_s", type=int)
+        settings["SLEEPTIME_s"] = request.form.get("SLEEPTIME_s", type=int)
+        with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'w') as f:
+            json.dump(settings, f)
+        return redirect(url_for('statuspage'))
+    return flask.render_template('settings.html')
 
 
 def update_load():
@@ -136,11 +153,15 @@ def inject_load():
             "ambient": sensor_values["ambient"],
             "object": sensor_values["object"],
             "lux": sensor_values["lux"],
-            "mySQMreading": sensor_values["mySQMreading"],
+            "SQMreading": sensor_values["SQMreading"],
             "irradiance": sensor_values["irradiance"],
             "lightning_distanceToStorm": sensor_values["lightning_distanceToStorm"],
             "nelm": sensor_values["nelm"],
             "concentration": sensor_values["concentration"],
+
+            "SLEEPTIME_s": settings["SLEEPTIME_s"],
+            "DISPLAY_TIMEOUT_s": settings["DISPLAY_TIMEOUT_s"],
+            "DISPLAY_ON": settings["DISPLAY_ON"],
             }
 
 

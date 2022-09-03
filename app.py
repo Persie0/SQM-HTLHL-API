@@ -65,11 +65,11 @@ def process():
                 f1.close()
             for key in jsonfile.keys():
                 # -1 means no data
+                global sensor_values
+                sensor_values[key] = jsonfile[key]
                 if jsonfile[key] == "-1":
                     continue
                 else:
-                    global sensor_values
-                    sensor_values[key] = jsonfile[key]
                     # create a directory for each sensor and write append the values to the current file
                     measurement_path = SPECIFIC_DIRECTORY / "SQM" / key
                     if not measurement_path.is_dir():

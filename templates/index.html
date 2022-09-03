@@ -9,177 +9,189 @@
 <body>
 
 <div id="load" class="load">
-<header class='siteHeader'>
+    <header class='siteHeader'>
+
+        <div class='container'>
+            {% if (isRunning) %}
+                <span class="greendot"></span>
+
+            {% else %}
+                <span class="reddot"></span>
+
+            {% endif %}
+            <span class='siteHeader__title'> {{ running }}</span>
+        </div>
+    </header>
 
     <div class='container'>
-        {% if (isRunning) %}
-            <span class="greendot"></span>
 
-        {% else %}
-            <span class="reddot"></span>
+        <section class='ongoingIssues'>
+            <div class='issueBanner issueBanner--monitoring'>
+                <p class='issueBanner__state'>{{ min_ago }}</p>
+                <h2>Last updated:</h2>
+                <p class='issueBanner__time'>{{last_transm}}</p>
+            </div>
+        </section>
 
-        {% endif %}
-        <span class='siteHeader__title'> {{ running }}</span>
-    </div>
-</header>
-
-<div class='container'>
-
-    <section class='ongoingIssues'>
-        <div class='issueBanner issueBanner--monitoring'>
-            <p class='issueBanner__state'>{{ min_ago }}</p>
-            <h2>Last updated:</h2>
-            <p class='issueBanner__time'>{{last_transm}}</p>
-        </div>
-    </section>
-
-    <section class='serviceGroup'>
-        <ul class='serviceList serviceGroup__list'>
-
-            <li class='serviceList__item'>
-                {% if (raining!=-1) %}
-                    {% if (raining==0) %}
-                        <p class='serviceList__status'><span class="ok">Not raining</span></p>
-                    {% else %}
-                        <p class='serviceList__status'><span class="ok">raining</span></p>
-
-                    {% endif %}
-
-                {% else %}
-                    <p class='serviceList__status'><span class="outage">No value yet</span></p>
-
-                {% endif %}
-                <p class='serviceList__name'>
-                    Weather
-                </p>
-            </li>
-            <li class='serviceList__item'>
-                {% if (ambient!=-1) %}
-                    <p class='serviceList__status'><span class="ok">{{ambient}} °C</span></p>
-
-                {% else %}
-                    <p class='serviceList__status'><span class="outage">No value yet</span></p>
-
-                {% endif %}
-                <p class='serviceList__name'>
-                    Ambient temperature
-                </p>
-            </li>
-            <li class='serviceList__item'>
-                {% if (object!=-1) %}
-                    <p class='serviceList__status'><span class="ok">{{object}} °C</span></p>
-
-                {% else %}
-                    <p class='serviceList__status'><span class="outage">No value yet</span></p>
-
-                {% endif %}
-                <p class='serviceList__name'>
-                    Object temperature
-                </p>
-            </li>
-            <li class='serviceList__item'>
-                {% if (lux!=-1) %}
-                    <p class='serviceList__status'><span class="ok">{{lux}} lux</span></p>
-
-                {% else %}
-                    <p class='serviceList__status'><span class="outage">No value yet</span></p>
-
-                {% endif %}
-                <p class='serviceList__name'>
-                    Brightness
-                </p>
-            </li>
-            <li class='serviceList__item'>
-                {% if (SQMreading!=-1) %}
-                    <p class='serviceList__status'><span class="ok">{{SQMreading}} mpsas</span></p>
-
-                {% else %}
-                    <p class='serviceList__status'><span class="outage">No value yet</span></p>
-
-                {% endif %}
-                <p class='serviceList__name'>
-                    Luminosity
-                </p>
-            </li>
-
-            <li class='serviceList__item'>
-                {% if (irradiance!=-1) %}
-                    <p class='serviceList__status'><span class="ok">{{irradiance}} W/m2</span></p>
-
-                {% else %}
-                    <p class='serviceList__status'><span class="outage">No value yet</span></p>
-
-                {% endif %}
-                <p class='serviceList__name'>
-                    Irradiance
-                </p>
-            </li>
-
-            <li class='serviceList__item'>
-                {% if (lightning_distanceToStorm!=-1) %}
-                    <p class='serviceList__status'><span class="ok">{{lightning_distanceToStorm}} km</span></p>
-
-                {% else %}
-                    <p class='serviceList__status'><span class="outage">No value yet</span></p>
-
-                {% endif %}
-                <p class='serviceList__name'>
-                    Distance to Storm
-                </p>
-            </li>
-
-            <li class='serviceList__item'>
-                {% if (nelm!=-1) %}
-                    <p class='serviceList__status'><span class="ok">{{nelm}}</span></p>
-
-                {% else %}
-                    <p class='serviceList__status'><span class="outage">No value yet</span></p>
-
-                {% endif %}
-                <p class='serviceList__name'>
-                    Nelm
-                </p>
-            </li>
-
-            <li class='serviceList__item'>
-                {% if (concentration!=-1) %}
-                    <p class='serviceList__status'><span class="ok">{{concentration}}</span></p>
-
-                {% else %}
-                    <p class='serviceList__status'><span class="outage">No value yet</span></p>
-
-                {% endif %}
-                <p class='serviceList__name'>
-                    Air particle concentration
-                </p>
-            </li>
-
-        </ul>
-    </section>
-</div>
-
-<br>
-<div class='container'>
-
-    <section class='ongoingIssues'>
-        <div class='issueBanner issueBanner--monitoring'>
-            <h2>Current Settings</h2>
-        </div>
-    </section>
-
-            <section class='serviceGroup'>
+        <section class='serviceGroup'>
             <ul class='serviceList serviceGroup__list'>
 
                 <li class='serviceList__item'>
-                            {% if (DISPLAY_ON==-1) %}
-                    <p class='serviceList__status'><span class="ok">On
+                    {% if (raining!=-1) %}
+                        {% if (raining==0) %}
+                            <p class='serviceList__status'><span class="ok">Not raining</span></p>
+                        {% else %}
+                            <p class='serviceList__status'><span class="ok">raining</span></p>
+
+                        {% endif %}
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Weather
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+                    {% if (ambient!=-1) %}
+                        <p class='serviceList__status'><span class="ok">{{ambient}} °C</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Ambient temperature
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+                    {% if (object!=-1) %}
+                        <p class='serviceList__status'><span class="ok">{{object}} °C</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Object temperature
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+                    {% if (lux!=-1) %}
+                        <p class='serviceList__status'><span class="ok">{{lux}} lux</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Brightness
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+                    {% if (SQMreading!=-1) %}
+                        <p class='serviceList__status'><span class="ok">{{SQMreading}} mpsas</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Luminosity
+                    </p>
+                </li>
+
+                <li class='serviceList__item'>
+                    {% if (irradiance!=-1) %}
+                        <p class='serviceList__status'><span class="ok">{{irradiance}} W/m2</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Irradiance
+                    </p>
+                </li>
+
+                <li class='serviceList__item'>
+                    {% if (lightning_distanceToStorm!=-1) %}
+                        <p class='serviceList__status'><span class="ok">{{lightning_distanceToStorm}} km</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Distance to Storm
+                    </p>
+                </li>
+
+                <li class='serviceList__item'>
+                    {% if (nelm!=-1) %}
+                        <p class='serviceList__status'><span class="ok">{{nelm}}</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Nelm
+                    </p>
+                </li>
+
+                <li class='serviceList__item'>
+                    {% if (concentration!=-1) %}
+                        <p class='serviceList__status'><span class="ok">{{concentration}}</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Air particle concentration
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+                    {% if (skystate!="Unknown") %}
+                        <p class='serviceList__status'><span class="ok">{{skystate}}</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">{{skystate}}</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Sky state
+                    </p>
+                </li>
+
+            </ul>
+        </section>
+    </div>
+
+    <br>
+    <div class='container'>
+
+        <section class='ongoingIssues'>
+            <div class='issueBanner issueBanner--monitoring'>
+                <h2>Current Settings</h2>
+            </div>
+        </section>
+
+        <section class='serviceGroup'>
+            <ul class='serviceList serviceGroup__list'>
+
+                <li class='serviceList__item'>
+                    {% if (DISPLAY_ON==-1) %}
+                        <p class='serviceList__status'><span class="ok">On
                         </span></p>
 
-                {% else %}
-                     <p class='serviceList__status'><span class="ok">Off
+                    {% else %}
+                        <p class='serviceList__status'><span class="ok">Off
                         </span></p>
 
-                {% endif %}
+                    {% endif %}
 
                     <p class='serviceList__name'>
                         Display (on/off)
@@ -207,7 +219,7 @@
 
             </ul>
         </section>
-</div>
+    </div>
 </div>
 </body>
 </html>

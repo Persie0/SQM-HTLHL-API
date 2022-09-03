@@ -17,6 +17,7 @@ SPECIFIC_DIRECTORY = Path('')
 running = ""
 last_transm = ""
 min_ago = ""
+skystate = "Unknown"
 isRunning = False
 sensor_values = {
     "raining": -1,
@@ -34,6 +35,19 @@ settings = {
     "DISPLAY_TIMEOUT_s": 200,
     "DISPLAY_ON": 1,
 }
+
+
+def get_cloud_state():
+    global skystate
+    temp_diff = sensor_values["ambient"] - sensor_values["object"]
+    if temp_diff > 22:
+        skystate = "Clear"
+    elif (temp_diff > 2) and (temp_diff < 22):
+        skystate = "Partly cloudy"
+    elif temp_diff < 2:
+        skystate = "Cloudy"
+    else:
+        skystate = "Unknown"
 
 
 @app.route('/SQM', methods=['POST'])
@@ -66,6 +80,7 @@ def process():
                                                   timestamp.strftime('%m%d') + ".dat"), 'ab') as f1:
                         f1.write(temp_val)
             f1.close()
+            get_cloud_state()
             return ""
 
 
@@ -167,6 +182,7 @@ def inject_load():
             "SLEEPTIME_s": settings["SLEEPTIME_s"],
             "DISPLAY_TIMEOUT_s": settings["DISPLAY_TIMEOUT_s"],
             "DISPLAY_ON": settings["DISPLAY_ON"],
+            "skystate": skystate,
             }
 
 

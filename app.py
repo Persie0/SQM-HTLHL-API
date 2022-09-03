@@ -10,9 +10,6 @@ from turbo_flask import Turbo
 app = Flask(__name__)
 turbo = Turbo(app)
 
-# if the files should be saved in a specified directory (eg "C:/Users")
-# else leave it as "" - and it saves it in the same as the script gets run
-SPECIFIC_DIRECTORY = Path('')
 
 running = ""
 last_transm = ""
@@ -34,8 +31,12 @@ settings = {
     "SLEEPTIME_s": 180,
     "DISPLAY_TIMEOUT_s": 200,
     "DISPLAY_ON": 1,
+    "PATH": "",
 }
 
+# if the files should be saved in a specified directory (eg "C:/Users")
+# else leave it as "" - and it saves it in the same as the script gets run
+SPECIFIC_DIRECTORY = Path(settings["PATH"])
 
 def get_cloud_state():
     global skystate
@@ -117,7 +118,7 @@ def statuspage():
 @app.route('/settings', methods=["GET", "POST"])
 def settingspage():
     if request.method == "POST":
-        global settings
+        global settings, SPECIFIC_DIRECTORY
         # getting inputs from html form
         disp = request.form.get("DISPLAY", type=int)
         if disp is not None:
@@ -128,6 +129,12 @@ def settingspage():
         sleep_t = request.form.get("SLEEPTIME_s", type=int)
         if sleep_t is not None:
             settings["SLEEPTIME_s"] = sleep_t
+        path = request.form.get("PATH", type=str)
+        if path is not None:
+            settings["PATH"] = path
+            SPECIFIC_DIRECTORY = Path(settings["PATH"])
+        if not (SPECIFIC_DIRECTORY / "SQM").is_dir():
+            (SPECIFIC_DIRECTORY / "SQM").mkdir()
         with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'w') as f3:
             json.dump(settings, f3)
         return redirect(url_for('statuspage'))
@@ -184,6 +191,7 @@ def inject_load():
             "SLEEPTIME_s": settings["SLEEPTIME_s"],
             "DISPLAY_TIMEOUT_s": settings["DISPLAY_TIMEOUT_s"],
             "DISPLAY_ON": settings["DISPLAY_ON"],
+            "PATH": settings["PATH"],
             "skystate": skystate,
             }
 

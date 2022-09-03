@@ -84,6 +84,7 @@ def process():
             return ""
 
 
+#Homepage with status and current settings
 @app.route('/', methods=["GET", "POST"])
 def statuspage():
     # show when the last measurement was as a website
@@ -112,7 +113,7 @@ def statuspage():
             return flask.render_template('index.html', running=running, last_transm=last_transm, min_ago=min_ago)
     return flask.render_template('index.html', running="SQM files not available", last_transm="", min_ago="")
 
-
+#settings page
 @app.route('/settings', methods=["GET", "POST"])
 def settingspage():
     if request.method == "POST":
@@ -132,7 +133,7 @@ def settingspage():
         return redirect(url_for('statuspage'))
     return flask.render_template('settings.html')
 
-
+# turbo-flask update status website every 5 sec
 def update_load():
     with app.app_context():
         while True:
@@ -165,6 +166,7 @@ def before_first_request():
     threading.Thread(target=update_load).start()
 
 
+#inject settings/sensor values in website
 @app.context_processor
 def inject_load():
     global running, last_transm, min_ago, isRunning
@@ -185,7 +187,7 @@ def inject_load():
             "skystate": skystate,
             }
 
-
+#send settings to ESP32 as json
 @app.route('/getsettings')
 def sendsettings():
     with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'r') as f5:

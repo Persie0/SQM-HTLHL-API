@@ -295,7 +295,7 @@ a {
 .button {
   border-radius: 4px;
   padding: 10px 20px;
-  background: #fff;
+  background: #090707;
   text-decoration: none;
   border: 1px solid #ddd;
   color: #888;
@@ -454,7 +454,7 @@ a {
   clear: both;
 }
 .serviceList__item:nth-child(even) {
-  background: #f6fbff;
+  background: #151515;
 }
 .serviceList__item:last-child {
   border-bottom: 0;

@@ -46,9 +46,9 @@ def process():
             timestamp = datetime.now()
             jsonfile = request.json
             # write the current datetime as alst measurement datetime
-            with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'w') as file:
-                file.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
-                file.close()
+            with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'w') as f1:
+                f1.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
+                f1.close()
             for key in jsonfile.keys():
                 # -1 means no data
                 if jsonfile[key] == "-1":
@@ -63,9 +63,9 @@ def process():
                     temp_val = (timestamp.strftime('%H:%M') + "\t" + jsonfile[key] + "\n").encode('ascii')
                     with open(measurement_path / (key[0:2].upper() +
                                                   timestamp.strftime('%Y')[2:4] +
-                                                  timestamp.strftime('%m%d') + ".dat"), 'ab') as file:
-                        file.write(temp_val)
-            file.close()
+                                                  timestamp.strftime('%m%d') + ".dat"), 'ab') as f1:
+                        f1.write(temp_val)
+            f1.close()
             return ""
 
 
@@ -75,8 +75,8 @@ def statuspage():
     if request.method == "POST":
         return redirect(url_for('settingspage'))
     if (SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt").is_file():
-        with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'r') as file:
-            loaded_time = datetime.strptime(file.read(), "%d-%b-%Y (%H:%M:%S.%f)")
+        with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'r') as f2:
+            loaded_time = datetime.strptime(f2.read(), "%d-%b-%Y (%H:%M:%S.%f)")
             now = datetime.now()
             difference = (now - loaded_time)
             duration_in_s = difference.total_seconds()
@@ -85,7 +85,7 @@ def statuspage():
             minutes = divmod(hours[1], 60)  # Use remainder of hours to calc minutes
             seconds = divmod(minutes[1], 1)  # Use remainder of minutes to calc seconds
             global running, last_transm, min_ago, isRunning
-            if minutes[0] > 6:
+            if duration_in_s > (settings["SLEEPTIME_s"] + 10):
                 isRunning = False
                 running = "SQM NOT running"
             else:
@@ -102,13 +102,18 @@ def statuspage():
 def settingspage():
     if request.method == "POST":
         global settings
-        # getting input with name = fname in HTML form
-        settings["DISPLAY_ON"] = request.form.get("DISPLAY", type=int)
-        # getting input with name = lname in HTML form
-        settings["DISPLAY_TIMEOUT_s"] = request.form.get("DISPLAY_TIMEOUT_s", type=int)
-        settings["SLEEPTIME_s"] = request.form.get("SLEEPTIME_s", type=int)
-        with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'w') as f:
-            json.dump(settings, f)
+        # getting inputs from html form
+        disp = request.form.get("DISPLAY", type=int)
+        if disp is not None:
+            settings["DISPLAY_ON"] = disp
+        disp_to = request.form.get("DISPLAY_TIMEOUT_s", type=int)
+        if disp_to is not None:
+            settings["DISPLAY_TIMEOUT_s"] = disp_to
+        sleep_t = request.form.get("SLEEPTIME_s", type=int)
+        if sleep_t is not None:
+            settings["SLEEPTIME_s"] = sleep_t
+        with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'w') as f3:
+            json.dump(settings, f3)
         return redirect(url_for('statuspage'))
     return flask.render_template('settings.html')
 
@@ -118,8 +123,8 @@ def update_load():
         while True:
             time.sleep(5)
             if (SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt").is_file():
-                with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'r') as file:
-                    loaded_time = datetime.strptime(file.read(), "%d-%b-%Y (%H:%M:%S.%f)")
+                with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'r') as f4:
+                    loaded_time = datetime.strptime(f4.read(), "%d-%b-%Y (%H:%M:%S.%f)")
                     now = datetime.now()
                     difference = (now - loaded_time)
                     duration_in_s = difference.total_seconds()
@@ -128,7 +133,7 @@ def update_load():
                     minutes = divmod(hours[1], 60)  # Use remainder of hours to calc minutes
                     seconds = divmod(minutes[1], 1)  # Use remainder of minutes to calc seconds
                     global running, last_transm, min_ago, isRunning
-                    if minutes[0] > 6:
+                    if duration_in_s > (settings["SLEEPTIME_s"] + 10):
                         running = "SQM NOT running"
                         isRunning = False
                     else:
@@ -167,9 +172,9 @@ def inject_load():
 
 @app.route('/getsettings')
 def sendsettings():
-    with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'r') as file:
+    with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'r') as f5:
         global settings
-        settings = json.load(file)
+        settings = json.load(f5)
         return settings
 
 
@@ -179,4 +184,7 @@ if __name__ == '__main__':
     if not (SPECIFIC_DIRECTORY / "SQM" / "settings.json").is_file():
         with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'w') as f:
             json.dump(settings, f)
+    else:
+        with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'r') as file:
+            settings = json.load(file)
     app.run(host='0.0.0.0', port=5000, threaded=True)

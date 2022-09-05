@@ -18,5 +18,5 @@ with console
 
 or
 
- nuitka --onefile .\app.py
+ `nuitka --onefile .\app.py`
 

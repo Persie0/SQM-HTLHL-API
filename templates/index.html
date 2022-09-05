@@ -14,12 +14,13 @@
         <div class='container'>
             {% if (isRunning) %}
                 <span class="greendot"></span>
+                <span class='siteHeader__title'> SQM is Running</span>
 
             {% else %}
                 <span class="reddot"></span>
+                <span class='siteHeader__title'> SQM is NOT running</span>
 
             {% endif %}
-            <span class='siteHeader__title'> {{ running }}</span>
         </div>
     </header>
 
@@ -37,11 +38,11 @@
             <ul class='serviceList serviceGroup__list'>
 
                 <li class='serviceList__item'>
-                    {% if (raining!=-1) %}
-                        {% if (raining==0) %}
-                            <p class='serviceList__status'><span class="ok">Not raining</span></p>
+                    {% if (raining!="-1") %}
+                        {% if (raining=="0") %}
+                            <p class='serviceList__status'><span class="ok">Not raining, {{skystate}}</span></p>
                         {% else %}
-                            <p class='serviceList__status'><span class="ok">raining</span></p>
+                            <p class='serviceList__status'><span class="ok">raining, {{skystate}}</span></p>
 
                         {% endif %}
 
@@ -54,7 +55,7 @@
                     </p>
                 </li>
                 <li class='serviceList__item'>
-                    {% if (ambient!=-1) %}
+                    {% if (ambient!="-1") %}
                         <p class='serviceList__status'><span class="ok">{{ambient}} °C</span></p>
 
                     {% else %}
@@ -66,7 +67,7 @@
                     </p>
                 </li>
                 <li class='serviceList__item'>
-                    {% if (object!=-1) %}
+                    {% if (object!="-1") %}
                         <p class='serviceList__status'><span class="ok">{{object}} °C</span></p>
 
                     {% else %}
@@ -78,7 +79,7 @@
                     </p>
                 </li>
                 <li class='serviceList__item'>
-                    {% if (lux!=-1) %}
+                    {% if (lux!="-1") %}
                         <p class='serviceList__status'><span class="ok">{{lux}} lux</span></p>
 
                     {% else %}
@@ -90,7 +91,7 @@
                     </p>
                 </li>
                 <li class='serviceList__item'>
-                    {% if (SQMreading!=-1) %}
+                    {% if (SQMreading!="-1") %}
                         <p class='serviceList__status'><span class="ok">{{SQMreading}} mpsas</span></p>
 
                     {% else %}
@@ -98,12 +99,12 @@
 
                     {% endif %}
                     <p class='serviceList__name'>
-                        Luminosity
+                        Luminosity (sky background brightness)
                     </p>
                 </li>
 
                 <li class='serviceList__item'>
-                    {% if (irradiance!=-1) %}
+                    {% if (irradiance!="-1") %}
                         <p class='serviceList__status'><span class="ok">{{irradiance}} W/m2</span></p>
 
                     {% else %}
@@ -116,7 +117,7 @@
                 </li>
 
                 <li class='serviceList__item'>
-                    {% if (lightning_distanceToStorm!=-1) %}
+                    {% if (lightning_distanceToStorm!="-1") %}
                         <p class='serviceList__status'><span class="ok">{{lightning_distanceToStorm}} km</span></p>
 
                     {% else %}
@@ -129,7 +130,7 @@
                 </li>
 
                 <li class='serviceList__item'>
-                    {% if (nelm!=-1) %}
+                    {% if (nelm!="-1") %}
                         <p class='serviceList__status'><span class="ok">{{nelm}}</span></p>
 
                     {% else %}
@@ -137,12 +138,12 @@
 
                     {% endif %}
                     <p class='serviceList__name'>
-                        Nelm
+                        Nelm (Naked Eye Limiting Magnitude)
                     </p>
                 </li>
 
                 <li class='serviceList__item'>
-                    {% if (concentration!=-1) %}
+                    {% if (concentration!="-1") %}
                         <p class='serviceList__status'><span class="ok">{{concentration}}</span></p>
 
                     {% else %}
@@ -151,18 +152,6 @@
                     {% endif %}
                     <p class='serviceList__name'>
                         Air particle concentration
-                    </p>
-                </li>
-                <li class='serviceList__item'>
-                    {% if (skystate!="Unknown") %}
-                        <p class='serviceList__status'><span class="ok">{{skystate}}</span></p>
-
-                    {% else %}
-                        <p class='serviceList__status'><span class="outage">{{skystate}}</span></p>
-
-                    {% endif %}
-                    <p class='serviceList__name'>
-                        Sky state
                     </p>
                 </li>
 
@@ -211,10 +200,30 @@
                     </p>
                 </li>
             <li class='serviceList__item'>
-                    <p class='serviceList__status'><span class="ok">{{PATH}}</span></p>
+
+                    {% if (PATH!="" and PATH!=" ") %}
+                        <p class='serviceList__status'><span class="ok">"{{PATH}}"</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="ok">Same as Script</span></p>
+
+                    {% endif %}
 
                     <p class='serviceList__name'>
                         Path where to save the sensor measurements
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+
+                    {% if (localIP!="error") %}
+                        <p class='serviceList__status'><span class="ok">{{localIP}}</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="ok">Couldn't read IP</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Server IP address (for the ESP32 settings)
                     </p>
                 </li>
                 <li class='serviceList__item'>

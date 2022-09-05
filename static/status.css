@@ -91,10 +91,6 @@ input,
 textarea {
   font: 99% sans-serif;
 }
-table {
-  font-size: inherit;
-  font: 100%;
-}
 a:hover,
 a:active {
   outline: none;
@@ -295,10 +291,10 @@ a {
 .button {
   border-radius: 4px;
   padding: 10px 20px;
-  background: #090707;
-  text-decoration: none;
-  border: 1px solid #ddd;
-  color: #888;
+  background-image: initial;
+  background-color: rgb(0, 50, 111);
+  text-decoration-color: initial;
+  border-color: rgb(89, 95, 100);
   text-transform: uppercase;
   font-size: 12px;
 }
@@ -318,21 +314,21 @@ a {
   background: #fcfcfc;
   background: -moz-linear-gradient(top, #fcfcfc 0%, #efefef 100%);
   background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    color-stop(0%, #fcfcfc),
-    color-stop(100%, #efefef)
+          linear,
+          left top,
+          left bottom,
+          color-stop(0%, #fcfcfc),
+          color-stop(100%, #efefef)
   );
   background: -webkit-linear-gradient(top, #fcfcfc 0%, #efefef 100%);
   background: -o-linear-gradient(top, #fcfcfc 0%, #efefef 100%);
   background: -ms-linear-gradient(top, #fcfcfc 0%, #efefef 100%);
   background: linear-gradient(to bottom, #fcfcfc 0%, #efefef 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(
-      startColorstr="#fcfcfc",
-      endColorstr="#efefef",
-      GradientType=0
-    );
+          startColorstr="#fcfcfc",
+          endColorstr="#efefef",
+          GradientType=0
+  );
 }
 .pushButton:active {
   background: #efefef;
@@ -562,7 +558,8 @@ body {
   text-size-adjust: none;
 }
 .container {
-  max-width: 700px;
+  max-width: 1000px;
+  padding: 2%;
   margin: 0 auto;
 }
 @media (max-width: 750px) {

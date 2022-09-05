@@ -6,26 +6,26 @@ import json
 import flask
 from flask import Flask, request, redirect, url_for
 from turbo_flask import Turbo
+import socket
 
 app = Flask(__name__)
 turbo = Turbo(app)
 
-
-running = ""
-last_transm = ""
-min_ago = ""
+last_transm = "No data yet"
+min_ago = "Never"
 skystate = "Unknown"
 isRunning = False
+localIP="error"
 sensor_values = {
-    "raining": -1,
-    "ambient": -1,
-    "object": -1,
-    "lux": -1,
-    "SQMreading": -1,
-    "irradiance": -1,
-    "lightning_distanceToStorm": -1,
-    "nelm": -1,
-    "concentration": -1,
+    "raining": "-1",
+    "ambient": "-1",
+    "object": "-1",
+    "lux": "-1",
+    "SQMreading": "-1",
+    "irradiance": "-1",
+    "lightning_distanceToStorm": "-1",
+    "nelm": "-1",
+    "concentration": "-1",
 }
 settings = {
     "SLEEPTIME_s": 180,
@@ -38,9 +38,11 @@ settings = {
 # else leave it as "" - and it saves it in the same as the script gets run
 SPECIFIC_DIRECTORY = Path(settings["PATH"])
 
+
+#calculate cloud state from IR temperature sensor
 def get_cloud_state():
     global skystate
-    temp_diff = sensor_values["ambient"] - sensor_values["object"]
+    temp_diff = float(sensor_values["ambient"]) - float(sensor_values["object"])
     if temp_diff > 22:
         skystate = "Clear"
     elif (temp_diff > 2) and (temp_diff < 22):
@@ -60,12 +62,14 @@ def process():
             # get current datetime
             timestamp = datetime.now()
             jsonfile = request.json
-            # write the current datetime as alst measurement datetime
+            # write the current datetime as last measurement datetime
+            if not (SPECIFIC_DIRECTORY / "SQM").is_dir():
+                (SPECIFIC_DIRECTORY / "SQM").mkdir()
             with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'w') as f1:
                 f1.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
                 f1.close()
             for key in jsonfile.keys():
-                # -1 means no data
+                # "-1" means no data
                 global sensor_values
                 sensor_values[key] = jsonfile[key]
                 if jsonfile[key] == "-1":
@@ -80,12 +84,12 @@ def process():
                                                   timestamp.strftime('%Y')[2:4] +
                                                   timestamp.strftime('%m%d') + ".dat"), 'ab') as f1:
                         f1.write(temp_val)
-            f1.close()
+                        f1.close()
             get_cloud_state()
             return ""
 
 
-#Homepage with status and current settings
+# Homepage with status and current settings
 @app.route('/', methods=["GET", "POST"])
 def statuspage():
     # show when the last measurement was as a website
@@ -101,20 +105,18 @@ def statuspage():
             hours = divmod(days[1], 3600)  # Use remainder of days to calc hours
             minutes = divmod(hours[1], 60)  # Use remainder of hours to calc minutes
             seconds = divmod(minutes[1], 1)  # Use remainder of minutes to calc seconds
-            global running, last_transm, min_ago, isRunning
+            global  last_transm, min_ago, isRunning
             if duration_in_s > (settings["SLEEPTIME_s"] + 10):
                 isRunning = False
-                running = "SQM NOT running"
             else:
                 isRunning = True
-                running = "SQM Running"
             last_transm = loaded_time.strftime("%d %b %Y %H:%M:%S")
             min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
                 days[0], hours[0], minutes[0], seconds[0])
-            return flask.render_template('index.html', running=running, last_transm=last_transm, min_ago=min_ago)
-    return flask.render_template('index.html', running="SQM files not available", last_transm="", min_ago="")
+    return flask.render_template('index.html')
 
-#settings page
+
+# settings page
 @app.route('/settings', methods=["GET", "POST"])
 def settingspage():
     if request.method == "POST":
@@ -133,12 +135,11 @@ def settingspage():
         if path is not None:
             settings["PATH"] = path
             SPECIFIC_DIRECTORY = Path(settings["PATH"])
-        if not (SPECIFIC_DIRECTORY / "SQM").is_dir():
-            (SPECIFIC_DIRECTORY / "SQM").mkdir()
-        with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'w') as f3:
+        with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)
         return redirect(url_for('statuspage'))
     return flask.render_template('settings.html')
+
 
 # turbo-flask update status website every 5 sec
 def update_load():
@@ -155,12 +156,10 @@ def update_load():
                     hours = divmod(days[1], 3600)  # Use remainder of days to calc hours
                     minutes = divmod(hours[1], 60)  # Use remainder of hours to calc minutes
                     seconds = divmod(minutes[1], 1)  # Use remainder of minutes to calc seconds
-                    global running, last_transm, min_ago, isRunning
+                    global  last_transm, min_ago, isRunning
                     if duration_in_s > (settings["SLEEPTIME_s"] + 10):
-                        running = "SQM NOT running"
                         isRunning = False
                     else:
-                        running = "SQM Running"
                         isRunning = True
                     last_transm = loaded_time.strftime("%d %b %Y %H:%M:%S")
                     min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
@@ -173,11 +172,11 @@ def before_first_request():
     threading.Thread(target=update_load).start()
 
 
-#inject settings/sensor values in website
+# inject settings/sensor values in website
 @app.context_processor
 def inject_load():
-    global running, last_transm, min_ago, isRunning
-    return {'running': running, 'last_transm': last_transm, 'min_ago': min_ago, "isRunning": isRunning,
+    global last_transm, min_ago, isRunning
+    return {'last_transm': last_transm, 'min_ago': min_ago, "isRunning": isRunning,
             "raining": sensor_values["raining"],
             "ambient": sensor_values["ambient"],
             "object": sensor_values["object"],
@@ -193,24 +192,22 @@ def inject_load():
             "DISPLAY_ON": settings["DISPLAY_ON"],
             "PATH": settings["PATH"],
             "skystate": skystate,
+            "localIP": localIP,
             }
 
-#send settings to ESP32 as json
+
+# send settings to ESP32 as json
 @app.route('/getsettings')
 def sendsettings():
-    with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'r') as f5:
-        global settings
-        settings = json.load(f5)
-        return settings
+    return settings
 
 
 if __name__ == '__main__':
-    if not (SPECIFIC_DIRECTORY / "SQM").is_dir():
-        (SPECIFIC_DIRECTORY / "SQM").mkdir()
-    if not (SPECIFIC_DIRECTORY / "SQM" / "settings.json").is_file():
-        with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'w') as f:
+    if not Path("SQM_Settings.json").is_file():
+        with open("SQM_Settings.json", 'w') as f:
             json.dump(settings, f)
     else:
-        with open(SPECIFIC_DIRECTORY / "SQM" / "settings.json", 'r') as file:
+        with open("SQM_Settings.json", 'r') as file:
             settings = json.load(file)
+    localIP=socket.gethostbyname(socket.gethostname())
     app.run(host='0.0.0.0', port=5000, threaded=True)

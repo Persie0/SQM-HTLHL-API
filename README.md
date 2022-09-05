@@ -1,9 +1,6 @@
 # Download .exe
-no console:
+no console: (runs in background)
 https://github.com/Persie0/SQM-HTLHL-API/raw/master/SQM_API.exe
-
-console:
-https://github.com/Persie0/SQM-HTLHL-API/raw/master/SQM_API_CL.exe
 
 # create .exe
 `pip install pyinstaller`
@@ -11,9 +8,5 @@ https://github.com/Persie0/SQM-HTLHL-API/raw/master/SQM_API_CL.exe
 without console
 
 `pyinstaller -w -F --add-data "templates;templates" --onefile .\app.py`
-
-with console
-
-`pyinstaller --add-data "templates;templates" --onefile .\app.py`
 
 

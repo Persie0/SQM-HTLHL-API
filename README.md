@@ -7,6 +7,6 @@ https://github.com/Persie0/SQM-HTLHL-API/raw/master/SQM_API.exe
 
 without console
 
-`pyinstaller -w -F --add-data "templates;templates" --onefile .\app.py`
+`pyinstaller -w -F --add-data "templates;templates" --add-data "static;static" app.py`
 
 

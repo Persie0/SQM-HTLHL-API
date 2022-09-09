@@ -22,51 +22,69 @@
         </section>
 
 
-<form action="/settings" method="post">
-        <section class='serviceGroup'>
-            <ul class='serviceList serviceGroup__list'>
+        <form action="/settings" method="post">
+            <section class='serviceGroup'>
+                <ul class='serviceList serviceGroup__list'>
 
-                <li class='serviceList__item'>
-                    <p class='serviceList__status'><span class="ok"><!-- Rounded switch -->
+                    <li class='serviceList__item'>
+                        <p class='serviceList__status'><span class="ok"><!-- Rounded switch -->
 <label class="switch">
   <input type="checkbox" id="DISPLAY" name="DISPLAY">
   <span class="slider round"></span>
 </label>
                         </span></p>
 
-                    <p class='serviceList__name'>
-                        Display (on/off)
-                    </p>
-                </li>
-                <li class='serviceList__item'>
-                    <p class='serviceList__status'><span class="ok"><input type="number" id="DISPLAY_TIMEOUT_s" name="DISPLAY_TIMEOUT_s"></span></p>
-                    <p class='serviceList__name'>
-                        Seconds until the display turns itself off (0 for never)
-                    </p>
-                </li>
-                <li class='serviceList__item'>
-                    <p class='serviceList__status'><span class="outage"><input type="number" id="SLEEPTIME_s" name="SLEEPTIME_s"></span></p>
+                        <p class='serviceList__name'>
+                            Display (on/off)
+                        </p>
+                    </li>
+                    <li class='serviceList__item'>
+                        <p class='serviceList__status'><span class="ok"><!-- Rounded switch -->
+<label class="switch">
+  <input type="checkbox" id="check_everytime" name="check_everytime">
+  <span class="slider round"></span>
+</label>
+                        </span></p>
 
-                    <p class='serviceList__name'>
-                        Seconds the ESP32 should sleep between measurements
-                    </p>
-                </li>
-                <li class='serviceList__item'>
-                          <p class='serviceList__name'>
-                        Path where to save the sensor measurements<br>(1 Whitespace character = same as Script)
-                    </p>
-                    <p class='serviceList__status'><span class="ok"><input type="text" id="PATH" name="PATH"></span></p>
+                        <p class='serviceList__name'>
+                            Check server settings everytime after ESP32 deep sleep
+                        </p>
+                    </li>
+                    <li class='serviceList__item'>
+                        <p class='serviceList__status'><span class="ok"><input type="number"  step=".01" id="actual_SQM" name="actual_SQM"></span></p>
+                        <p class='serviceList__name'>
+                            Limiting magnitude on your location
+                        </p>
+                    </li>
+                    <li class='serviceList__item'>
+                        <p class='serviceList__status'><span class="ok"><input type="number" id="DISPLAY_TIMEOUT_s" name="DISPLAY_TIMEOUT_s"></span></p>
+                        <p class='serviceList__name'>
+                            Seconds until the display turns itself off (0 for never)
+                        </p>
+                    </li>
+                    <li class='serviceList__item'>
+                        <p class='serviceList__status'><span class="outage"><input type="number" id="SLEEPTIME_s" name="SLEEPTIME_s"></span></p>
 
-                </li>
-                <li class='serviceList__item'>
-                    <p class='serviceList__status'><span class="outage"><button class="button button5" type="submit">Save</button></span></p>
+                        <p class='serviceList__name'>
+                            Seconds the ESP32 should sleep between measurements
+                        </p>
+                    </li>
+                    <li class='serviceList__item'>
+                        <p class='serviceList__name'>
+                            Path where to save the sensor measurements<br>(1 Whitespace character = same as Script)
+                        </p>
+                        <p class='serviceList__status'><span class="ok"><input type="text" id="PATH" name="PATH"></span></p>
 
-                </li>
+                    </li>
+                    <li class='serviceList__item'>
+                        <p class='serviceList__status'><span class="outage"><button class="button button5" type="submit">Save</button></span></p>
+
+                    </li>
 
 
-            </ul>
-        </section>
-</form>
+                </ul>
+            </section>
+        </form>
     </div>
 
 </div>

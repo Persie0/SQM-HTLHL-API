@@ -1,0 +1,152 @@
+
+    <div id="load" class="load">
+<header class='siteHeader'>
+
+        <div class='container'>
+            {% if (isRunning) %}
+                <span class="greendot"></span>
+                <span class='siteHeader__title'> SQM is Running</span>
+
+            {% else %}
+                <span class="reddot"></span>
+                <span class='siteHeader__title'> SQM is NOT running</span>
+
+            {% endif %}
+        </div>
+    </header>
+
+    <div class='container'>
+
+        <section class='ongoingIssues'>
+            <div class='issueBanner issueBanner--monitoring'>
+                <p class='issueBanner__state'>{{ min_ago }}</p>
+                <h2>Last updated:</h2>
+                <p class='issueBanner__time'>{{last_transm}}</p>
+            </div>
+        </section>
+
+        <section class='serviceGroup'>
+            <ul class='serviceList serviceGroup__list'>
+
+                <li class='serviceList__item'>
+                    {% if (raining!="-1") %}
+                        {% if (raining=="0") %}
+                            <p class='serviceList__status'><span class="ok">Not raining, {{skystate}}</span></p>
+                        {% else %}
+                            <p class='serviceList__status'><span class="ok">raining, {{skystate}}</span></p>
+
+                        {% endif %}
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Weather
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+                    {% if (ambient!="-1") %}
+                        <p class='serviceList__status'><span class="ok">{{ambient}} °C</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Ambient temperature
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+                    {% if (object!="-1") %}
+                        <p class='serviceList__status'><span class="ok">{{object}} °C</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Object temperature
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+                    {% if (lux!="-1") %}
+                        <p class='serviceList__status'><span class="ok">{{lux}} lux</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Brightness
+                    </p>
+                </li>
+                <li class='serviceList__item'>
+                    {% if (SQMreading!="-1") %}
+                        <p class='serviceList__status'><span class="ok">{{SQMreading}} mpsas</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Luminosity (sky background brightness)
+                    </p>
+                </li>
+
+                <li class='serviceList__item'>
+                    {% if (irradiance!="-1") %}
+                        <p class='serviceList__status'><span class="ok">{{irradiance}} uW/(cm^2)</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Irradiance
+                    </p>
+                </li>
+
+                <li class='serviceList__item'>
+                    {% if (lightning_distanceToStorm!="-1") %}
+                        <p class='serviceList__status'><span class="ok">{{lightning_distanceToStorm}} km</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Distance to Storm
+                    </p>
+                </li>
+
+                <li class='serviceList__item'>
+                    {% if (nelm!="-1") %}
+                        <p class='serviceList__status'><span class="ok">{{nelm}}</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Nelm (Naked Eye Limiting Magnitude)
+                    </p>
+                </li>
+
+                <li class='serviceList__item'>
+                    {% if (concentration!="-1") %}
+                        <p class='serviceList__status'><span class="ok">{{concentration}}</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Air particle concentration
+                    </p>
+                </li>
+
+            </ul>
+        </section>
+    </div>
+</div>

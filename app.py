@@ -1,6 +1,6 @@
 import threading
 import time
-from datetime import datetime
+from datetime import datetime, timedelta, date
 from pathlib import Path
 import json
 import flask
@@ -15,7 +15,7 @@ last_transm = "No data yet"
 min_ago = "Never"
 skystate = "Unknown"
 isRunning = False
-localIP="error"
+localIP = "error"
 sensor_values = {
     "raining": "-1",
     "ambient": "-1",
@@ -32,6 +32,11 @@ settings = {
     "DISPLAY_TIMEOUT_s": 200,
     "DISPLAY_ON": 1,
     "PATH": "",
+    "check_everytime": False,
+    "actual_SQM": -1,
+    "actual_SQM_time": date(1, 1, 1).strftime("%d-%b-%Y (%H:%M:%S.%f)"),
+    "calculated_mag_limit": -1,
+    "set_sqm_limit": 21.83,
 }
 
 # if the files should be saved in a specified directory (eg "C:/Users")
@@ -39,9 +44,9 @@ settings = {
 SPECIFIC_DIRECTORY = Path(settings["PATH"])
 
 
-#calculate cloud state from IR temperature sensor
+# calculate cloud state from IR temperature sensor
 def get_cloud_state():
-    global skystate
+    global settings, skystate
     temp_diff = float(sensor_values["ambient"]) - float(sensor_values["object"])
     if temp_diff > 22:
         skystate = "Clear"
@@ -51,6 +56,16 @@ def get_cloud_state():
         skystate = "Cloudy"
     else:
         skystate = "Unknown"
+
+
+def calculate_mag_limit():
+    global settings
+    if datetime.strptime(settings["actual_SQM_time"], "%d-%b-%Y (%H:%M:%S.%f)") > datetime.now() - timedelta(
+            minutes=15) and sensor_values["SQMreading"] != "-1":
+        settings["calculated_mag_limit"] = settings["set_sqm_limit"] + float(sensor_values["SQMreading"]) - settings[
+            "actual_SQM"]
+        with open("SQM_Settings.json", 'w') as f3:
+            json.dump(settings, f3)
 
 
 @app.route('/SQM', methods=['POST'])
@@ -86,6 +101,7 @@ def process():
                         f1.write(temp_val)
                         f1.close()
             get_cloud_state()
+            calculate_mag_limit()
             return ""
 
 
@@ -105,7 +121,7 @@ def statuspage():
             hours = divmod(days[1], 3600)  # Use remainder of days to calc hours
             minutes = divmod(hours[1], 60)  # Use remainder of hours to calc minutes
             seconds = divmod(minutes[1], 1)  # Use remainder of minutes to calc seconds
-            global  last_transm, min_ago, isRunning
+            global last_transm, min_ago, isRunning
             if duration_in_s > (settings["SLEEPTIME_s"] + 10):
                 isRunning = False
             else:
@@ -125,6 +141,9 @@ def settingspage():
         disp = request.form.get("DISPLAY", type=int)
         if disp is not None:
             settings["DISPLAY_ON"] = disp
+        check_everytime = request.form.get("check_everytime", type=int)
+        if check_everytime is not None:
+            settings["check_everytime"] = check_everytime
         disp_to = request.form.get("DISPLAY_TIMEOUT_s", type=int)
         if disp_to is not None:
             settings["DISPLAY_TIMEOUT_s"] = disp_to
@@ -135,10 +154,26 @@ def settingspage():
         if path is not None:
             settings["PATH"] = path
             SPECIFIC_DIRECTORY = Path(settings["PATH"])
+        set_sqm_limit = request.form.get("set_sqm_limit", type=float)
+        if set_sqm_limit is not None:
+            settings["set_sqm_limit"] = set_sqm_limit
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)
         return redirect(url_for('statuspage'))
     return flask.render_template('settings.html')
+
+
+# settings page
+@app.route('/calibrate', methods=["POST"])
+def calibrate():
+    if request.method == "POST":
+        global settings
+        actual_SQM = request.form.get("actual_SQM", type=float)
+        if actual_SQM is not None:
+            settings["actual_SQM"] = actual_SQM
+            settings["actual_SQM_time"] = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
+            calculate_mag_limit()
+        return redirect(url_for('statuspage'))
 
 
 # turbo-flask update status website every 5 sec
@@ -156,7 +191,7 @@ def update_load():
                     hours = divmod(days[1], 3600)  # Use remainder of days to calc hours
                     minutes = divmod(hours[1], 60)  # Use remainder of hours to calc minutes
                     seconds = divmod(minutes[1], 1)  # Use remainder of minutes to calc seconds
-                    global  last_transm, min_ago, isRunning
+                    global last_transm, min_ago, isRunning
                     if duration_in_s > (settings["SLEEPTIME_s"] + 10):
                         isRunning = False
                     else:
@@ -164,12 +199,8 @@ def update_load():
                     last_transm = loaded_time.strftime("%d %b %Y %H:%M:%S")
                     min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
                         days[0], hours[0], minutes[0], seconds[0])
-            turbo.push(turbo.replace(flask.render_template('index.html'), 'load'))
+            turbo.push(turbo.replace(flask.render_template('replace_content.html'), 'load'))
 
-
-@app.before_first_request
-def before_first_request():
-    threading.Thread(target=update_load).start()
 
 
 # inject settings/sensor values in website
@@ -193,6 +224,9 @@ def inject_load():
             "PATH": settings["PATH"],
             "skystate": skystate,
             "localIP": localIP,
+            "check_everytime": settings["check_everytime"],
+            "calculated_mag_limit": settings["calculated_mag_limit"],
+            "set_sqm_limit": settings["set_sqm_limit"],
             }
 
 
@@ -203,11 +237,12 @@ def sendsettings():
 
 
 if __name__ == '__main__':
+    threading.Thread(target=update_load).start()
     if not Path("SQM_Settings.json").is_file():
         with open("SQM_Settings.json", 'w') as f:
             json.dump(settings, f)
     else:
         with open("SQM_Settings.json", 'r') as file:
             settings = json.load(file)
-    localIP=socket.gethostbyname(socket.gethostname())
+    localIP = socket.gethostbyname(socket.gethostname())
     app.run(host='0.0.0.0', port=5000, threaded=True)

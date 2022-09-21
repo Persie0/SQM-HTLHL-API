@@ -16,6 +16,8 @@ min_ago = "Never"
 skystate = "Unknown"
 isRunning = False
 localIP = "error"
+
+# -1 if no data
 sensor_values = {
     "raining": "-1",
     "ambient": "-1",
@@ -27,6 +29,7 @@ sensor_values = {
     "nelm": "-1",
     "concentration": "-1",
 }
+
 settings = {
     "SLEEPTIME_s": 180,
     "DISPLAY_TIMEOUT_s": 200,
@@ -40,7 +43,6 @@ settings = {
 }
 
 # if the files should be saved in a specified directory (eg "C:/Users")
-# else leave it as "" - and it saves it in the same as the script gets run
 SPECIFIC_DIRECTORY = Path(settings["PATH"])
 
 
@@ -58,16 +60,20 @@ def get_cloud_state():
         skystate = "Unknown"
 
 
+# calculates the magnitude limit, for calibration of the SQM-sensor
 def calculate_mag_limit():
     global settings
+    # look that the calibration SQM-value is ok and not older than 15min
     if datetime.strptime(settings["actual_SQM_time"], "%d-%b-%Y (%H:%M:%S.%f)") > datetime.now() - timedelta(
             minutes=15) and sensor_values["SQMreading"] != "-1":
         settings["calculated_mag_limit"] = settings["set_sqm_limit"] + float(sensor_values["SQMreading"]) - settings[
             "actual_SQM"]
+        # save settings
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)
 
 
+# URL that the ESP32 sends its data to
 @app.route('/SQM', methods=['POST'])
 def process():
     if request.method == 'POST':
@@ -90,7 +96,7 @@ def process():
                 if jsonfile[key] == "-1":
                     continue
                 else:
-                    # create a directory for each sensor and write append the values to the current file
+                    # create a directory for each sensor and append the values to the sensor file
                     measurement_path = SPECIFIC_DIRECTORY / "SQM" / key
                     if not measurement_path.is_dir():
                         measurement_path.mkdir()
@@ -108,9 +114,9 @@ def process():
 # Homepage with status and current settings
 @app.route('/', methods=["GET", "POST"])
 def statuspage():
-    # show when the last measurement was as a website
     if request.method == "POST":
         return redirect(url_for('settingspage'))
+    # if a measurement exists, read time and date and calculate the time difference to now, show if (not) running
     if (SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt").is_file():
         with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'r') as f2:
             loaded_time = datetime.strptime(f2.read(), "%d-%b-%Y (%H:%M:%S.%f)")
@@ -129,16 +135,19 @@ def statuspage():
             last_transm = loaded_time.strftime("%d %b %Y %H:%M:%S")
             min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
                 days[0], hours[0], minutes[0], seconds[0])
+
     return flask.render_template('index.html')
 
 
 # settings page
 @app.route('/settings', methods=["GET", "POST"])
 def settingspage():
+    #if sending/saving settings
     if request.method == "POST":
         global settings, SPECIFIC_DIRECTORY
-        # getting inputs from html form
+        # getting the input from the html form
         disp = request.form.get("DISPLAY", type=int)
+        #check if value entered
         if disp is not None:
             settings["DISPLAY_ON"] = disp
         check_everytime = request.form.get("check_everytime", type=int)
@@ -157,13 +166,16 @@ def settingspage():
         set_sqm_limit = request.form.get("set_sqm_limit", type=float)
         if set_sqm_limit is not None:
             settings["set_sqm_limit"] = set_sqm_limit
+        # save settings
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)
+        # route to status page
         return redirect(url_for('statuspage'))
+    #else show settings page
     return flask.render_template('settings.html')
 
 
-# settings page
+# SQM-sensor calibration
 @app.route('/calibrate', methods=["POST"])
 def calibrate():
     if request.method == "POST":
@@ -176,11 +188,12 @@ def calibrate():
         return redirect(url_for('statuspage'))
 
 
-# turbo-flask update status website every 5 sec
+# turbo-flask, update status website every 5 sec
 def update_load():
     with app.app_context():
         while True:
             time.sleep(5)
+            # if a measurement exists, read time and date and calculate the time difference to now, show if (not) running
             if (SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt").is_file():
                 with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'r') as f4:
                     loaded_time = datetime.strptime(f4.read(), "%d-%b-%Y (%H:%M:%S.%f)")
@@ -202,8 +215,7 @@ def update_load():
             turbo.push(turbo.replace(flask.render_template('replace_content.html'), 'load'))
 
 
-
-# inject settings/sensor values in website
+# inject settings/sensor values into the website
 @app.context_processor
 def inject_load():
     global last_transm, min_ago, isRunning
@@ -230,7 +242,7 @@ def inject_load():
             }
 
 
-# send settings to ESP32 as json
+# send settings to ESP32 as json response
 @app.route('/getsettings')
 def sendsettings():
     return settings
@@ -238,6 +250,7 @@ def sendsettings():
 
 if __name__ == '__main__':
     threading.Thread(target=update_load).start()
+    # create / open settings file
     if not Path("SQM_Settings.json").is_file():
         with open("SQM_Settings.json", 'w') as f:
             json.dump(settings, f)

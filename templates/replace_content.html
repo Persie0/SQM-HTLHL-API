@@ -1,6 +1,6 @@
 
-    <div id="load" class="load">
-<header class='siteHeader'>
+<div id="load" class="load">
+    <header class='siteHeader'>
 
         <div class='container'>
             {% if (isRunning) %}
@@ -82,8 +82,8 @@
                     </p>
                 </li>
                 <li class='serviceList__item'>
-                    {% if (SQMreading!="-1") %}
-                        <p class='serviceList__status'><span class="ok">{{SQMreading}} mpsas</span></p>
+                    {% if (luminosity!="-1") %}
+                        <p class='serviceList__status'><span class="ok">{{luminosity}} mpsas</span></p>
 
                     {% else %}
                         <p class='serviceList__status'><span class="outage">No value yet</span></p>
@@ -110,11 +110,16 @@
                 <li class='serviceList__item'>
                     {% if (lightning_distanceToStorm!="-1") %}
                         <p class='serviceList__status'><span class="ok">{{lightning_distanceToStorm}} km</span></p>
-
                     {% else %}
-                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+                        {% if (raining!="-1") %}
+                            <p class='serviceList__status'><span class="ok">No storm nearby</span></p>
 
+                        {% else %}
+                            <p class='serviceList__status'><span class="outage">No value yet</span></p>
+
+                        {% endif %}
                     {% endif %}
+
                     <p class='serviceList__name'>
                         Distance to Storm
                     </p>

@@ -23,7 +23,7 @@ sensor_values = {
     "ambient": "-1",
     "object": "-1",
     "lux": "-1",
-    "SQMreading": "-1",
+    "luminosity": "-1",
     "irradiance": "-1",
     "lightning_distanceToStorm": "-1",
     "nelm": "-1",
@@ -65,8 +65,8 @@ def calculate_mag_limit():
     global settings
     # look that the calibration SQM-value is ok and not older than 15min
     if datetime.strptime(settings["actual_SQM_time"], "%d-%b-%Y (%H:%M:%S.%f)") > datetime.now() - timedelta(
-            minutes=15) and sensor_values["SQMreading"] != "-1":
-        settings["calculated_mag_limit"] = settings["set_sqm_limit"] + float(sensor_values["SQMreading"]) - settings[
+            minutes=15) and sensor_values["luminosity"] != "-1":
+        settings["calculated_mag_limit"] = settings["set_sqm_limit"] + float(sensor_values["luminosity"]) - settings[
             "actual_SQM"]
         # save settings
         with open("SQM_Settings.json", 'w') as f3:
@@ -224,7 +224,7 @@ def inject_load():
             "ambient": sensor_values["ambient"],
             "object": sensor_values["object"],
             "lux": sensor_values["lux"],
-            "SQMreading": sensor_values["SQMreading"],
+            "luminosity": sensor_values["luminosity"],
             "irradiance": sensor_values["irradiance"],
             "lightning_distanceToStorm": sensor_values["lightning_distanceToStorm"],
             "nelm": sensor_values["nelm"],

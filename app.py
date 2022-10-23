@@ -73,7 +73,7 @@ def calculate_mag_limit():
             json.dump(settings, f3)
 
 
-# URL that the ESP32 sends its data to
+# route that the ESP32 sends its data to ("IP/SQM")
 @app.route('/SQM', methods=['POST'])
 def process():
     if request.method == 'POST':
@@ -84,9 +84,9 @@ def process():
             timestamp = datetime.now()
             jsonfile = request.json
             # write the current datetime as last measurement datetime
-            if not (SPECIFIC_DIRECTORY / "SQM").is_dir():
-                (SPECIFIC_DIRECTORY / "SQM").mkdir()
-            with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'w') as f1:
+            if not (SPECIFIC_DIRECTORY).is_dir():
+                (SPECIFIC_DIRECTORY).mkdir()
+            with open(SPECIFIC_DIRECTORY  / "last_measurement.txt", 'w') as f1:
                 f1.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
                 f1.close()
             for key in jsonfile.keys():
@@ -97,7 +97,7 @@ def process():
                     continue
                 else:
                     # create a directory for each sensor and append the values to the sensor file
-                    measurement_path = SPECIFIC_DIRECTORY / "SQM" / key
+                    measurement_path = SPECIFIC_DIRECTORY  / key
                     if not measurement_path.is_dir():
                         measurement_path.mkdir()
                     temp_val = (timestamp.strftime('%H:%M') + "\t" + jsonfile[key] + "\n").encode('ascii')
@@ -117,8 +117,8 @@ def statuspage():
     if request.method == "POST":
         return redirect(url_for('settingspage'))
     # if a measurement exists, read time and date and calculate the time difference to now, show if (not) running
-    if (SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt").is_file():
-        with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'r') as f2:
+    if (SPECIFIC_DIRECTORY  / "last_measurement.txt").is_file():
+        with open(SPECIFIC_DIRECTORY  / "last_measurement.txt", 'r') as f2:
             loaded_time = datetime.strptime(f2.read(), "%d-%b-%Y (%H:%M:%S.%f)")
             now = datetime.now()
             difference = (now - loaded_time)
@@ -188,14 +188,14 @@ def calibrate():
         return redirect(url_for('statuspage'))
 
 
-# turbo-flask, update status website every 5 sec
+# turbo-flask, update website every 5 sec
 def update_load():
     with app.app_context():
         while True:
             time.sleep(5)
             # if a measurement exists, read time and date and calculate the time difference to now, show if (not) running
-            if (SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt").is_file():
-                with open(SPECIFIC_DIRECTORY / "SQM" / "last_measurement.txt", 'r') as f4:
+            if (SPECIFIC_DIRECTORY  / "last_measurement.txt").is_file():
+                with open(SPECIFIC_DIRECTORY  / "last_measurement.txt", 'r') as f4:
                     loaded_time = datetime.strptime(f4.read(), "%d-%b-%Y (%H:%M:%S.%f)")
                     now = datetime.now()
                     difference = (now - loaded_time)

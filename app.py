@@ -40,18 +40,17 @@ settings = {
     "actual_SQM_time": date(1, 1, 1).strftime("%d-%b-%Y (%H:%M:%S.%f)"),
     "calculated_mag_limit": -1,
     "set_sqm_limit": 21.83,
-}
 
-abriv = {
-    "raining":"RQ",
-    "luminosity":"SQ",
-    "seeing":"SE",
-    "nelm":"NE",
-    "concentration":"SA",
-    "object":"HT",
-    "ambient":"TQ",
-    "lux":"HL",
-    "lightning_distanceToStorm":"BD",
+    # Abbriviations
+    "raining": "RQ",
+    "luminosity": "SQ",
+    "seeing": "SE",
+    "nelm": "NE",
+    "concentration": "SA",
+    "object": "HT",
+    "ambient": "TQ",
+    "lux": "HL",
+    "lightning_distanceToStorm": "BD",
 }
 
 # if the files should be saved in a specified directory (eg "C:/Users")
@@ -96,9 +95,9 @@ def process():
             timestamp = datetime.now()
             jsonfile = request.json
             # write the current datetime as last measurement datetime
-            if not (SPECIFIC_DIRECTORY).is_dir():
-                (SPECIFIC_DIRECTORY).mkdir()
-            with open(SPECIFIC_DIRECTORY  / "last_measurement.txt", 'w') as f1:
+            if not SPECIFIC_DIRECTORY.is_dir():
+                SPECIFIC_DIRECTORY.mkdir()
+            with open(SPECIFIC_DIRECTORY / "last_measurement.txt", 'w') as f1:
                 f1.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
                 f1.close()
             for key in jsonfile.keys():
@@ -109,11 +108,11 @@ def process():
                     continue
                 else:
                     # create a directory for each sensor and append the values to the sensor file
-                    measurement_path = SPECIFIC_DIRECTORY  / abriv[key]
+                    measurement_path = SPECIFIC_DIRECTORY / settings[key]
                     if not measurement_path.is_dir():
                         measurement_path.mkdir()
                     temp_val = (timestamp.strftime('%H:%M') + "\t" + jsonfile[key] + "\n").encode('ascii')
-                    with open(measurement_path / (abriv[key].upper() +
+                    with open(measurement_path / (settings[key].upper() +
                                                   timestamp.strftime('%Y')[2:4] +
                                                   timestamp.strftime('%m%d') + ".dat"), 'ab') as f1:
                         f1.write(temp_val)
@@ -129,8 +128,8 @@ def statuspage():
     if request.method == "POST":
         return redirect(url_for('settingspage'))
     # if a measurement exists, read time and date and calculate the time difference to now, show if (not) running
-    if (SPECIFIC_DIRECTORY  / "last_measurement.txt").is_file():
-        with open(SPECIFIC_DIRECTORY  / "last_measurement.txt", 'r') as f2:
+    if (SPECIFIC_DIRECTORY / "last_measurement.txt").is_file():
+        with open(SPECIFIC_DIRECTORY / "last_measurement.txt", 'r') as f2:
             loaded_time = datetime.strptime(f2.read(), "%d-%b-%Y (%H:%M:%S.%f)")
             now = datetime.now()
             difference = (now - loaded_time)
@@ -151,15 +150,15 @@ def statuspage():
     return flask.render_template('index.html')
 
 
-# settings page
+# ESP32 settings page
 @app.route('/settings', methods=["GET", "POST"])
 def settingspage():
-    #if sending/saving settings
+    # if sending/saving settings
     if request.method == "POST":
         global settings, SPECIFIC_DIRECTORY
         # getting the input from the html form
         disp = request.form.get("DISPLAY", type=int)
-        #check if value entered
+        # check if value entered
         if disp is not None:
             settings["DISPLAY_ON"] = disp
         check_everytime = request.form.get("check_everytime", type=int)
@@ -183,8 +182,28 @@ def settingspage():
             json.dump(settings, f3)
         # route to status page
         return redirect(url_for('statuspage'))
-    #else show settings page
+    # else show settings page
     return flask.render_template('settings.html')
+
+
+# abbreviation settings page
+@app.route('/abriv', methods=["GET", "POST"])
+def abrivpage():
+    # if sending/saving settings
+    if request.method == "POST":
+        global settings, SPECIFIC_DIRECTORY
+        # getting the input from the html form
+        path = request.form.get("PATH", type=str)
+        if path is not None:
+            settings["PATH"] = path
+            SPECIFIC_DIRECTORY = Path(settings["PATH"])
+        # save settings
+        with open("SQM_Settings.json", 'w') as f3:
+            json.dump(settings, f3)
+        # route to status page
+        return redirect(url_for('statuspage'))
+    # else show settings page
+    return flask.render_template('abriv_settings.html')
 
 
 # SQM-sensor calibration
@@ -206,8 +225,8 @@ def update_load():
         while True:
             time.sleep(5)
             # if a measurement exists, read time and date and calculate the time difference to now, show if (not) running
-            if (SPECIFIC_DIRECTORY  / "last_measurement.txt").is_file():
-                with open(SPECIFIC_DIRECTORY  / "last_measurement.txt", 'r') as f4:
+            if (SPECIFIC_DIRECTORY / "last_measurement.txt").is_file():
+                with open(SPECIFIC_DIRECTORY / "last_measurement.txt", 'r') as f4:
                     loaded_time = datetime.strptime(f4.read(), "%d-%b-%Y (%H:%M:%S.%f)")
                     now = datetime.now()
                     difference = (now - loaded_time)
@@ -251,6 +270,16 @@ def inject_load():
             "check_everytime": settings["check_everytime"],
             "calculated_mag_limit": settings["calculated_mag_limit"],
             "set_sqm_limit": settings["set_sqm_limit"],
+
+            "abr_seeing": settings["seeing"],
+            "abr_raining": settings["raining"],
+            "abr_luminosity": settings["luminosity"],
+            "abr_nelm": settings["nelm"],
+            "abr_concentration": settings["concentration"],
+            "abr_object": settings["object"],
+            "abr_ambient": settings["ambient"],
+            "abr_lux": settings["lux"],
+            "abr_lightning_distanceToStorm": settings["lightning_distanceToStorm"],
             }
 
 

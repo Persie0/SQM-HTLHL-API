@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {{ turbo() }}
+    <title>SQM Settings Page</title>
+    <link rel="stylesheet" href="../static/settings.css">
+    <link rel="stylesheet" href="../static/dark.css">
+    <link rel="icon" type="image/x-icon" href="../static/northstar.png">
+</head>
+<body>
+
+<div id="settin" class="settin">
+
+
+    <div class='container'>
+        <br>
+        <section class='ongoingIssues'>
+            <div class='issueBanner issueBanner--monitoring'>
+                <h2>Abbriviations</h2>
+                <p class='issueBanner__time'>Leave fields empty to save current settings</p>
+            </div>
+        </section>
+
+
+        <form action="/abriv" method="post">
+            <section class='serviceGroup'>
+                <ul class='serviceList serviceGroup__list'>
+
+                    <li class='serviceList__item'>
+                        <p class='serviceList__name'>
+                            Seeing
+                        </p>
+                        <p class='serviceList__status'><span class="ok"><input  type="text" maxlength="2" id="abr_seeing" name="abr_seeing"></span></p>
+                    </li>
+                    <li class='serviceList__item'>
+                        <p class='serviceList__name'>
+                            Raining
+                        </p>
+                        <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_raining" name="abr_raining"></span></p>
+                    </li>
+                    <li class='serviceList__item'>
+                        <p class='serviceList__name'>
+                            Luminosity
+                        </p>
+                        <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_luminosity" name="abr_luminosity"></span></p>
+                    </li>
+                    <li class='serviceList__item'>
+                        <p class='serviceList__name'>
+                            Nelm
+                        </p>
+                        <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_nelm" name="abr_nelm"></span></p>
+                    </li>
+                    <li class='serviceList__item'>
+                        <p class='serviceList__name'>
+                            Object temp.
+                        </p>
+                        <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_object" name="abr_object"></span></p>
+                    </li>
+                     <li class='serviceList__item'>
+                        <p class='serviceList__name'>
+                            Ambient temp.
+                        </p>
+                        <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_ambient" name="abr_ambient"></span></p>
+                    </li>
+
+                     <li class='serviceList__item'>
+                        <p class='serviceList__name'>
+                            Lux
+                        </p>
+                        <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_lux" name="abr_lux"></span></p>
+                    </li>
+                   <li class='serviceList__item'>
+                        <p class='serviceList__name'>
+                            Lightning distance
+                        </p>
+                        <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_lightning_distanceToStorm" name="abr_lightning_distanceToStorm"></span></p>
+                    </li>
+                    <li class='serviceList__item'>
+                        <p class='serviceList__status'><span class="outage"><button class="button button5" type="submit">Save</button></span></p>
+
+                    </li>
+
+
+                </ul>
+            </section>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

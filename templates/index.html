@@ -9,17 +9,17 @@
 </head>
 <body>
 
-    {% include "replace_content.html" %}
-    {% block content %}{% endblock %}
+{% include "replace_content.html" %}
+{% block content %}{% endblock %}
 
-    <div class='container'>
+<div class='container'>
 
-        <section class='ongoingIssues'>
-            <div class='issueBanner issueBanner--monitoring'>
-                <h2>Info & Calibration</h2>
-            </div>
-        </section>
-<form action="/calibrate" method="post">
+    <section class='ongoingIssues'>
+        <div class='issueBanner issueBanner--monitoring'>
+            <h2>Info & Calibration</h2>
+        </div>
+    </section>
+    <form action="/calibrate" method="post">
         <section class='serviceGroup'>
             <ul class='serviceList serviceGroup__list'>
                 <li class='serviceList__item'>
@@ -55,102 +55,187 @@
                         Measured Luminosity <br>(with professional SQMeter, for calibration, valid for 15min,<br>compares it to a measured sensor value of the ESP32,<br> calculates a Limiting magnitude)
                     </p>
                 </li>
-                   <li class='serviceList__item'>
-                        <p class='serviceList__status'><span class="outage"><button class="button button5" type="submit">Calibrate</button></span></p>
+                <li class='serviceList__item'>
+                    <p class='serviceList__status'><span class="outage"><button class="button button5" type="submit">Calibrate</button></span></p>
 
-                    </li>
+                </li>
 
 
             </ul>
         </section>
-</form>
-    </div>
+    </form>
+</div>
 
 
-    <div class='container'>
+<div class='container'>
 
-        <section class='ongoingIssues'>
-            <div class='issueBanner issueBanner--monitoring'>
-                <h2>Current Settings</h2>
-            </div>
-        </section>
+    <section class='ongoingIssues'>
+        <div class='issueBanner issueBanner--monitoring'>
+            <h2>ESP32 Settings</h2>
+        </div>
+    </section>
 
-        <section class='serviceGroup'>
-            <ul class='serviceList serviceGroup__list'>
+    <section class='serviceGroup'>
+        <ul class='serviceList serviceGroup__list'>
 
-                <li class='serviceList__item'>
-                    {% if (DISPLAY_ON==-1) %}
-                        <p class='serviceList__status'><span class="ok">On
-                        </span></p>
-
-                    {% else %}
-                        <p class='serviceList__status'><span class="ok">Off
-                        </span></p>
-
-                    {% endif %}
-
-                    <p class='serviceList__name'>
-                        Display (on/off)
-                    </p>
-                </li>
             <li class='serviceList__item'>
-                    {% if (check_everytime==False) %}
-                        <p class='serviceList__status'><span class="ok">No
+                {% if (DISPLAY_ON==-1) %}
+                    <p class='serviceList__status'><span class="ok">On
                         </span></p>
 
-                    {% else %}
-                        <p class='serviceList__status'><span class="ok">Yes
+                {% else %}
+                    <p class='serviceList__status'><span class="ok">Off
                         </span></p>
 
-                    {% endif %}
+                {% endif %}
 
-                    <p class='serviceList__name'>
-                        Check server settings everytime after ESP32 deep sleep
-                    </p>
-                </li>
-                    <li class='serviceList__item'>
-                    <p class='serviceList__status'><span class="ok">{{set_sqm_limit}}</span></p>
+                <p class='serviceList__name'>
+                    Display (on/off)
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                {% if (check_everytime==False) %}
+                    <p class='serviceList__status'><span class="ok">No
+                        </span></p>
 
-                    <p class='serviceList__name'>
-                        Set Limiting magnitude on your location
-                    </p>
-                </li>
-                <li class='serviceList__item'>
-                    <p class='serviceList__status'><span class="ok">{{DISPLAY_TIMEOUT_s}}</span></p>
-                    <p class='serviceList__name'>
-                        Seconds until the display turns itself off (0 for never)
-                    </p>
-                </li>
-                <li class='serviceList__item'>
-                    <p class='serviceList__status'><span class="ok">{{SLEEPTIME_s}}</span></p>
+                {% else %}
+                    <p class='serviceList__status'><span class="ok">Yes
+                        </span></p>
 
-                    <p class='serviceList__name'>
-                        Seconds the ESP32 should sleep between measurements
-                    </p>
-                </li>
-                <li class='serviceList__item'>
+                {% endif %}
 
-                    {% if (PATH!="" and PATH!=" ") %}
-                        <p class='serviceList__status'><span class="ok">"{{PATH}}"</span></p>
+                <p class='serviceList__name'>
+                    Check server settings everytime after ESP32 deep sleep
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{set_sqm_limit}}</span></p>
 
-                    {% else %}
-                        <p class='serviceList__status'><span class="ok">Same as Script</span></p>
+                <p class='serviceList__name'>
+                    Set Limiting magnitude on your location
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{DISPLAY_TIMEOUT_s}}</span></p>
+                <p class='serviceList__name'>
+                    Seconds until the display turns itself off (0 for never)
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{SLEEPTIME_s}}</span></p>
 
-                    {% endif %}
+                <p class='serviceList__name'>
+                    Seconds the ESP32 should sleep between measurements
+                </p>
+            </li>
+            <li class='serviceList__item'>
 
-                    <p class='serviceList__name'>
-                        Path where to save the sensor measurements
-                    </p>
-                </li>
-                <li class='serviceList__item'>
-                    <p class='serviceList__status'><form action="/" method="post"><span class="outage"><button class="button button5" type="submit">Change</button></span></form>
+                {% if (PATH!="" and PATH!=" ") %}
+                    <p class='serviceList__status'><span class="ok">"{{PATH}}"</span></p>
 
-                </li>
+                {% else %}
+                    <p class='serviceList__status'><span class="ok">Same as Script</span></p>
+
+                {% endif %}
+
+                <p class='serviceList__name'>
+                    Path where to save the sensor measurements
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><a href="/settings"><span class="outage"><button class="button button5" type="submit">Change</button></span></a>
+
+            </li>
 
 
-            </ul>
-        </section>
-    </div>
+        </ul>
+    </section>
+</div>
+
+<div class='container'>
+
+    <section class='ongoingIssues'>
+        <div class='issueBanner issueBanner--monitoring'>
+            <h2>Abbreviation for sensor values</h2>
+        </div>
+    </section>
+
+    <section class='serviceGroup'>
+        <ul class='serviceList serviceGroup__list'>
+
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_seeing}}</span></p>
+
+                <p class='serviceList__name'>
+                    Seeing
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_raining}}</span></p>
+
+                <p class='serviceList__name'>
+                    Raining
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_luminosity}}</span></p>
+
+                <p class='serviceList__name'>
+                    Luminosity
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_nelm}}</span></p>
+
+                <p class='serviceList__name'>
+                    Nelm
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_concentration}}</span></p>
+
+                <p class='serviceList__name'>
+                    Air particle concentration
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_object}}</span></p>
+
+                <p class='serviceList__name'>
+                    Object temp.
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_ambient}}</span></p>
+
+                <p class='serviceList__name'>
+                    Ambient temp.
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_lux}}</span></p>
+
+                <p class='serviceList__name'>
+                    Lux
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_lightning_distanceToStorm}}</span></p>
+
+                <p class='serviceList__name'>
+                    Lightning distance
+                </p>
+            </li>
+
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><a href="/abriv"><span class="outage"><button class="button button5" type="submit">Change</button></span></a>
+
+            </li>
+
+
+        </ul>
+    </section>
+</div>
 
 </body>
 </html>

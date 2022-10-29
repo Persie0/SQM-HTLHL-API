@@ -24,7 +24,7 @@ sensor_values = {
     "object": "-1",
     "lux": "-1",
     "luminosity": "-1",
-    "irradiance": "-1",
+    "seeing": "-1",
     "lightning_distanceToStorm": "-1",
     "nelm": "-1",
     "concentration": "-1",
@@ -40,6 +40,18 @@ settings = {
     "actual_SQM_time": date(1, 1, 1).strftime("%d-%b-%Y (%H:%M:%S.%f)"),
     "calculated_mag_limit": -1,
     "set_sqm_limit": 21.83,
+}
+
+abriv = {
+    "raining":"RQ",
+    "luminosity":"SQ",
+    "seeing":"SE",
+    "nelm":"NE",
+    "concentration":"SA",
+    "object":"HT",
+    "ambient":"TQ",
+    "lux":"HL",
+    "lightning_distanceToStorm":"BD",
 }
 
 # if the files should be saved in a specified directory (eg "C:/Users")
@@ -97,11 +109,11 @@ def process():
                     continue
                 else:
                     # create a directory for each sensor and append the values to the sensor file
-                    measurement_path = SPECIFIC_DIRECTORY  / key
+                    measurement_path = SPECIFIC_DIRECTORY  / abriv[key]
                     if not measurement_path.is_dir():
                         measurement_path.mkdir()
                     temp_val = (timestamp.strftime('%H:%M') + "\t" + jsonfile[key] + "\n").encode('ascii')
-                    with open(measurement_path / (key[0:2].upper() +
+                    with open(measurement_path / (abriv[key].upper() +
                                                   timestamp.strftime('%Y')[2:4] +
                                                   timestamp.strftime('%m%d') + ".dat"), 'ab') as f1:
                         f1.write(temp_val)
@@ -225,7 +237,7 @@ def inject_load():
             "object": sensor_values["object"],
             "lux": sensor_values["lux"],
             "luminosity": sensor_values["luminosity"],
-            "irradiance": sensor_values["irradiance"],
+            "seeing": sensor_values["seeing"],
             "lightning_distanceToStorm": sensor_values["lightning_distanceToStorm"],
             "nelm": sensor_values["nelm"],
             "concentration": sensor_values["concentration"],

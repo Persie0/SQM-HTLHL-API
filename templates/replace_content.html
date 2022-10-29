@@ -95,15 +95,15 @@
                 </li>
 
                 <li class='serviceList__item'>
-                    {% if (irradiance!="-1") %}
-                        <p class='serviceList__status'><span class="ok">{{irradiance}} uW/(cm^2)</span></p>
+                    {% if (seeing!="-1") %}
+                        <p class='serviceList__status'><span class="ok">{{seeing}}</span></p>
 
                     {% else %}
                         <p class='serviceList__status'><span class="outage">No value yet</span></p>
 
                     {% endif %}
                     <p class='serviceList__name'>
-                        Irradiance
+                        Seeing
                     </p>
                 </li>
 

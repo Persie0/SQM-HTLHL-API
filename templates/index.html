@@ -22,12 +22,19 @@
     <form action="/calibrate" method="post">
         <section class='serviceGroup'>
             <ul class='serviceList serviceGroup__list'>
+            <li class='serviceList__item'>
+                    <p class='serviceList__status'><span class="ok">ESP-WIFI-MANAGER</span></p>
+                    <p class='serviceList__name'>
+                        Access Point name to change WI-FI settings on the ESP32 (if the ESP32 could not find the WI-FI)
+                    </p>
+                </li>
                 <li class='serviceList__item'>
                     <p class='serviceList__status'><span class="ok">192.168.1.1</span></p>
                     <p class='serviceList__name'>
-                        Access Point IP to change WI-FI settings on the ESP32 (if the ESP32 could not find the WI-FI)
+                        Access Point IP to change WI-FI settings on the ESP32
                     </p>
                 </li>
+            <li class='serviceList__item'></li>
                 <li class='serviceList__item'>
 
                     {% if (localIP!="error") %}
@@ -41,6 +48,7 @@
                         Server IP address (for the ESP32 settings)
                     </p>
                 </li>
+                <li class='serviceList__item'></li>
                 <li class='serviceList__item'>
 
                     {% if (calculated_mag_limit!=-1) %}

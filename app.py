@@ -192,11 +192,14 @@ def abrivpage():
     # if sending/saving settings
     if request.method == "POST":
         global settings, SPECIFIC_DIRECTORY
-        # getting the input from the html form
-        path = request.form.get("PATH", type=str)
-        if path is not None:
-            settings["PATH"] = path
-            SPECIFIC_DIRECTORY = Path(settings["PATH"])
+        # getting the input from the html forms
+        abr_dictionary=request.form.to_dict()
+        # loop through input fields
+        for abr_key in abr_dictionary.keys():
+            abr_value=abr_dictionary[abr_key]
+            # if form field is not empty
+            if abr_value != "":
+                settings[abr_key.replace("abr_","")] = abr_value
         # save settings
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)

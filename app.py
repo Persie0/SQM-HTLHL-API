@@ -7,6 +7,7 @@ import flask
 from flask import Flask, request, redirect, url_for
 from turbo_flask import Turbo
 import socket
+import webbrowser
 
 app = Flask(__name__)
 turbo = Turbo(app)
@@ -302,4 +303,5 @@ if __name__ == '__main__':
         with open("SQM_Settings.json", 'r') as file:
             settings = json.load(file)
     localIP = socket.gethostbyname(socket.gethostname())
+    webbrowser.open("http://" + str(localIP) + ":5000")
     app.run(host='0.0.0.0', port=5000, threaded=True)

@@ -85,7 +85,7 @@ def calculate_mag_limit():
             json.dump(settings, f3)
 
 
-# route that the ESP32 sends its data to ("IP/SQM")
+# get & process ESP32 sensor data
 @app.route('/SQM', methods=['POST'])
 def process():
     if request.method == 'POST':
@@ -101,6 +101,7 @@ def process():
             with open(SPECIFIC_DIRECTORY / "last_measurement.txt", 'w') as f1:
                 f1.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
                 f1.close()
+            # loop through sensor values
             for key in jsonfile.keys():
                 # "-1" means no data
                 global sensor_values
@@ -112,7 +113,9 @@ def process():
                     measurement_path = SPECIFIC_DIRECTORY / settings[key]
                     if not measurement_path.is_dir():
                         measurement_path.mkdir()
+                    # ASCII encode timestamp + value
                     temp_val = (timestamp.strftime('%H:%M') + "\t" + jsonfile[key] + "\n").encode('ascii')
+                    # write to .dat file
                     with open(measurement_path / (settings[key].upper() +
                                                   timestamp.strftime('%Y')[2:4] +
                                                   timestamp.strftime('%m%d') + ".dat"), 'ab') as f1:
@@ -124,30 +127,8 @@ def process():
 
 
 # Homepage with status and current settings
-@app.route('/', methods=["GET", "POST"])
+@app.route('/', methods=["GET"])
 def statuspage():
-    if request.method == "POST":
-        return redirect(url_for('settingspage'))
-    # if a measurement exists, read time and date and calculate the time difference to now, show if (not) running
-    if (SPECIFIC_DIRECTORY / "last_measurement.txt").is_file():
-        with open(SPECIFIC_DIRECTORY / "last_measurement.txt", 'r') as f2:
-            loaded_time = datetime.strptime(f2.read(), "%d-%b-%Y (%H:%M:%S.%f)")
-            now = datetime.now()
-            difference = (now - loaded_time)
-            duration_in_s = difference.total_seconds()
-            days = divmod(duration_in_s, 86400)  # Get days (without [0]!)
-            hours = divmod(days[1], 3600)  # Use remainder of days to calc hours
-            minutes = divmod(hours[1], 60)  # Use remainder of hours to calc minutes
-            seconds = divmod(minutes[1], 1)  # Use remainder of minutes to calc seconds
-            global last_transm, min_ago, isRunning
-            if duration_in_s > (settings["SLEEPTIME_s"] + 10):
-                isRunning = False
-            else:
-                isRunning = True
-            last_transm = loaded_time.strftime("%d %b %Y %H:%M:%S")
-            min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
-                days[0], hours[0], minutes[0], seconds[0])
-
     return flask.render_template('index.html')
 
 
@@ -159,7 +140,7 @@ def settingspage():
         global settings, SPECIFIC_DIRECTORY
         # getting the input from the html form
         disp = request.form.get("DISPLAY", type=int)
-        # check if value entered
+        # check if value x was entered
         if disp is not None:
             settings["DISPLAY_ON"] = disp
         check_everytime = request.form.get("check_everytime", type=int)
@@ -194,13 +175,13 @@ def abrivpage():
     if request.method == "POST":
         global settings, SPECIFIC_DIRECTORY
         # getting the input from the html forms
-        abr_dictionary=request.form.to_dict()
+        abr_dictionary = request.form.to_dict()
         # loop through input fields
         for abr_key in abr_dictionary.keys():
-            abr_value=abr_dictionary[abr_key]
+            abr_value = abr_dictionary[abr_key]
             # if form field is not empty
             if abr_value != "":
-                settings[abr_key.replace("abr_","")] = abr_value
+                settings[abr_key.replace("abr_", "")] = abr_value
         # save settings
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)
@@ -227,7 +208,6 @@ def calibrate():
 def update_load():
     with app.app_context():
         while True:
-            time.sleep(5)
             # if a measurement exists, read time and date and calculate the time difference to now, show if (not) running
             if (SPECIFIC_DIRECTORY / "last_measurement.txt").is_file():
                 with open(SPECIFIC_DIRECTORY / "last_measurement.txt", 'r') as f4:
@@ -248,6 +228,7 @@ def update_load():
                     min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
                         days[0], hours[0], minutes[0], seconds[0])
             turbo.push(turbo.replace(flask.render_template('replace_content.html'), 'load'))
+            time.sleep(5)
 
 
 # inject settings/sensor values into the website
@@ -295,13 +276,16 @@ def sendsettings():
 
 if __name__ == '__main__':
     threading.Thread(target=update_load).start()
-    # create / open settings file
+    # create / read settings file
     if not Path("SQM_Settings.json").is_file():
         with open("SQM_Settings.json", 'w') as f:
             json.dump(settings, f)
     else:
         with open("SQM_Settings.json", 'r') as file:
             settings = json.load(file)
+    # get ip of this server/PC
     localIP = socket.gethostbyname(socket.gethostname())
+    # open IP in browser
     webbrowser.open("http://" + str(localIP) + ":5000")
+    # run Flask app
     app.run(host='0.0.0.0', port=5000, threaded=True)

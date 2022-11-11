@@ -36,11 +36,15 @@ settings = {
     "DISPLAY_TIMEOUT_s": 200,
     "DISPLAY_ON": 1,
     "PATH": "",
-    "check_everytime": False,
+    "check_everytime": 0,
     "actual_SQM": -1,
     "actual_SQM_time": date(1, 1, 1).strftime("%d-%b-%Y (%H:%M:%S.%f)"),
     "calculated_mag_limit": -1,
     "set_sqm_limit": 21.83,
+
+    "max_lux": 50,
+    "setpoint1": 22,
+    "setpoint2": 2,
 
     # Abbriviations
     "raining": "RQ",
@@ -62,11 +66,11 @@ SPECIFIC_DIRECTORY = Path(settings["PATH"])
 def get_cloud_state():
     global settings, skystate
     temp_diff = float(sensor_values["ambient"]) - float(sensor_values["object"])
-    if temp_diff > 22:
+    if temp_diff > settings["setpoint1"]:
         skystate = "Clear"
-    elif (temp_diff > 2) and (temp_diff < 22):
+    elif (temp_diff > settings["setpoint2"]) and (temp_diff < settings["setpoint1"]):
         skystate = "Partly cloudy"
-    elif temp_diff < 2:
+    elif temp_diff < settings["setpoint2"]:
         skystate = "Cloudy"
     else:
         skystate = "Unknown"
@@ -139,16 +143,27 @@ def settingspage():
     if request.method == "POST":
         global settings, SPECIFIC_DIRECTORY
         # getting the input from the html form
-        disp = request.form.get("DISPLAY", type=int)
         # check if value x was entered
-        if disp is not None:
-            settings["DISPLAY_ON"] = disp
-        check_everytime = request.form.get("check_everytime", type=int)
-        if check_everytime is not None:
-            settings["check_everytime"] = check_everytime
-        disp_to = request.form.get("DISPLAY_TIMEOUT_s", type=int)
-        if disp_to is not None:
-            settings["DISPLAY_TIMEOUT_s"] = disp_to
+        if request.form.get("DISPLAY") is not None:
+            settings["DISPLAY_ON"] = 1
+        else:
+            settings["DISPLAY_ON"] = 0
+        if request.form.get("check_everytime") is not None:
+            settings["check_everytime"] = 1
+        else:
+            settings["check_everytime"] = 0
+        setpoint1 = request.form.get("setpoint1", type=int)
+        if setpoint1 is not None:
+            settings["setpoint1"] = setpoint1
+        setpoint2 = request.form.get("setpoint2", type=int)
+        if setpoint2 is not None:
+            settings["setpoint2"] = setpoint2
+        max_lux = request.form.get("max_lux", type=int)
+        if max_lux is not None:
+            settings["max_lux"] = max_lux
+        dto = request.form.get("DISPLAY_TIMEOUT_s", type=int)
+        if dto is not None:
+            settings["DISPLAY_TIMEOUT_s"] = dto
         sleep_t = request.form.get("SLEEPTIME_s", type=int)
         if sleep_t is not None:
             settings["SLEEPTIME_s"] = sleep_t
@@ -255,6 +270,10 @@ def inject_load():
             "check_everytime": settings["check_everytime"],
             "calculated_mag_limit": settings["calculated_mag_limit"],
             "set_sqm_limit": settings["set_sqm_limit"],
+
+            "max_lux": settings["max_lux"],
+            "setpoint1": settings["setpoint1"],
+            "setpoint2": settings["setpoint2"],
 
             "abr_seeing": settings["seeing"],
             "abr_raining": settings["raining"],

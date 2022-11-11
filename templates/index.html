@@ -22,7 +22,7 @@
     <form action="/calibrate" method="post">
         <section class='serviceGroup'>
             <ul class='serviceList serviceGroup__list'>
-            <li class='serviceList__item'>
+                <li class='serviceList__item'>
                     <p class='serviceList__status'><span class="ok">ESP-WIFI-MANAGER</span></p>
                     <p class='serviceList__name'>
                         Access Point name to change WI-FI settings on the ESP32 (if the ESP32 could not find the WI-FI)
@@ -34,7 +34,7 @@
                         Access Point IP to change WI-FI settings on the ESP32
                     </p>
                 </li>
-            <li class='serviceList__item'></li>
+                <li class='serviceList__item'></li>
                 <li class='serviceList__item'>
 
                     {% if (localIP!="error") %}
@@ -93,7 +93,7 @@
         <ul class='serviceList serviceGroup__list'>
 
             <li class='serviceList__item'>
-                {% if (DISPLAY_ON==-1) %}
+                {% if (DISPLAY_ON==1) %}
                     <p class='serviceList__status'><span class="ok">On
                         </span></p>
 
@@ -108,7 +108,7 @@
                 </p>
             </li>
             <li class='serviceList__item'>
-                {% if (check_everytime==False) %}
+                {% if (check_everytime==0) %}
                     <p class='serviceList__status'><span class="ok">No
                         </span></p>
 
@@ -123,10 +123,28 @@
                 </p>
             </li>
             <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{setpoint1}}</span></p>
+                <p class='serviceList__name'>
+                    Setpoint 1 (setpoint for clear skies)
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{setpoint2}}</span></p>
+                <p class='serviceList__name'>
+                    Setpoint 2 (setpoint for cloudy skies)
+                </p>
+            </li>
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{max_lux}}</span></p>
+                <p class='serviceList__name'>
+                    Max. Lux (for Seeing check)
+                </p>
+            </li>
+            <li class='serviceList__item'>
                 <p class='serviceList__status'><span class="ok">{{set_sqm_limit}}</span></p>
 
                 <p class='serviceList__name'>
-                    Set Limiting magnitude on your location
+                    Limiting magnitude on your location
                 </p>
             </li>
             <li class='serviceList__item'>

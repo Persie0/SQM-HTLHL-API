@@ -42,9 +42,9 @@ settings = {
     "calculated_mag_limit": -1,
     "set_sqm_limit": 21.83,
 
-    "max_lux": 50,
-    "setpoint1": 22,
-    "setpoint2": 2,
+    "max_lux": 50.0,
+    "setpoint1": 22.0,
+    "setpoint2": 2.0,
 
     # Abbriviations
     "raining": "RQ",
@@ -152,13 +152,13 @@ def settingspage():
             settings["check_everytime"] = 1
         else:
             settings["check_everytime"] = 0
-        setpoint1 = request.form.get("setpoint1", type=int)
+        setpoint1 = request.form.get("setpoint1", type=float)
         if setpoint1 is not None:
             settings["setpoint1"] = setpoint1
-        setpoint2 = request.form.get("setpoint2", type=int)
+        setpoint2 = request.form.get("setpoint2", type=float)
         if setpoint2 is not None:
             settings["setpoint2"] = setpoint2
-        max_lux = request.form.get("max_lux", type=int)
+        max_lux = request.form.get("max_lux", type=float)
         if max_lux is not None:
             settings["max_lux"] = max_lux
         dto = request.form.get("DISPLAY_TIMEOUT_s", type=int)

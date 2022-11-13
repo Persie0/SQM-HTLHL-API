@@ -150,6 +150,23 @@
                         Air particle concentration
                     </p>
                 </li>
+            <li class='serviceList__item'>
+                </li>
+            <li class='serviceList__item'>
+                    {% if (errors=="-1") %}
+                        <p class='serviceList__status'><span class="outage">No info yet</span></p>
+
+                    {% elif (errors=="") %}
+                        <p class='serviceList__status'><span class="ok">No errors</span></p>
+
+                    {% else %}
+                        <p class='serviceList__status'><span class="outage">{{errors}}</span></p>
+
+                    {% endif %}
+                    <p class='serviceList__name'>
+                        Sensor errors
+                    </p>
+                </li>
 
             </ul>
         </section>

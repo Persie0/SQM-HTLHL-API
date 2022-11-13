@@ -29,6 +29,7 @@ sensor_values = {
     "lightning_distanceToStorm": "-1",
     "nelm": "-1",
     "concentration": "-1",
+    "errors":"-1"
 }
 
 settings = {
@@ -260,6 +261,8 @@ def inject_load():
             "lightning_distanceToStorm": sensor_values["lightning_distanceToStorm"],
             "nelm": sensor_values["nelm"],
             "concentration": sensor_values["concentration"],
+
+            "errors": sensor_values["errors"],
 
             "SLEEPTIME_s": settings["SLEEPTIME_s"],
             "DISPLAY_TIMEOUT_s": settings["DISPLAY_TIMEOUT_s"],

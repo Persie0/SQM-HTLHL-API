@@ -5,13 +5,20 @@
         <div class='container'>
             {% if (isRunning) %}
                 <span class="greendot"></span>
-                <span class='siteHeader__title'> SQM is Running</span>
+
 
             {% else %}
                 <span class="reddot"></span>
-                <span class='siteHeader__title'> SQM is NOT running</span>
 
             {% endif %}
+        <span class='siteHeader__title'>SQM&emsp;</span>
+            {% if (isSeeing=="1") %}
+                <span class="greendot"></span>
+            {% else %}
+                <span class="reddot"></span>
+
+            {% endif %}
+         <span class='siteHeader__title'>Seeing</span>
         </div>
     </header>
 
@@ -150,9 +157,9 @@
                         Air particle concentration
                     </p>
                 </li>
-            <li class='serviceList__item'>
+                <li class='serviceList__item'>
                 </li>
-            <li class='serviceList__item'>
+                <li class='serviceList__item'>
                     {% if (errors=="-1") %}
                         <p class='serviceList__status'><span class="outage">No info yet</span></p>
 

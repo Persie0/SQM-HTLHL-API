@@ -29,7 +29,8 @@ sensor_values = {
     "lightning_distanceToStorm": "-1",
     "nelm": "-1",
     "concentration": "-1",
-    "errors":"-1"
+    "errors":"-1",
+    "isSeeing": "0"
 }
 
 settings = {
@@ -251,7 +252,10 @@ def update_load():
 @app.context_processor
 def inject_load():
     global last_transm, min_ago, isRunning
-    return {'last_transm': last_transm, 'min_ago': min_ago, "isRunning": isRunning,
+    return {'last_transm': last_transm,
+            'min_ago': min_ago,
+            "isRunning": isRunning,
+            "isSeeing": sensor_values["isSeeing"],
             "raining": sensor_values["raining"],
             "ambient": sensor_values["ambient"],
             "object": sensor_values["object"],

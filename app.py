@@ -108,11 +108,12 @@ def process():
                 f1.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
                 f1.close()
             # loop through sensor values
+            print(jsonfile)
             for key in jsonfile.keys():
                 # "-1" means no data
                 global sensor_values
                 sensor_values[key] = jsonfile[key]
-                if jsonfile[key] == "-1":
+                if jsonfile[key] == "-1" or key=="errors" or key=="isSeeing":
                     continue
                 else:
                     # create a directory for each sensor and append the values to the sensor file

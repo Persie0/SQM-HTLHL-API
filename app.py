@@ -84,7 +84,7 @@ def calculate_mag_limit():
     # look that the calibration SQM-value is ok and not older than 15min
     if datetime.strptime(settings["actual_SQM_time"], "%d-%b-%Y (%H:%M:%S.%f)") > datetime.now() - timedelta(
             minutes=15) and sensor_values["luminosity"] != "-1":
-        settings["calculated_mag_limit"] = settings["set_sqm_limit"] + float(sensor_values["luminosity"]) - settings[
+        settings["calculated_mag_limit"] = settings["set_sqm_limit"] - float(sensor_values["luminosity"]) + settings[
             "actual_SQM"]
         # save settings
         with open("SQM_Settings.json", 'w') as f3:

@@ -29,7 +29,7 @@ sensor_values = {
     "lightning_distanceToStorm": "-1",
     "nelm": "-1",
     "concentration": "-1",
-    "errors":"-1",
+    "errors": "-1",
     "isSeeing": "0"
 }
 
@@ -63,6 +63,19 @@ settings = {
 # if the files should be saved in a specified directory (eg "C:/Users")
 SPECIFIC_DIRECTORY = Path(settings["PATH"])
 
+#get this PCs IP-Adress
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.settimeout(0)
+    try:
+        # doesn't even have to be reachable
+        s.connect(('10.254.254.254', 1))
+        IP = s.getsockname()[0]
+    except Exception:
+        IP = '127.0.0.1'
+    finally:
+        s.close()
+    return IP
 
 # calculate cloud state from IR temperature sensor
 def get_cloud_state():
@@ -84,8 +97,8 @@ def calculate_mag_limit():
     # look that the calibration SQM-value is ok and not older than 15min
     if datetime.strptime(settings["actual_SQM_time"], "%d-%b-%Y (%H:%M:%S.%f)") > datetime.now() - timedelta(
             minutes=15) and sensor_values["luminosity"] != "-1":
-        settings["calculated_mag_limit"] = settings["set_sqm_limit"] - float(sensor_values["luminosity"]) + settings[
-            "actual_SQM"]
+        settings["calculated_mag_limit"] = round((settings["set_sqm_limit"] - float(sensor_values["luminosity"]) + settings[
+            "actual_SQM"]), 2)
         # save settings
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)
@@ -113,7 +126,8 @@ def process():
                 # "-1" means no data
                 global sensor_values
                 sensor_values[key] = jsonfile[key]
-                if jsonfile[key] == "-1" or key=="errors" or key=="isSeeing":
+                # don't write values if sensor error (-1) and don't write the errors & if Seeing is on
+                if jsonfile[key] == "-1" or key == "errors" or key == "isSeeing":
                     continue
                 else:
                     # create a directory for each sensor and append the values to the sensor file
@@ -300,7 +314,6 @@ def inject_load():
 def sendsettings():
     return settings
 
-
 if __name__ == '__main__':
     threading.Thread(target=update_load).start()
     # create / read settings file
@@ -313,6 +326,6 @@ if __name__ == '__main__':
     # get ip of this server/PC
     localIP = socket.gethostbyname(socket.gethostname())
     # open IP in browser
-    webbrowser.open("http://" + str(localIP) + ":5000")
+    webbrowser.open("http://" + str(get_ip()) + ":5000")
     # run Flask app
     app.run(host='0.0.0.0', port=5000, threaded=True)

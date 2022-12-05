@@ -324,8 +324,8 @@ if __name__ == '__main__':
         with open("SQM_Settings.json", 'r') as file:
             settings = json.load(file)
     # get ip of this server/PC
-    localIP = socket.gethostbyname(socket.gethostname())
+    localIP = get_ip()
     # open IP in browser
-    webbrowser.open("http://" + str(get_ip()) + ":5000")
+    webbrowser.open("http://" + str(localIP) + ":5000")
     # run Flask app
     app.run(host='0.0.0.0', port=5000, threaded=True)

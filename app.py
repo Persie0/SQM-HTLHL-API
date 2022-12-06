@@ -34,6 +34,7 @@ sensor_values = {
 }
 
 settings = {
+    "seeing_thr":3,
     "SLEEPTIME_s": 180,
     "DISPLAY_TIMEOUT_s": 200,
     "DISPLAY_ON": 1,
@@ -161,6 +162,10 @@ def settingspage():
         global settings, SPECIFIC_DIRECTORY
         # getting the input from the html form
         # check if value x was entered
+
+        seeing_thr = request.form.get("seeing_thr", type=int)
+        if seeing_thr is not None:
+            settings["seeing_thr"] = seeing_thr
         if request.form.get("DISPLAY") is not None:
             settings["DISPLAY_ON"] = 1
         else:
@@ -292,6 +297,7 @@ def inject_load():
             "check_everytime": settings["check_everytime"],
             "calculated_mag_limit": settings["calculated_mag_limit"],
             "set_sqm_limit": settings["set_sqm_limit"],
+            "seeing_thr": settings["seeing_thr"],
 
             "max_lux": settings["max_lux"],
             "setpoint1": settings["setpoint1"],

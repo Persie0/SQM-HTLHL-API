@@ -108,21 +108,6 @@
                 </p>
             </li>
             <li class='serviceList__item'>
-                {% if (check_everytime==0) %}
-                    <p class='serviceList__status'><span class="ok">No
-                        </span></p>
-
-                {% else %}
-                    <p class='serviceList__status'><span class="ok">Yes
-                        </span></p>
-
-                {% endif %}
-
-                <p class='serviceList__name'>
-                    Check server settings everytime after ESP32 deep sleep
-                </p>
-            </li>
-            <li class='serviceList__item'>
                 <p class='serviceList__status'><span class="ok">{{setpoint1}}</span></p>
                 <p class='serviceList__name'>
                     Setpoint 1 (setpoint for clear skies)

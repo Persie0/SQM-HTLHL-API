@@ -34,12 +34,11 @@ sensor_values = {
 }
 
 settings = {
-    "seeing_thr":3,
+    "seeing_thr": 3,
     "SLEEPTIME_s": 180,
     "DISPLAY_TIMEOUT_s": 200,
     "DISPLAY_ON": 1,
     "PATH": "",
-    "check_everytime": 0,
     "actual_SQM": -1,
     "actual_SQM_time": date(1, 1, 1).strftime("%d-%b-%Y (%H:%M:%S.%f)"),
     "calculated_mag_limit": -1,
@@ -64,19 +63,21 @@ settings = {
 # if the files should be saved in a specified directory (eg "C:/Users")
 SPECIFIC_DIRECTORY = Path(settings["PATH"])
 
-#get this PCs IP-Adress
+
+# get this PCs IP-Adress
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.settimeout(0)
     try:
         # doesn't even have to be reachable
         s.connect(('10.254.254.254', 1))
-        IP = s.getsockname()[0]
+        ip = s.getsockname()[0]
     except Exception:
-        IP = '127.0.0.1'
+        ip = '127.0.0.1'
     finally:
         s.close()
-    return IP
+    return ip
+
 
 # calculate cloud state from IR temperature sensor
 def get_cloud_state():
@@ -98,8 +99,9 @@ def calculate_mag_limit():
     # look that the calibration SQM-value is ok and not older than 15min
     if datetime.strptime(settings["actual_SQM_time"], "%d-%b-%Y (%H:%M:%S.%f)") > datetime.now() - timedelta(
             minutes=15) and sensor_values["luminosity"] != "-1":
-        settings["calculated_mag_limit"] = round((settings["set_sqm_limit"] - float(sensor_values["luminosity"]) + settings[
-            "actual_SQM"]), 2)
+        settings["calculated_mag_limit"] = round(
+            (settings["set_sqm_limit"] - float(sensor_values["luminosity"]) + settings[
+                "actual_SQM"]), 2)
         # save settings
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)
@@ -170,10 +172,6 @@ def settingspage():
             settings["DISPLAY_ON"] = 1
         else:
             settings["DISPLAY_ON"] = 0
-        if request.form.get("check_everytime") is not None:
-            settings["check_everytime"] = 1
-        else:
-            settings["check_everytime"] = 0
         setpoint1 = request.form.get("setpoint1", type=float)
         if setpoint1 is not None:
             settings["setpoint1"] = setpoint1
@@ -294,7 +292,6 @@ def inject_load():
             "PATH": settings["PATH"],
             "skystate": skystate,
             "localIP": localIP,
-            "check_everytime": settings["check_everytime"],
             "calculated_mag_limit": settings["calculated_mag_limit"],
             "set_sqm_limit": settings["set_sqm_limit"],
             "seeing_thr": settings["seeing_thr"],
@@ -320,6 +317,7 @@ def inject_load():
 def sendsettings():
     return settings
 
+
 if __name__ == '__main__':
     threading.Thread(target=update_load).start()
     # create / read settings file
@@ -329,6 +327,7 @@ if __name__ == '__main__':
     else:
         with open("SQM_Settings.json", 'r') as file:
             settings = json.load(file)
+            SPECIFIC_DIRECTORY = Path(settings["PATH"])
     # get ip of this server/PC
     localIP = get_ip()
     # open IP in browser

@@ -12,7 +12,7 @@
 
             {% endif %}
         <span class='siteHeader__title'>SQM&emsp;</span>
-            {% if (isSeeing=="1") %}
+            {% if (isSeeing==1) %}
                 <span class="greendot"></span>
             {% else %}
                 <span class="reddot"></span>
@@ -36,8 +36,8 @@
             <ul class='serviceList serviceGroup__list'>
 
                 <li class='serviceList__item'>
-                    {% if (raining!="-1") %}
-                        {% if (raining=="0") %}
+                    {% if (raining>-100) %}
+                        {% if (raining==0) %}
                             <p class='serviceList__status'><span class="ok">Not raining, {{skystate}}</span></p>
                         {% else %}
                             <p class='serviceList__status'><span class="ok">raining, {{skystate}}</span></p>
@@ -53,7 +53,7 @@
                     </p>
                 </li>
                 <li class='serviceList__item'>
-                    {% if (ambient!="-1") %}
+                    {% if (ambient>-100) %}
                         <p class='serviceList__status'><span class="ok">{{ambient}} °C</span></p>
 
                     {% else %}
@@ -65,7 +65,7 @@
                     </p>
                 </li>
                 <li class='serviceList__item'>
-                    {% if (object!="-1") %}
+                    {% if (object>-100) %}
                         <p class='serviceList__status'><span class="ok">{{object}} °C</span></p>
 
                     {% else %}
@@ -77,7 +77,7 @@
                     </p>
                 </li>
                 <li class='serviceList__item'>
-                    {% if (lux!="-1") %}
+                    {% if (lux>-100) %}
                         <p class='serviceList__status'><span class="ok">{{lux}} lux</span></p>
 
                     {% else %}
@@ -89,7 +89,7 @@
                     </p>
                 </li>
                 <li class='serviceList__item'>
-                    {% if (luminosity!="-1") %}
+                    {% if (luminosity>-100) %}
                         <p class='serviceList__status'><span class="ok">{{luminosity}} mpsas</span></p>
 
                     {% else %}
@@ -102,7 +102,7 @@
                 </li>
 
                 <li class='serviceList__item'>
-                    {% if (seeing!="-1") %}
+                    {% if (seeing>-100) %}
                         <p class='serviceList__status'><span class="ok">{{seeing}}</span></p>
 
                     {% else %}
@@ -115,10 +115,10 @@
                 </li>
 
                 <li class='serviceList__item'>
-                    {% if (lightning_distanceToStorm!="-1") %}
+                    {% if (lightning_distanceToStorm>-100) %}
                         <p class='serviceList__status'><span class="ok">{{lightning_distanceToStorm}} km</span></p>
                     {% else %}
-                        {% if (raining!="-1") %}
+                        {% if (raining>-100) %}
                             <p class='serviceList__status'><span class="ok">No storm nearby</span></p>
 
                         {% else %}
@@ -133,7 +133,7 @@
                 </li>
 
                 <li class='serviceList__item'>
-                    {% if (nelm!="-1") %}
+                    {% if (nelm>-100) %}
                         <p class='serviceList__status'><span class="ok">{{nelm}}</span></p>
 
                     {% else %}
@@ -146,7 +146,7 @@
                 </li>
 
                 <li class='serviceList__item'>
-                    {% if (concentration!="-1") %}
+                    {% if (concentration>-100) %}
                         <p class='serviceList__status'><span class="ok">{{concentration}}</span></p>
 
                     {% else %}
@@ -160,7 +160,7 @@
                 <li class='serviceList__item'>
                 </li>
                 <li class='serviceList__item'>
-                    {% if (errors=="-1") %}
+                    {% if (errors=="-333") %}
                         <p class='serviceList__status'><span class="outage">No info yet</span></p>
 
                     {% elif (errors=="") %}

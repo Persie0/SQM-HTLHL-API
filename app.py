@@ -18,18 +18,18 @@ skystate = "Unknown"
 isRunning = False
 localIP = "error"
 
-# -1 if no data
+# -333 if no data
 sensor_values = {
-    "raining": "-1",
-    "ambient": "-1",
-    "object": "-1",
-    "lux": "-1",
-    "luminosity": "-1",
-    "seeing": "-1",
-    "lightning_distanceToStorm": "-1",
-    "nelm": "-1",
-    "concentration": "-1",
-    "errors": "-1",
+    "raining": "-333",
+    "ambient": "-333",
+    "object": "-333",
+    "lux": "-333",
+    "luminosity": "-333",
+    "seeing": "-333",
+    "lightning_distanceToStorm": "-333",
+    "nelm": "-333",
+    "concentration": "-333",
+    "errors": "-333",
     "isSeeing": "0"
 }
 
@@ -39,9 +39,9 @@ settings = {
     "DISPLAY_TIMEOUT_s": 200,
     "DISPLAY_ON": 1,
     "PATH": "",
-    "actual_SQM": -1,
+    "actual_SQM": -333,
     "actual_SQM_time": date(1, 1, 1).strftime("%d-%b-%Y (%H:%M:%S.%f)"),
-    "calculated_mag_limit": -1,
+    "calculated_mag_limit": -333,
     "set_sqm_limit": 21.83,
 
     "max_lux": 50.0,
@@ -98,7 +98,7 @@ def calculate_mag_limit():
     global settings
     # look that the calibration SQM-value is ok and not older than 15min
     if datetime.strptime(settings["actual_SQM_time"], "%d-%b-%Y (%H:%M:%S.%f)") > datetime.now() - timedelta(
-            minutes=15) and sensor_values["luminosity"] != "-1":
+            minutes=15) and sensor_values["luminosity"] != "-333":
         settings["calculated_mag_limit"] = round(
             (settings["set_sqm_limit"] - float(sensor_values["luminosity"]) + settings[
                 "actual_SQM"]), 2)
@@ -126,11 +126,13 @@ def process():
             # loop through sensor values
             print(jsonfile)
             for key in jsonfile.keys():
-                # "-1" means no data
+                # "-333" means no data
                 global sensor_values
                 sensor_values[key] = jsonfile[key]
-                # don't write values if sensor error (-1) and don't write the errors & if Seeing is on
-                if jsonfile[key] == "-1" or key == "errors" or key == "isSeeing":
+                # don't write values if sensor error (-333) and don't write the errors & if Seeing is on
+                if key == "errors" or key == "isSeeing":
+                    continue
+                if float(jsonfile[key]) < -100:
                     continue
                 else:
                     # create a directory for each sensor and append the values to the sensor file
@@ -273,16 +275,16 @@ def inject_load():
     return {'last_transm': last_transm,
             'min_ago': min_ago,
             "isRunning": isRunning,
-            "isSeeing": sensor_values["isSeeing"],
-            "raining": sensor_values["raining"],
-            "ambient": sensor_values["ambient"],
-            "object": sensor_values["object"],
-            "lux": sensor_values["lux"],
-            "luminosity": sensor_values["luminosity"],
-            "seeing": sensor_values["seeing"],
-            "lightning_distanceToStorm": sensor_values["lightning_distanceToStorm"],
-            "nelm": sensor_values["nelm"],
-            "concentration": sensor_values["concentration"],
+            "isSeeing": int(sensor_values["isSeeing"]),
+            "raining": int(sensor_values["raining"]),
+            "ambient": float(sensor_values["ambient"]),
+            "object": float(sensor_values["object"]),
+            "lux": float(sensor_values["lux"]),
+            "luminosity": float(sensor_values["luminosity"]),
+            "seeing": float(sensor_values["seeing"]),
+            "lightning_distanceToStorm": int(sensor_values["lightning_distanceToStorm"]),
+            "nelm": float(sensor_values["nelm"]),
+            "concentration": int(sensor_values["concentration"]),
 
             "errors": sensor_values["errors"],
 

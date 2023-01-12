@@ -118,13 +118,7 @@
                     {% if (lightning_distanceToStorm>-100) %}
                         <p class='serviceList__status'><span class="ok">{{lightning_distanceToStorm}} km</span></p>
                     {% else %}
-                        {% if (raining>-100) %}
-                            <p class='serviceList__status'><span class="ok">No storm nearby</span></p>
-
-                        {% else %}
-                            <p class='serviceList__status'><span class="outage">No value yet</span></p>
-
-                        {% endif %}
+                            <p class='serviceList__status'><span class="ka">Nothing yet</span></p>
                     {% endif %}
 
                     <p class='serviceList__name'>

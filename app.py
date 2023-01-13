@@ -259,6 +259,7 @@ def update_load():
                     global last_transm, min_ago, isRunning
                     if duration_in_s > (settings["SLEEPTIME_s"] + 10):
                         isRunning = False
+                        sensor_values["isSeeing"] = False
                     else:
                         isRunning = True
                     last_transm = loaded_time.strftime("%d %b %Y %H:%M:%S")

@@ -38,64 +38,75 @@
                 <li class='serviceList__item'>
                     {% if (raining>-100) %}
                         {% if (raining==0) %}
-                            <p class='serviceList__status'><span class="ok">Not raining, {{skystate}}</span></p>
+                            <p class='serviceList__status'><span class="ok">Not raining, {{skystate}}
                         {% else %}
-                            <p class='serviceList__status'><span class="ok">raining, {{skystate}}</span></p>
+                            <p class='serviceList__status'><span class="ok">raining, {{skystate}}
 
                         {% endif %}
 
                     {% else %}
-                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+                        <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
+                    <a href="/visual/{{abr_raining}}/newest"><img src="../static/statistics.svg" alt="statisticsIcon" class="statisticsIcon"></a>
+                </span></p>
                     <p class='serviceList__name'>
                         Weather
                     </p>
+                    
                 </li>
                 <li class='serviceList__item'>
                     {% if (ambient>-100) %}
-                        <p class='serviceList__status'><span class="ok">{{ambient}} °C</span></p>
+                        <p class='serviceList__status'><span class="ok">{{ambient}} °C
 
                     {% else %}
-                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+                        <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
+                    <a href="/visual/{{abr_ambient}}/newest"><img src="../static/statistics.svg" alt="statisticsIcon" class="statisticsIcon"></a>
+                </span></p>
                     <p class='serviceList__name'>
                         Ambient temperature
                     </p>
                 </li>
                 <li class='serviceList__item'>
                     {% if (object>-100) %}
-                        <p class='serviceList__status'><span class="ok">{{object}} °C</span></p>
+                        <p class='serviceList__status'><span class="ok">{{object}} °C
 
                     {% else %}
-                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+                        <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
+                    <a href="/visual/{{abr_object}}/newest"><img src="../static/statistics.svg" alt="statisticsIcon" class="statisticsIcon"></a>
+                </span></p>
                     <p class='serviceList__name'>
                         Object temperature
                     </p>
                 </li>
                 <li class='serviceList__item'>
                     {% if (lux>-100) %}
-                        <p class='serviceList__status'><span class="ok">{{lux}} lux</span></p>
+                        <p class='serviceList__status'><span class="ok">{{lux}} lux
 
                     {% else %}
-                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+                        <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
+                    <a href="/visual/{{abr_lux}}/newest"><img src="../static/statistics.svg" alt="statisticsIcon" class="statisticsIcon"></a>
+                </span></p>
                     <p class='serviceList__name'>
                         Brightness
                     </p>
                 </li>
                 <li class='serviceList__item'>
                     {% if (luminosity>-100) %}
-                        <p class='serviceList__status'><span class="ok">{{luminosity}} mpsas</span></p>
+                        <p class='serviceList__status'><span class="ok">{{luminosity}} mpsas
 
                     {% else %}
-                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+                        <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
+                    <a href="/visual/{{abr_luminosity}}/newest"><img src="../static/statistics.svg" alt="statisticsIcon" class="statisticsIcon"></a>
+                </span></p>
                     <p class='serviceList__name'>
                         Luminosity (sky background brightness)
                     </p>
@@ -103,12 +114,14 @@
 
                 <li class='serviceList__item'>
                     {% if (seeing>-100) %}
-                        <p class='serviceList__status'><span class="ok">{{seeing}}</span></p>
+                        <p class='serviceList__status'><span class="ok">{{seeing}}
 
                     {% else %}
-                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+                        <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
+                    <a href="/visual/{{abr_seeing}}/newest"><img src="../static/statistics.svg" alt="statisticsIcon" class="statisticsIcon"></a>
+                </span></p>
                     <p class='serviceList__name'>
                         Seeing
                     </p>
@@ -116,10 +129,12 @@
 
                 <li class='serviceList__item'>
                     {% if (lightning_distanceToStorm>-100) %}
-                        <p class='serviceList__status'><span class="ok">{{lightning_distanceToStorm}} km</span></p>
+                        <p class='serviceList__status'><span class="ok">{{lightning_distanceToStorm}} km
                     {% else %}
-                            <p class='serviceList__status'><span class="ka">Nothing yet</span></p>
+                            <p class='serviceList__status'><span class="ka">Nothing yet
                     {% endif %}
+                    <a href="/visual/{{abr_lightning_distanceToStorm}}/newest"><img src="../static/statistics.svg" alt="statisticsIcon" class="statisticsIcon"></a>
+                </span></p>
 
                     <p class='serviceList__name'>
                         Distance to Storm
@@ -128,12 +143,14 @@
 
                 <li class='serviceList__item'>
                     {% if (nelm>-100) %}
-                        <p class='serviceList__status'><span class="ok">{{nelm}}</span></p>
+                        <p class='serviceList__status'><span class="ok">{{nelm}}
 
                     {% else %}
-                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+                        <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
+                    <a href="/visual/{{abr_nelm}}/newest"><img src="../static/statistics.svg" alt="statisticsIcon" class="statisticsIcon"></a>
+                </span></p>
                     <p class='serviceList__name'>
                         Nelm (Naked Eye Limiting Magnitude)
                     </p>
@@ -141,12 +158,14 @@
 
                 <li class='serviceList__item'>
                     {% if (concentration>-100) %}
-                        <p class='serviceList__status'><span class="ok">{{concentration}}</span></p>
+                        <p class='serviceList__status'><span class="ok">{{concentration}}
 
                     {% else %}
-                        <p class='serviceList__status'><span class="outage">No value yet</span></p>
+                        <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
+                    <a href="/visual/{{abr_concentration}}/newest"><img src="../static/statistics.svg" alt="statisticsIcon" class="statisticsIcon"></a>
+                </span></p>
                     <p class='serviceList__name'>
                         Air particle concentration
                     </p>

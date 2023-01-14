@@ -181,14 +181,13 @@ def visualdate(sensor, datum):
     dat_files.reverse()
     # check if date was passed
     if datum == "newest":
-        selected_file = dat_files[-1]
+        return redirect('/visual/'+sensor+'/'+dat_files[-1])
     else:
         if datum in dat_files:
             selected_file = datum
         else:
             return "Date not found"
     # convert the file to a pandas dataframe
-    print(str(SPECIFIC_DIRECTORY)+"/"+sensor+"/"+selected_file)
     df = dat_to_df(str(SPECIFIC_DIRECTORY)+"/"+sensor+"/"+selected_file)
     # create the plot
     global bar
@@ -356,7 +355,7 @@ def update_load():
                     min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
                         days[0], hours[0], minutes[0], seconds[0])
             turbo.push(turbo.replace(flask.render_template('replace_content.html'), 'load'))
-            #turbo.push(turbo.replace(flask.render_template('visual.html'), 'load'))
+            turbo.push(turbo.replace(flask.render_template('chart.html'), 'chart1'))
             time.sleep(5)
 
 

@@ -49,12 +49,13 @@ window.onclick = function(event) {
     }
   }
 }
+
 </script>
 
-<div class="chart" id="bargraph"></div>
+<div class="chart" id="scatter"></div>
         <script>
             var graphs = {{ plot | safe}};
-            Plotly.plot('bargraph', graphs, {});
+            Plotly.plot('scatter', graphs, {});
 </script>
 
 

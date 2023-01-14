@@ -114,14 +114,22 @@ def dat_to_df(dat_file_full_path):
 def create_plot(df):
 
     data = [
-        #show timeline of the last 24h
+        #show timeline of the last 24h, dont connect the dots if there is a gap more than 30min
         go.Scatter(
             x=df['time'],
             y=df['value'],
+            
             mode='lines+markers',
-            #beautify the plot
+            line=dict(
+                width=1
+            ),
+            marker=dict(
+                size=7,
+                symbol='circle',
+            ),
             connectgaps=False,
-        ),
+
+        )
     ]
 
     graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)

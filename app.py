@@ -2,12 +2,17 @@ import threading
 import time
 from datetime import datetime, timedelta, date
 from pathlib import Path
+import os
 import json
 import flask
 from flask import Flask, request, redirect, url_for
 from turbo_flask import Turbo
 import socket
 import webbrowser
+import plotly
+import plotly.graph_objs as go
+import pandas as pd
+import numpy as np
 
 app = Flask(__name__)
 turbo = Turbo(app)
@@ -60,9 +65,25 @@ settings = {
     "lightning_distanceToStorm": "BD",
 }
 
+selected=""
+
+bar = None
 # if the files should be saved in a specified directory (eg "C:/Users")
 SPECIFIC_DIRECTORY = Path(settings["PATH"])
 
+def get_all_abriviations():
+    abriviations = {}
+    for key, value in settings:
+        #if value is string and 2 characters long
+        if isinstance(settings[value], str) and len(settings[value]) == 2:
+            abriviations[value] = settings[key] 
+    return abriviations
+
+def get_long_name(abriviation):
+    for key, value in settings.items():
+        if value == abriviation:
+            return key.capitalize()
+    return
 
 # get this PCs IP-Adress
 def get_ip():
@@ -78,6 +99,34 @@ def get_ip():
         s.close()
     return ip
 
+def dat_to_df(dat_file_full_path):
+    # read the .dat file and convert it to a pandas dataframe
+    df = pd.read_csv(dat_file_full_path, sep='\t', header=None, names=['time', 'value'])
+    # use file name as date
+    # get file name from path with pathlib
+    f_date = Path(dat_file_full_path).stem[2:8]   # 2:8 because of the "SQ" in the file name
+    for i in range(len(df)):
+        df['time'][i] = datetime.strptime(f_date + df['time'][i], "%y%m%d%H:%M")
+    # convert the values to float
+    df['value'] = df['value'].astype(float)
+    return df
+
+def create_plot(df):
+
+    data = [
+        #show timeline of the last 24h
+        go.Scatter(
+            x=df['time'],
+            y=df['value'],
+            mode='lines+markers',
+            #beautify the plot
+            connectgaps=False,
+        ),
+    ]
+
+    graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+
+    return graphJSON
 
 # calculate cloud state from IR temperature sensor
 def get_cloud_state():
@@ -105,6 +154,40 @@ def calculate_mag_limit():
         # save settings
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)
+
+
+# visualize the data 
+@app.route('/visual/<sensor>/<datum>')
+def visualdate(sensor, datum):
+    # get all dat files in the directory
+    global selected
+    selected = sensor
+    temp_path = str(SPECIFIC_DIRECTORY)+"/"+sensor
+    print(temp_path)
+    dat_files = os.listdir(temp_path)
+    print(dat_files)
+    #remove extension
+    #dat_files = [x[:-4] for x in dat_files]
+    # sort them by date
+    dat_files.sort(key=lambda x: os.path.getmtime(temp_path + "/" + x))
+    dat_files.reverse()
+    # check if date was passed
+    if datum == "newest":
+        selected_file = dat_files[-1]
+    else:
+        if datum in dat_files:
+            selected_file = datum
+        else:
+            return "Date not found"
+    # convert the file to a pandas dataframe
+    print(str(SPECIFIC_DIRECTORY)+"/"+sensor+"/"+selected_file)
+    df = dat_to_df(str(SPECIFIC_DIRECTORY)+"/"+sensor+"/"+selected_file)
+    # create the plot
+    global bar
+    bar = create_plot(df)
+    sens=get_long_name(sensor)
+    return flask.render_template('visual.html', sens=sens, plot=bar, dat_files=dat_files, abr=sensor)
+
 
 
 # get & process ESP32 sensor data
@@ -265,6 +348,7 @@ def update_load():
                     min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
                         days[0], hours[0], minutes[0], seconds[0])
             turbo.push(turbo.replace(flask.render_template('replace_content.html'), 'load'))
+            #turbo.push(turbo.replace(flask.render_template('visual.html'), 'load'))
             time.sleep(5)
 
 
@@ -311,6 +395,7 @@ def inject_load():
             "abr_ambient": settings["ambient"],
             "abr_lux": settings["lux"],
             "abr_lightning_distanceToStorm": settings["lightning_distanceToStorm"],
+            "plot": bar,
             }
 
 

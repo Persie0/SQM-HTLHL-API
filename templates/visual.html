@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="{{url_for('static', filename='plotly-latest.min.js')}}"></script>
+    <script src="{{url_for('static', filename='d3.min.js')}}"></script>
+    <title>Visualization</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='status.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='dark.css')}}">
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='northstar.png')}}">
+
+</head>
+
+<body>
+    <header class='siteHeader'>
+
+        <div class='container'>
+         <span class='siteHeader__title'>{{sens}}</span>
+        </div>
+    </header>
+
+<!--   beautiful  back button -->
+    <a href="/"><img src="{{url_for('static', filename='back.png')}}" alt="backIcon" class="backIcon" style="width: 50px; height: 50px;"></a>
+
+    <!--     dropdown menu with dat_files as option -->
+    <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">Select Date</button>
+        <div id="myDropdown" class="dropdown-content">
+            {% for dat_file in dat_files %}
+            <a href="/visual/{{abr}}/{{dat_file}}">{{dat_file}}</a>
+        {% endfor %}
+        </div>
+      </div>
+
+    <script>
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<div class="chart" id="bargraph"></div>
+        <script>
+            var graphs = {{ plot | safe}};
+            Plotly.plot('bargraph', graphs, {});
+</script>
+
+
+</body>
+
+</html>

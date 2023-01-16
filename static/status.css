@@ -528,7 +528,15 @@ a {
   background: #2b3034;
   padding: 30px 0 30px 0;
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+}
+
+.siteHeader2 {
+  text-align: center;
+  background: #2b3034;
+  padding: 8px 0 8px 0;
+  position: relative;
+  margin-bottom: 5px;
 }
 
 
@@ -537,7 +545,15 @@ a {
   letter-spacing: -0.05em;
   font-weight: 700;
   color: white;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+}
+
+.siteHeader__title2 {
+  font-size: 35px;
+  letter-spacing: -0.05em;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 5px;
 }
 
 @media (max-width: 750px) {
@@ -547,8 +563,20 @@ a {
 }
 @media (max-width: 600px) {
   .siteHeader {
-    padding: 85px 0 30px 0;
-    margin-bottom: 25px;
+    padding: 50px 0 20px 0;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 750px) {
+  .siteHeader__title2 {
+    font-size: 6vw;
+  }
+}
+@media (max-width: 600px) {
+  .siteHeader2 {
+    padding: 25px 0 10px 0;
+    margin-bottom: 5px;
   }
 }
 body {

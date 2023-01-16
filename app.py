@@ -12,7 +12,6 @@ import webbrowser
 import plotly
 import plotly.graph_objs as go
 import pandas as pd
-import numpy as np
 
 app = Flask(__name__)
 turbo = Turbo(app)
@@ -65,6 +64,18 @@ settings = {
     "lightning_distanceToStorm": "BD",
 }
 
+vis={
+    "raining": "Raining",
+    "ambient": "Ambient temperature",
+    "object": "Object temperature",
+    "lux": "Lux",
+    "luminosity": "SQM",
+    "seeing": "Seeing",
+    "lightning_distanceToStorm": "Lightning distance",
+    "nelm": "NELM",
+    "concentration": "Air particle concentration",
+}
+
 selected=""
 
 bar = None
@@ -73,10 +84,10 @@ SPECIFIC_DIRECTORY = Path(settings["PATH"])
 
 def get_all_abriviations():
     abriviations = {}
-    for key, value in settings:
+    for key, value in settings.items():
         #if value is string and 2 characters long
-        if isinstance(settings[value], str) and len(settings[value]) == 2:
-            abriviations[value] = settings[key] 
+        if isinstance(value, str) and len(value) == 2:
+            abriviations[value] = key
     return abriviations
 
 def get_long_name(abriviation):
@@ -171,9 +182,7 @@ def visualdate(sensor, datum):
     global selected
     selected = sensor
     temp_path = str(SPECIFIC_DIRECTORY)+"/"+sensor
-    print(temp_path)
     dat_files = os.listdir(temp_path)
-    print(dat_files)
     #remove extension
     #dat_files = [x[:-4] for x in dat_files]
     # sort them by date
@@ -192,8 +201,7 @@ def visualdate(sensor, datum):
     # create the plot
     global bar
     bar = create_plot(df)
-    sens=get_long_name(sensor)
-    return flask.render_template('visual.html', sens=sens, plot=bar, dat_files=dat_files, abr=sensor)
+    return flask.render_template('visual.html', sens=vis[get_all_abriviations()[sensor]], plot=bar, dat_files=dat_files, abr=sensor)
 
 
 
@@ -214,7 +222,6 @@ def process():
                 f1.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
                 f1.close()
             # loop through sensor values
-            print(jsonfile)
             for key in jsonfile.keys():
                 # "-333" means no data
                 global sensor_values
@@ -356,7 +363,6 @@ def update_load():
                     min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
                         days[0], hours[0], minutes[0], seconds[0])
             turbo.push(turbo.replace(flask.render_template('replace_content.html'), 'load'))
-            turbo.push(turbo.replace(flask.render_template('chart.html'), 'chart1'))
             time.sleep(5)
 
 

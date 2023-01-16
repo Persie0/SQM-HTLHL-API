@@ -49,6 +49,7 @@
 
                     {% endif %}
                     <a href="/visual/{{abr_raining}}/newest"><img src="{{url_for('static', filename='statistics.svg')}}" alt="statisticsIcon" class="statisticsIcon"></a>
+
                 </span></p>
                     <p class='serviceList__name'>
                         Weather
@@ -191,3 +192,10 @@
         </section>
     </div>
 </div>
+
+<script >
+    var el=document.getElementsByClassName("statisticsIcon");
+    el.forEach(function(item){
+        item.parentElement.setAttribute("onclick", "window.open('" + item.parentElement.href + "','_self')");
+    });
+</script>

@@ -179,17 +179,22 @@ def calculate_mag_limit():
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)
 
+# visualize the selected date
+@app.route('/shortvisual/<sensor>')
+def shortvisual(sensor):
+    selected_date = request.args.get('date')
+    formatted_date = sensor + selected_date[2:4] + selected_date[5:7] + selected_date[8:10] + ".dat"
+    return redirect(url_for('visualdate', sensor=sensor, datum=formatted_date))
 
 # visualize the data 
 @app.route('/visual/<sensor>/<datum>')
 def visualdate(sensor, datum):
+    formatted_datum= datum[6:8] + "." + datum[4:6] + "." + "20" + datum[2:4]
     # get all dat files in the directory
     global selected
     selected = sensor
     temp_path = str(SPECIFIC_DIRECTORY)+"/"+sensor
     dat_files = os.listdir(temp_path)
-    #remove extension
-    #dat_files = [x[:-4] for x in dat_files]
     # sort them by date
     dat_files.sort(key=lambda x: os.path.getmtime(temp_path + "/" + x))
     dat_files.reverse()
@@ -206,7 +211,19 @@ def visualdate(sensor, datum):
     # create the plot
     global bar
     bar = create_plot(df)
-    return flask.render_template('visual.html', sens=vis[get_all_abriviations()[sensor]], plot=bar, dat_files=dat_files, abr=sensor)
+    #get earliest and latest date
+    earliest = dat_files[-1]
+    latest = dat_files[0]
+    #convert to html date format
+    earliest = datetime.strptime(earliest[2:8], "%y%m%d").strftime("%Y-%m-%d")
+    latest = datetime.strptime(latest[2:8], "%y%m%d").strftime("%Y-%m-%d")
+    # get all dates in html date format
+    dates = []
+    for i in dat_files:
+        dates.append(datetime.strptime(i[2:8], "%y%m%d").strftime("%Y-%m-%d"))
+    return flask.render_template('visual.html', sens=vis[get_all_abriviations()[sensor]],
+                                 plot=bar, dat_files=dat_files, abr=sensor, min_date=earliest,
+                                 max_date=latest, formatted_date=formatted_datum)
 
 
 

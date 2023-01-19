@@ -197,7 +197,6 @@ def visualdate(sensor, datum):
     dat_files = os.listdir(temp_path)
     # sort them by date
     dat_files.sort(key=lambda x: os.path.getmtime(temp_path + "/" + x))
-    dat_files.reverse()
     # check if date was passed
     if datum == "newest":
         return redirect('/visual/'+sensor+'/'+dat_files[-1])
@@ -212,8 +211,8 @@ def visualdate(sensor, datum):
     global bar
     bar = create_plot(df)
     #get earliest and latest date
-    earliest = dat_files[-1]
-    latest = dat_files[0]
+    earliest = dat_files[0]
+    latest = dat_files[-1]
     #convert to html date format
     earliest = datetime.strptime(earliest[2:8], "%y%m%d").strftime("%Y-%m-%d")
     latest = datetime.strptime(latest[2:8], "%y%m%d").strftime("%Y-%m-%d")

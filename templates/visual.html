@@ -24,7 +24,7 @@
 
 <!--     dropdown menu with dat_files as option -->
 <div class="dropdown">
-    <button onclick="myFunction()" class="dropbtn">Select Date</button>
+    <button onclick="myFunction()" class="dropbtn">Select File</button>
     <div id="myDropdown" class="dropdown-content">
         {% for dat_file in dat_files %}
             <a href="/visual/{{abr}}/{{dat_file}}">{{dat_file}}</a>
@@ -32,34 +32,45 @@
     </div>
 </div>
 
-    <!-- date select as calender -->
-    <div class="calender">
-        <form action="/shortvisual/{{abr}}" method="get">
-            <input type="date" name="date" value="{{date}}" min={{min_date}} max={{max_date}}>
-            <input type="submit" value="Submit">
-        </form>
-    </div>
-
 <br>
 
-<!--   only the dates selectable that are in {{ file_dates }} -->
-<script>
-    var dates = {{ file_dates }};
-    var date = document.querySelector('input[type="date"]');
-    date.addEventListener('change', function() {
-        if (dates.indexOf(this.value) === -1) {
-            this.value = '';
-        }
-    });
-</script>
+<!--   make textfield where you can filter the dat_files -->
+<input type="text" id="myInput" onkeyup="filterFunction()" placeholder="Search for files.." title="Type in a name">
 
+<!--   js for filter textfield -->
 <script>
-    function myFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
+    window.isshowing = false;
+    <!-- show dropdown menu with dat_files that match the filter -->
+    function filterFunction() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("myDropdown");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+            if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "block";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
+        <!-- show dropdown menu with dat_files that match the filter -->
+        if (!isshowing) {
+            myFunction();
+            window.isshowing=true
+        }
     }
 
+    <!-- show dropdown menu when button is clicked -->
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+        window.isshowing=!window.isshowing;
+    }
+
+    <!-- close dropdown menu when clicked anywhere else than the button or the dropdown menu -->
     window.onclick = function(event) {
         if (!event.target.matches('.dropbtn')) {
+            window.isshowing=false;
             var dropdowns = document.getElementsByClassName("dropdown-content");
             var i;
             for (i = 0; i < dropdowns.length; i++) {
@@ -71,7 +82,9 @@
         }
     }
 
+
 </script>
+
 
 <div class="chart" id="scatter"></div>
 <script>

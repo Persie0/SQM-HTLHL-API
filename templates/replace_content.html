@@ -48,7 +48,7 @@
                         <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
-                    <a href="/visual/{{abr_raining}}/newest"><img src="{{url_for('static', filename='statistics.svg')}}" alt="statisticsIcon" class="statisticsIcon"></a>
+                    <a href="/visual/{{abr_raining}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
 
                 </span></p>
                     <p class='serviceList__name'>
@@ -64,7 +64,7 @@
                         <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
-                    <a href="/visual/{{abr_ambient}}/newest"><img src="{{url_for('static', filename='statistics.svg')}}" alt="statisticsIcon" class="statisticsIcon"></a>
+                    <a href="/visual/{{abr_ambient}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
                 </span></p>
                     <p class='serviceList__name'>
                         Ambient temperature
@@ -78,7 +78,7 @@
                         <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
-                    <a href="/visual/{{abr_object}}/newest"><img src="{{url_for('static', filename='statistics.svg')}}" alt="statisticsIcon" class="statisticsIcon"></a>
+                    <a href="/visual/{{abr_object}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
                 </span></p>
                     <p class='serviceList__name'>
                         Object temperature
@@ -92,7 +92,7 @@
                         <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
-                    <a href="/visual/{{abr_lux}}/newest"><img src="{{url_for('static', filename='statistics.svg')}}" alt="statisticsIcon" class="statisticsIcon"></a>
+                    <a href="/visual/{{abr_lux}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
                 </span></p>
                     <p class='serviceList__name'>
                         Brightness
@@ -106,7 +106,7 @@
                         <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
-                    <a href="/visual/{{abr_luminosity}}/newest"><img src="{{url_for('static', filename='statistics.svg')}}" alt="statisticsIcon" class="statisticsIcon"></a>
+                    <a href="/visual/{{abr_luminosity}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
                 </span></p>
                     <p class='serviceList__name'>
                         Luminosity (sky background brightness)
@@ -121,7 +121,7 @@
                         <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
-                    <a href="/visual/{{abr_seeing}}/newest"><img src="{{url_for('static', filename='statistics.svg')}}" alt="statisticsIcon" class="statisticsIcon"></a>
+                    <a href="/visual/{{abr_seeing}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
                 </span></p>
                     <p class='serviceList__name'>
                         Seeing
@@ -134,7 +134,7 @@
                     {% else %}
                             <p class='serviceList__status'><span class="ka">Nothing yet
                     {% endif %}
-                    <a href="/visual/{{abr_lightning_distanceToStorm}}/newest"><img src="{{url_for('static', filename='statistics.svg')}}" alt="statisticsIcon" class="statisticsIcon"></a>
+                    <a href="/visual/{{abr_lightning_distanceToStorm}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
                 </span></p>
 
                     <p class='serviceList__name'>
@@ -150,7 +150,7 @@
                         <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
-                    <a href="/visual/{{abr_nelm}}/newest"><img src="{{url_for('static', filename='statistics.svg')}}" alt="statisticsIcon" class="statisticsIcon"></a>
+                    <a href="/visual/{{abr_nelm}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
                 </span></p>
                     <p class='serviceList__name'>
                         Nelm (Naked Eye Limiting Magnitude)
@@ -165,7 +165,7 @@
                         <p class='serviceList__status'><span class="outage">No value yet
 
                     {% endif %}
-                    <a href="/visual/{{abr_concentration}}/newest"><img src="{{url_for('static', filename='statistics.svg')}}" alt="statisticsIcon" class="statisticsIcon"></a>
+                    <a href="/visual/{{abr_concentration}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
                 </span></p>
                     <p class='serviceList__name'>
                         Air particle concentration
@@ -174,7 +174,7 @@
                 <li class='serviceList__item'>
                 </li>
                 <li class='serviceList__item'>
-                    {% if (errors=="-333") %}
+                    {% if (errors=="-33") %}
                         <p class='serviceList__status'><span class="outage">No info yet</span></p>
 
                     {% elif (errors=="") %}

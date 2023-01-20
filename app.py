@@ -127,6 +127,7 @@ def dat_to_df(dat_file_full_path):
     df['value'] = df['value'].astype(float)
     return df
 
+#
 def create_plot(df):
 
     data = [
@@ -273,7 +274,7 @@ def process():
 # Homepage with status and current settings
 @app.route('/', methods=["GET"])
 def statuspage():
-    return flask.render_template('index.html')
+    return flask.render_template('index.html', stats=url_for('static', filename='statistics.svg'))
 
 
 # ESP32 settings page
@@ -383,7 +384,7 @@ def update_load():
                     last_transm = loaded_time.strftime("%d %b %Y %H:%M:%S")
                     min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
                         days[0], hours[0], minutes[0], seconds[0])
-            turbo.push(turbo.replace(flask.render_template('replace_content.html'), 'load'))
+            turbo.push(turbo.replace(flask.render_template('replace_content.html', stats="static/statistics.svg"), 'load'))
             time.sleep(5)
 
 
@@ -405,7 +406,7 @@ def inject_load():
             "nelm": float(sensor_values["nelm"]),
             "concentration": int(sensor_values["concentration"]),
 
-            "errors": sensor_values["errors"],
+            "errors": sensor_values["errors"][:-1],
 
             "SLEEPTIME_s": settings["SLEEPTIME_s"],
             "DISPLAY_TIMEOUT_s": settings["DISPLAY_TIMEOUT_s"],

@@ -62,6 +62,17 @@ settings = {
     "ambient": "TQ",
     "lux": "HL",
     "lightning_distanceToStorm": "BD",
+
+    # sensor enabled
+    "en_seeing": 1,
+    "en_raining": 1,
+    "en_luminosity": 1,
+    "en_nelm": 1,
+    "en_concentration": 1,
+    "en_object": 1,
+    "en_ambient": 1,
+    "en_lux": 1,
+    "en_lightning_distanceToStorm": 1,
 }
 
 vis={
@@ -237,6 +248,7 @@ def process():
             # get current datetime
             timestamp = datetime.now()
             jsonfile = request.json
+            print(jsonfile)
             # write the current datetime as last measurement datetime
             if not SPECIFIC_DIRECTORY.is_dir():
                 SPECIFIC_DIRECTORY.mkdir()
@@ -283,9 +295,9 @@ def settingspage():
     # if sending/saving settings
     if request.method == "POST":
         global settings, SPECIFIC_DIRECTORY
-        # getting the input from the html form
-        # check if value x was entered
 
+        # getting the input from the settings page
+        # check if value x was entered
         seeing_thr = request.form.get("seeing_thr", type=int)
         if seeing_thr is not None:
             settings["seeing_thr"] = seeing_thr
@@ -315,6 +327,39 @@ def settingspage():
         set_sqm_limit = request.form.get("set_sqm_limit", type=float)
         if set_sqm_limit is not None:
             settings["set_sqm_limit"] = set_sqm_limit
+
+        # sensors even enabled?, get the transmitted data from the index.html
+        #get JSON.stringify({ en_seeing: status });
+        if "en_seeing" in request.json and request.json["en_seeing"] is not None:
+           settings["en_seeing"] = request.json["en_seeing"]
+
+        if "en_lux" in request.json and request.json["en_lux"] is not None:
+            settings["en_lux"] = request.json["en_lux"]
+
+        if "en_luminosity" in request.json and request.json["en_luminosity"] is not None:
+            settings["en_luminosity"] = request.json["en_luminosity"]
+
+        if "en_lux" in request.json and request.json["en_lux"] is not None:
+            settings["en_lux"] = request.json["en_lux"]
+
+        if "en_nelm" in request.json and request.json["en_nelm"] is not None:
+            settings["en_nelm"] = request.json["en_nelm"]
+
+        if "en_concentration" in request.json and request.json["en_concentration"] is not None:
+            settings["en_concentration"] = request.json["en_concentration"]
+
+        if "en_ambient" in request.json and request.json["en_ambient"] is not None:
+            settings["en_ambient"] = request.json["en_ambient"]
+
+        if "en_object" in request.json and request.json["en_object"] is not None:
+            settings["en_object"] = request.json["en_object"]
+
+        if "en_lightning_distanceToStorm" in request.json and request.json["en_lightning_distanceToStorm"] is not None:
+            settings["en_lightning_distanceToStorm"] = request.json["en_lightning_distanceToStorm"]
+
+        if "en_raining" in request.json and request.json["en_raining"] is not None:
+            settings["en_raining"] = request.json["en_raining"]
+
         # save settings
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)
@@ -406,7 +451,7 @@ def inject_load():
             "nelm": float(sensor_values["nelm"]),
             "concentration": int(sensor_values["concentration"]),
 
-            "errors": sensor_values["errors"][:-1],
+            "errors": sensor_values["errors"].strip()[:-1],
 
             "SLEEPTIME_s": settings["SLEEPTIME_s"],
             "DISPLAY_TIMEOUT_s": settings["DISPLAY_TIMEOUT_s"],
@@ -431,6 +476,17 @@ def inject_load():
             "abr_ambient": settings["ambient"],
             "abr_lux": settings["lux"],
             "abr_lightning_distanceToStorm": settings["lightning_distanceToStorm"],
+
+            "en_seeing": settings["en_seeing"],
+            "en_raining": settings["en_raining"],
+            "en_luminosity": settings["en_luminosity"],
+            "en_nelm": settings["en_nelm"],
+            "en_concentration": settings["en_concentration"],
+            "en_object": settings["en_object"],
+            "en_ambient": settings["en_ambient"],
+            "en_lux": settings["en_lux"],
+            "en_lightning_distanceToStorm": settings["en_lightning_distanceToStorm"],
+
             "plot": bar,
             }
 

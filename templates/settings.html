@@ -5,6 +5,7 @@
     <title>SQM Settings Page</title>
     <link rel="stylesheet" href="{{url_for('static', filename='status.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='dark.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='settings.css')}}">
     <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='northstar.png')}}">
 </head>
 <body>
@@ -29,8 +30,15 @@
                     <li class='serviceList__item'>
                         <p class='serviceList__status'><span class="ok"><!-- Rounded switch -->
 <label class="switch">
-  <input type="checkbox" id="DISPLAY" name="DISPLAY">
-  <span class="slider round"></span>
+         {% if (DISPLAY_ON==1) %}
+             <input type="checkbox" id="DISPLAY" name="DISPLAY" checked>
+
+         {% else %}
+             <input type="checkbox" id="DISPLAY" name="DISPLAY">
+
+         {% endif %}
+
+    <span class="slider round"></span>
 </label>
                         </span></p>
 

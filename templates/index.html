@@ -183,7 +183,7 @@
 
     <section class='ongoingIssues'>
         <div class='issueBanner issueBanner--monitoring'>
-            <h2>Abbreviations for sensor values</h2>
+            <h2>Sensors</h2>
         </div>
     </section>
 
@@ -191,9 +191,14 @@
         <ul class='serviceList serviceGroup__list'>
 
             <li class='serviceList__item'>
+
                 <p class='serviceList__status'><span class="ok">{{abr_seeing}}</span></p>
 
                 <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_seeing" name="en_seeing" {% if en_seeing %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
                     Seeing
                 </p>
             </li>
@@ -201,6 +206,10 @@
                 <p class='serviceList__status'><span class="ok">{{abr_raining}}</span></p>
 
                 <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_raining" name="en_raining" {% if en_raining %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
                     Raining
                 </p>
             </li>
@@ -208,6 +217,10 @@
                 <p class='serviceList__status'><span class="ok">{{abr_luminosity}}</span></p>
 
                 <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_luminosity" name="en_luminosity" {% if en_luminosity %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
                     Luminosity
                 </p>
             </li>
@@ -215,6 +228,10 @@
                 <p class='serviceList__status'><span class="ok">{{abr_nelm}}</span></p>
 
                 <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_nelm" name="en_nelm" {% if en_nelm %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
                     Nelm
                 </p>
             </li>
@@ -222,6 +239,10 @@
                 <p class='serviceList__status'><span class="ok">{{abr_concentration}}</span></p>
 
                 <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_concentration" name="en_concentration" {% if en_concentration %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
                     Air particle concentration
                 </p>
             </li>
@@ -229,6 +250,10 @@
                 <p class='serviceList__status'><span class="ok">{{abr_object}}</span></p>
 
                 <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_object" name="en_object" {% if en_object %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
                     Object temp.
                 </p>
             </li>
@@ -236,6 +261,10 @@
                 <p class='serviceList__status'><span class="ok">{{abr_ambient}}</span></p>
 
                 <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_ambient" name="en_ambient" {% if en_ambient %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
                     Ambient temp.
                 </p>
             </li>
@@ -243,6 +272,10 @@
                 <p class='serviceList__status'><span class="ok">{{abr_lux}}</span></p>
 
                 <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_lux" name="en_lux" {% if en_lux %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
                     Lux
                 </p>
             </li>
@@ -250,6 +283,10 @@
                 <p class='serviceList__status'><span class="ok">{{abr_lightning_distanceToStorm}}</span></p>
 
                 <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_lightning_distanceToStorm" name="en_lightning_distanceToStorm" {% if en_lightning_distanceToStorm %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
                     Lightning distance
                 </p>
             </li>
@@ -266,3 +303,78 @@
 
 </body>
 </html>
+
+<script>
+  document.getElementById("en_seeing").addEventListener("change", function() {
+    var data = JSON.stringify({ en_seeing: this.checked
+    });
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/settings", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(data);
+  });
+  document.getElementById("en_raining").addEventListener("change", function() {
+    var data = JSON.stringify({ en_raining: this.checked
+    });
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/settings", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(data);
+  });
+    document.getElementById("en_luminosity").addEventListener("change", function() {
+        var data = JSON.stringify({ en_luminosity: this.checked
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/settings", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+    });
+    document.getElementById("en_nelm").addEventListener("change", function() {
+        var data = JSON.stringify({ en_nelm: this.checked
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/settings", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+    });
+    document.getElementById("en_concentration").addEventListener("change", function() {
+        var data = JSON.stringify({ en_concentration: this.checked
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/settings", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+    });
+    document.getElementById("en_object").addEventListener("change", function() {
+        var data = JSON.stringify({ en_object: this.checked
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/settings", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+    });
+    document.getElementById("en_ambient").addEventListener("change", function() {
+        var data = JSON.stringify({ en_ambient: this.checked
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/settings", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+    });
+    document.getElementById("en_lux").addEventListener("change", function() {
+        var data = JSON.stringify({ en_lux: this.checked
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/settings", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+    });
+    document.getElementById("en_lightning_distanceToStorm").addEventListener("change", function() {
+        var data = JSON.stringify({ en_lightning_distanceToStorm: this.checked
+        });
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/settings", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+    });
+</script>

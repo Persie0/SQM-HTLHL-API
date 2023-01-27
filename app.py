@@ -93,9 +93,6 @@ bar = None
 # if the files should be saved in a specified directory (eg "C:/Users")
 SPECIFIC_DIRECTORY = Path(settings["PATH"])
 
-# statistics.svg absolute path from static/statistics.svg
-statistics_svg = os.path.join(app.static_folder, 'statistics.svg')
-
 def get_all_abriviations():
     abriviations = {}
     for key, value in settings.items():
@@ -130,10 +127,16 @@ def dat_to_df(dat_file_full_path):
     # use file name as date
     # get file name from path with pathlib
     f_date = Path(dat_file_full_path).stem[2:8]   # 2:8 because of the "SQ" in the file name
-    # combine the date from the file name with the time from the dataframe
-    df['time'] = pd.to_datetime(df['time'].astype(str) + ' ' + f_date, format='%H:%M %y%m%d')
+    # convert all dataframes to datetime, date is the f_date and time is the time column
+    df['time'] = pd.to_datetime(df['time'], format='%H:%M')
+    df['date'] = pd.to_datetime(f_date, format='%y%m%d')
+    # add the date to the time column
+    df['time'] = df['date'] + (df['time'] - df['time'].min())
+    # drop the date column
+    df.drop('date', axis=1, inplace=True)
     # convert the values to float
     df['value'] = df['value'].astype(float)
+    print(df)
     return df
 
 #
@@ -435,8 +438,7 @@ def update_load():
                     last_transm = loaded_time.strftime("%d %b %Y %H:%M:%S")
                     min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
                         days[0], hours[0], minutes[0], seconds[0])
-
-            turbo.push(turbo.replace(flask.render_template('replace_content.html', stats=statistics_svg), 'load'))
+            turbo.push(turbo.replace(flask.render_template('replace_content.html', stats="static/statistics.svg"), 'load'))
             time.sleep(5)
 
 

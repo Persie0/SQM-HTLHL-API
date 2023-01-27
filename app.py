@@ -248,7 +248,6 @@ def process():
             # get current datetime
             timestamp = datetime.now()
             jsonfile = request.json
-            print(jsonfile)
             # write the current datetime as last measurement datetime
             if not SPECIFIC_DIRECTORY.is_dir():
                 SPECIFIC_DIRECTORY.mkdir()
@@ -289,6 +288,46 @@ def process():
 def statuspage():
     return flask.render_template('index.html', stats=url_for('static', filename='statistics.svg'))
 
+#ESP32 on/off sensors
+@app.route('/onoff', methods=["POST"])
+def onoffpage():
+    # sensors even enabled?, get the transmitted data from the index.html
+    # get JSON.stringify({ en_seeing: status });
+    if "en_seeing" in request.json and request.json["en_seeing"] is not None:
+        settings["en_seeing"] = request.json["en_seeing"]
+
+    if "en_lux" in request.json and request.json["en_lux"] is not None:
+        settings["en_lux"] = request.json["en_lux"]
+
+    if "en_luminosity" in request.json and request.json["en_luminosity"] is not None:
+        settings["en_luminosity"] = request.json["en_luminosity"]
+
+    if "en_lux" in request.json and request.json["en_lux"] is not None:
+        settings["en_lux"] = request.json["en_lux"]
+
+    if "en_nelm" in request.json and request.json["en_nelm"] is not None:
+        settings["en_nelm"] = request.json["en_nelm"]
+
+    if "en_concentration" in request.json and request.json["en_concentration"] is not None:
+        settings["en_concentration"] = request.json["en_concentration"]
+
+    if "en_ambient" in request.json and request.json["en_ambient"] is not None:
+        settings["en_ambient"] = request.json["en_ambient"]
+
+    if "en_object" in request.json and request.json["en_object"] is not None:
+        settings["en_object"] = request.json["en_object"]
+
+    if "en_lightning_distanceToStorm" in request.json and request.json["en_lightning_distanceToStorm"] is not None:
+        settings["en_lightning_distanceToStorm"] = request.json["en_lightning_distanceToStorm"]
+
+    if "en_raining" in request.json and request.json["en_raining"] is not None:
+        settings["en_raining"] = request.json["en_raining"]
+
+    # save settings
+    with open("SQM_Settings.json", 'w') as f3:
+        json.dump(settings, f3)
+
+    return ""
 
 # ESP32 settings page
 @app.route('/settings', methods=["GET", "POST"])
@@ -328,38 +367,6 @@ def settingspage():
         set_sqm_limit = request.form.get("set_sqm_limit", type=float)
         if set_sqm_limit is not None:
             settings["set_sqm_limit"] = set_sqm_limit
-
-        # sensors even enabled?, get the transmitted data from the index.html
-        #get JSON.stringify({ en_seeing: status });
-        if "en_seeing" in request.json and request.json["en_seeing"] is not None:
-           settings["en_seeing"] = request.json["en_seeing"]
-
-        if "en_lux" in request.json and request.json["en_lux"] is not None:
-            settings["en_lux"] = request.json["en_lux"]
-
-        if "en_luminosity" in request.json and request.json["en_luminosity"] is not None:
-            settings["en_luminosity"] = request.json["en_luminosity"]
-
-        if "en_lux" in request.json and request.json["en_lux"] is not None:
-            settings["en_lux"] = request.json["en_lux"]
-
-        if "en_nelm" in request.json and request.json["en_nelm"] is not None:
-            settings["en_nelm"] = request.json["en_nelm"]
-
-        if "en_concentration" in request.json and request.json["en_concentration"] is not None:
-            settings["en_concentration"] = request.json["en_concentration"]
-
-        if "en_ambient" in request.json and request.json["en_ambient"] is not None:
-            settings["en_ambient"] = request.json["en_ambient"]
-
-        if "en_object" in request.json and request.json["en_object"] is not None:
-            settings["en_object"] = request.json["en_object"]
-
-        if "en_lightning_distanceToStorm" in request.json and request.json["en_lightning_distanceToStorm"] is not None:
-            settings["en_lightning_distanceToStorm"] = request.json["en_lightning_distanceToStorm"]
-
-        if "en_raining" in request.json and request.json["en_raining"] is not None:
-            settings["en_raining"] = request.json["en_raining"]
 
         # save settings
         with open("SQM_Settings.json", 'w') as f3:

@@ -101,6 +101,7 @@ def get_all_abriviations():
             abriviations[value] = key
     return abriviations
 
+
 def get_long_name(abriviation):
     for key, value in settings.items():
         if value == abriviation:

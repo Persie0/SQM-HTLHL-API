@@ -136,6 +136,7 @@ def dat_to_df(dat_file_full_path):
     df.drop('date', axis=1, inplace=True)
     # convert the values to float
     df['value'] = df['value'].astype(float)
+    print(df)
     return df
 
 #
@@ -208,10 +209,10 @@ def visualdate(sensor, datum):
     temp_path = str(SPECIFIC_DIRECTORY)+"/"+sensor
     dat_files = os.listdir(temp_path)
     # sort them by date
-    dat_files.sort(key=lambda x: os.path.getmtime(temp_path + "/" + x))
+    dat_files.sort(key=lambda x: os.path.getmtime(temp_path + "/" + x), reverse=True)
     # check if date was passed
     if datum == "newest":
-        return redirect('/visual/'+sensor+'/'+dat_files[-1])
+        return redirect('/visual/'+sensor+'/'+dat_files[0])
     else:
         if datum in dat_files:
             selected_file = datum

@@ -265,6 +265,7 @@ def process():
                     continue
                 if float(jsonfile[key]) < -100:
                     continue
+                # write the values to the sensor file if enabled
                 elif settings["en_"+key] == 1:
                     # create a directory for each sensor and append the values to the sensor file
                     measurement_path = SPECIFIC_DIRECTORY / settings[key]

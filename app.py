@@ -129,12 +129,7 @@ def dat_to_df(dat_file_full_path):
     # get file name from path with pathlib
     f_date = Path(dat_file_full_path).stem[2:8]   # 2:8 because of the "SQ" in the file name
     # convert all dataframes to datetime, date is the f_date and time is the time column
-    df['time'] = pd.to_datetime(df['time'], format='%H:%M')
-    df['date'] = pd.to_datetime(f_date, format='%y%m%d')
-    # add the date to the time column
-    df['time'] = df['date'] + (df['time'] - df['time'].min())
-    # drop the date column
-    df.drop('date', axis=1, inplace=True)
+    df['time'] = pd.to_datetime(f_date + ' ' + df['time'])
     # convert the values to float
     df['value'] = df['value'].astype(float)
     print(df)

@@ -13,9 +13,13 @@ import plotly
 import plotly.graph_objs as go
 import pandas as pd
 
+# Create a Flask application instance
 app = Flask(__name__)
+
+# Initialize Turbo
 turbo = Turbo(app)
 
+# Initialize variables
 last_transm = "No data yet"
 min_ago = "Never"
 skystate = "Unknown"
@@ -37,6 +41,7 @@ sensor_values = {
     "isSeeing": "0"
 }
 
+# set the default values for the settings
 settings = {
     "seeing_thr": 3,
     "SLEEPTIME_s": 180,
@@ -75,6 +80,7 @@ settings = {
     "en_lightning_distanceToStorm": 1,
 }
 
+# whole names of the sensors
 vis={
     "raining": "Raining",
     "ambient": "Ambient temperature",
@@ -87,39 +93,51 @@ vis={
     "concentration": "Air particle concentration",
 }
 
-selected=""
-
+# time diagramm
 bar = None
 # if the files should be saved in a specified directory (eg "C:/Users")
 SPECIFIC_DIRECTORY = Path(settings["PATH"])
 
+# Get all abbreviations from the settings dictionary
 def get_all_abriviations():
+    # Initialize empty dictionary to store abbreviations
     abriviations = {}
+
+    # Iterate over the items in the settings dictionary
     for key, value in settings.items():
-        #if value is string and 2 characters long
+        # If value is a string and 2 characters long, add to abbreviations dictionary
         if isinstance(value, str) and len(value) == 2:
             abriviations[value] = key
+
+    # Return the abbreviations dictionary
     return abriviations
 
-
+# Get the long name for an abbreviation
 def get_long_name(abriviation):
+    # Iterate over the items in the settings dictionary
     for key, value in settings.items():
+        # If value matches the abbreviation, return the capitalized key
         if value == abriviation:
             return key.capitalize()
-    return
+    # Return None if abbreviation not found
+    return None
 
-# get this PCs IP-Adress
+# Get the IP address of the current computer
 def get_ip():
+    # Create a socket object
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.settimeout(0)
     try:
-        # doesn't even have to be reachable
+        # Try to connect to 10.254.254.254 (doesn't have to be reachable)
         s.connect(('10.254.254.254', 1))
         ip = s.getsockname()[0]
     except Exception:
+        # If connection fails, set the IP address to 127.0.0.1 (localhost)
         ip = '127.0.0.1'
     finally:
+        # Close the socket
         s.close()
+    # Return the IP address
     return ip
 
 def dat_to_df(dat_file_full_path):
@@ -132,39 +150,40 @@ def dat_to_df(dat_file_full_path):
     df['time'] = pd.to_datetime(f_date + ' ' + df['time'])
     # convert the values to float
     df['value'] = df['value'].astype(float)
-    print(df)
     return df
 
-#
+# Create a plotly plot from a dataframe
 def create_plot(df):
+    # Create a scatter plot with the time and value columns from the dataframe
+    scatter_plot = go.Scatter(
+        x=df['time'],
+        y=df['value'],
+        mode='lines+markers',
+        line=dict(
+            width=1
+        ),
+        marker=dict(
+            size=7,
+            symbol='circle',
+        ),
+        connectgaps=False,
+    )
 
-    data = [
-        #show timeline of the last 24h, dont connect the dots if there is a gap more than 30min
-        go.Scatter(
-            x=df['time'],
-            y=df['value'],
-            
-            mode='lines+markers',
-            line=dict(
-                width=1
-            ),
-            marker=dict(
-                size=7,
-                symbol='circle',
-            ),
-            connectgaps=False,
+    # Package the plot data as a list of dictionaries
+    data = [scatter_plot]
 
-        )
-    ]
-
+    # Serialize the plot data to JSON using the PlotlyJSONEncoder
     graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
 
+    # Return the serialized plot data
     return graphJSON
 
 # calculate cloud state from IR temperature sensor
 def get_cloud_state():
     global settings, skystate
+    # calculate the difference between the object and ambient temperature
     temp_diff = float(sensor_values["ambient"]) - float(sensor_values["object"])
+    # calculate the cloud state
     if temp_diff > settings["setpoint1"]:
         skystate = "Clear"
     elif (temp_diff > settings["setpoint2"]) and (temp_diff < settings["setpoint1"]):
@@ -181,6 +200,7 @@ def calculate_mag_limit():
     # look that the calibration SQM-value is ok and not older than 15min
     if datetime.strptime(settings["actual_SQM_time"], "%d-%b-%Y (%H:%M:%S.%f)") > datetime.now() - timedelta(
             minutes=15) and sensor_values["luminosity"] != "-333":
+        # calculate the magnitude limit
         settings["calculated_mag_limit"] = round(
             (settings["set_sqm_limit"] - float(sensor_values["luminosity"]) + settings[
                 "actual_SQM"]), 2)
@@ -191,25 +211,29 @@ def calculate_mag_limit():
 # visualize the selected date
 @app.route('/shortvisual/<sensor>')
 def shortvisual(sensor):
+    # get the selected date from the html page
     selected_date = request.args.get('date')
+    # format the date to the correct format (the date is in the format dd.mm.yyyy + ".dat")
     formatted_date = sensor + selected_date[2:4] + selected_date[5:7] + selected_date[8:10] + ".dat"
+    # redirect to the visualdate function (/visual/<sensor>/<datum>)
     return redirect(url_for('visualdate', sensor=sensor, datum=formatted_date))
 
 # visualize the data 
 @app.route('/visual/<sensor>/<datum>')
 def visualdate(sensor, datum):
+    # format the date to the correct format
     formatted_datum= datum[6:8] + "." + datum[4:6] + "." + "20" + datum[2:4]
     # get all dat files in the directory
-    global selected
-    selected = sensor
     temp_path = str(SPECIFIC_DIRECTORY)+"/"+sensor
     dat_files = os.listdir(temp_path)
     # sort them by date
     dat_files.sort(key=lambda x: os.path.getmtime(temp_path + "/" + x), reverse=True)
     # check if date was passed
     if datum == "newest":
+        # if not, redirect to the newest date
         return redirect('/visual/'+sensor+'/'+dat_files[0])
     else:
+        # if yes, check if the date is in the list of dates
         if datum in dat_files:
             selected_file = datum
         else:
@@ -285,7 +309,7 @@ def process():
 def statuspage():
     return flask.render_template('index.html', stats=url_for('static', filename='statistics.svg'))
 
-#ESP32 on/off sensors
+#ESP32 turn the sensors on/off
 @app.route('/onoff', methods=["POST"])
 def onoffpage():
     # sensors even enabled?, get the transmitted data from the index.html
@@ -402,7 +426,9 @@ def abrivpage():
 def calibrate():
     if request.method == "POST":
         global settings
+        # getting the input from the html forms
         actual_SQM = request.form.get("actual_SQM", type=float)
+        # if form field is not empty
         if actual_SQM is not None:
             settings["actual_SQM"] = actual_SQM
             settings["actual_SQM_time"] = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
@@ -417,18 +443,24 @@ def update_load():
             # if a measurement exists, read time and date and calculate the time difference to now, show if (not) running
             if (SPECIFIC_DIRECTORY / "last_measurement.txt").is_file():
                 with open(SPECIFIC_DIRECTORY / "last_measurement.txt", 'r') as f4:
+                    # read last measurement time
                     loaded_time = datetime.strptime(f4.read(), "%d-%b-%Y (%H:%M:%S.%f)")
                     now = datetime.now()
+                    # calculate time difference between now and last measurement
                     difference = (now - loaded_time)
+                    # calculate time difference in seconds
                     duration_in_s = difference.total_seconds()
+                    # calculate time difference in days, hours, minutes and seconds
                     days = divmod(duration_in_s, 86400)  # Get days (without [0]!)
                     hours = divmod(days[1], 3600)  # Use remainder of days to calc hours
                     minutes = divmod(hours[1], 60)  # Use remainder of hours to calc minutes
                     seconds = divmod(minutes[1], 1)  # Use remainder of minutes to calc seconds
                     global last_transm, min_ago, isRunning
+                    # if last measurement is older than SLEEPTIME_s + 10 seconds, show "not running"
                     if duration_in_s > (settings["SLEEPTIME_s"] + 10):
                         isRunning = False
                         sensor_values["isSeeing"] = False
+                    # else show "running"
                     else:
                         isRunning = True
                     last_transm = loaded_time.strftime("%d %b %Y %H:%M:%S")
@@ -503,6 +535,7 @@ def sendsettings():
 
 
 if __name__ == '__main__':
+    # start thread to update website with  current values, runs parallel to Flask app
     threading.Thread(target=update_load).start()
     # create / read settings file
     if not Path("SQM_Settings.json").is_file():

@@ -146,8 +146,14 @@ def dat_to_df(dat_file_full_path):
     # use file name as date
     # get file name from path with pathlib
     f_date = Path(dat_file_full_path).stem[2:8]   # 2:8 because of the "SQ" in the file name
+    print(f_date)
     # convert all dataframes to datetime, date is the f_date and time is the time column
-    df['time'] = pd.to_datetime(f_date + ' ' + df['time'])
+    #year = int(f_date[:1]), month = int(f_date[2:3]), day = int(f_date[4:]
+    #replace the date with the date from the file name
+    df['time'].replace('0000', regex=True).replace("20"+f_date[:1], regex=True)
+    # sort the data by time
+    df.sort_values(by=['time'], inplace=True)
+
     # convert the values to float
     df['value'] = df['value'].astype(float)
     return df
@@ -281,7 +287,7 @@ def process():
                 global sensor_values
                 sensor_values[key] = jsonfile[key]
                 # don't write values if sensor error (-333) and don't write the errors & if Seeing is on
-                if key == "errors" or key == "isSeeing":
+                if key == "errors" or key == "isSeeing" or jsonfile[key] == "":
                     continue
                 if float(jsonfile[key]) < -100:
                     continue

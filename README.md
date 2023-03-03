@@ -1,11 +1,9 @@
 # Download .exe
 no console: (runs in background):
 
-https://github.com/Persie0/SQM-HTLHL-API/raw/master/SQM_API.exe
+https://github.com/Persie0/SQM-HTLHL-API/raw/master/dist/app.exe
 
-v2:
 
-https://github.com/Persie0/SQM-HTLHL-API/raw/master/release_v2.exe
 # create .exe
 `pip install pyinstaller`
 

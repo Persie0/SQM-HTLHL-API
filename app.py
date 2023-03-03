@@ -230,7 +230,7 @@ def visualdate(sensor, datum):
     # format the date to the correct format
     formatted_datum= datum[6:8] + "." + datum[4:6] + "." + "20" + datum[2:4]
     # get all dat files in the directory
-    temp_path = str(SPECIFIC_DIRECTORY)+"/"+sensor
+    temp_path = str(SPECIFIC_DIRECTORY)+"/"+sensor+"/"+datetime.now().strftime("%Y")[2:4]
     dat_files = os.listdir(temp_path)
     # sort them by date
     dat_files.sort(key=lambda x: os.path.getmtime(temp_path + "/" + x), reverse=True)
@@ -245,7 +245,7 @@ def visualdate(sensor, datum):
         else:
             return "Date not found"
     # convert the file to a pandas dataframe
-    df = dat_to_df(str(SPECIFIC_DIRECTORY)+"/"+sensor+"/"+selected_file)
+    df = dat_to_df(str(SPECIFIC_DIRECTORY)+"/"+sensor+"/"+datetime.now().strftime("%Y")[2:4]+"/"+selected_file)
     # create the plot
     global bar
     bar = create_plot(df)
@@ -298,11 +298,12 @@ def process():
                 # write the values to the sensor file if enabled
                 elif settings["en_"+key] == 1:
                     # create a directory for each sensor and append the values to the sensor file
-                    measurement_path = SPECIFIC_DIRECTORY / settings[key]
+                    # year only has 2 digits
+                    measurement_path = SPECIFIC_DIRECTORY / settings[key] / timestamp.strftime('%Y')[2:4]
                     if not measurement_path.is_dir():
                         measurement_path.mkdir()
                     # ASCII encode timestamp + value
-                    temp_val = (timestamp.strftime('%H:%M') + "\t" + jsonfile[key] + "\n").encode('ascii')
+                    temp_val = (timestamp.strftime('%H:%M') + "\t" + jsonfile[key].replace(".",",") + "\n").encode('ascii')
                     # write to .dat file
                     with open(measurement_path / (settings[key].upper() +
                                                   timestamp.strftime('%Y')[2:4] +

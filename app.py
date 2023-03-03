@@ -275,6 +275,7 @@ def process():
             # get current datetime
             timestamp = datetime.now()
             jsonfile = request.json
+            print(jsonfile)
             # write the current datetime as last measurement datetime
             if not SPECIFIC_DIRECTORY.is_dir():
                 SPECIFIC_DIRECTORY.mkdir()
@@ -285,9 +286,12 @@ def process():
             for key in jsonfile.keys():
                 # "-333" means no data
                 global sensor_values
-                sensor_values[key] = jsonfile[key]
+                if jsonfile[key] == "":
+                    continue
+                else:
+                    sensor_values[key] = jsonfile[key]
                 # don't write values if sensor error (-333) and don't write the errors & if Seeing is on
-                if key == "errors" or key == "isSeeing" or jsonfile[key] == "":
+                if key == "errors" or key == "isSeeing":
                     continue
                 if float(jsonfile[key]) < -100:
                     continue

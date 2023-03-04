@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- include the Turbo framework -->
     {{ turbo() }}
+    <!-- website styling -->
     <title>SQM Settings Page</title>
     <link rel="stylesheet" href="{{url_for('static', filename='status.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='dark.css')}}">
@@ -9,9 +11,8 @@
 </head>
 <body>
 
+<!-- heading -->
 <div id="settin" class="settin">
-
-
     <div class='container'>
         <br>
         <section class='ongoingIssues'>
@@ -21,60 +22,67 @@
             </div>
         </section>
 
-
+        <!-- form with input fields -->
         <form action="/abriv" method="post">
             <section class='serviceGroup'>
                 <ul class='serviceList serviceGroup__list'>
-
+                    <!-- Seeing abriviation -->
                     <li class='serviceList__item'>
                         <p class='serviceList__name'>
                             Seeing
                         </p>
                         <p class='serviceList__status'><span class="ok"><input  type="text" maxlength="2" id="abr_seeing" name="abr_seeing"></span></p>
                     </li>
+                    <!-- Raining abriviation -->
                     <li class='serviceList__item'>
                         <p class='serviceList__name'>
                             Raining
                         </p>
                         <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_raining" name="abr_raining"></span></p>
                     </li>
+                    <!-- SQM abriviation -->
                     <li class='serviceList__item'>
                         <p class='serviceList__name'>
                             Luminosity
                         </p>
                         <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_luminosity" name="abr_luminosity"></span></p>
                     </li>
+                    <!-- NELM abriviation -->
                     <li class='serviceList__item'>
                         <p class='serviceList__name'>
                             Nelm
                         </p>
                         <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_nelm" name="abr_nelm"></span></p>
                     </li>
+                    <!-- Object temp abriviation -->
                     <li class='serviceList__item'>
                         <p class='serviceList__name'>
                             Object temp.
                         </p>
                         <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_object" name="abr_object"></span></p>
                     </li>
-                     <li class='serviceList__item'>
+                    <!-- Ambient temp abriviation -->
+                    <li class='serviceList__item'>
                         <p class='serviceList__name'>
                             Ambient temp.
                         </p>
                         <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_ambient" name="abr_ambient"></span></p>
                     </li>
-
-                     <li class='serviceList__item'>
+                    <!-- Lux abriviation -->
+                    <li class='serviceList__item'>
                         <p class='serviceList__name'>
                             Lux
                         </p>
                         <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_lux" name="abr_lux"></span></p>
                     </li>
-                   <li class='serviceList__item'>
+                    <!-- Lightning sensor abriviation -->
+                    <li class='serviceList__item'>
                         <p class='serviceList__name'>
                             Lightning distance
                         </p>
                         <p class='serviceList__status'><span class="ok"><input type="text" maxlength="2" id="abr_lightning_distanceToStorm" name="abr_lightning_distanceToStorm"></span></p>
                     </li>
+                    <!-- Submit button -->
                     <li class='serviceList__item'>
                         <p class='serviceList__status'><span class="outage"><button class="button button5" type="submit">Save</button></span></p>
 

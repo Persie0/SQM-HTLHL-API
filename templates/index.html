@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <!-- include the Turbo framework -->
     {{ turbo() }}
+    <!-- website styling -->
     <title>SQM Status Page</title>
     <link rel="stylesheet" href="{{url_for('static', filename='status.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='dark.css')}}">
@@ -10,9 +12,11 @@
 </head>
 <body>
 
+<!-- include replace_content.html, this part gets reloaded by the turbo framework -->
 {% include "replace_content.html" %}
 {% block content %}{% endblock %}
 
+<!-- Info & Calibration -->
 <div class='container'>
 
     <section class='ongoingIssues'>
@@ -81,7 +85,7 @@
     </form>
 </div>
 
-
+<!-- Settings -->
 <div class='container'>
 
     <section class='ongoingIssues'>
@@ -179,6 +183,7 @@
     </section>
 </div>
 
+<!-- Sensor abbreviation -->
 <div class='container'>
 
     <section class='ongoingIssues'>
@@ -304,7 +309,9 @@
 </body>
 </html>
 
+<!-- javascript to switch on/off sensors -->
 <script>
+    //enable/disable seeing
   document.getElementById("en_seeing").addEventListener("change", function() {
     var data = JSON.stringify({ en_seeing: this.checked
     });
@@ -313,6 +320,7 @@
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(data);
   });
+  //enable/disable raining
   document.getElementById("en_raining").addEventListener("change", function() {
     var data = JSON.stringify({ en_raining: this.checked
     });
@@ -321,6 +329,7 @@
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(data);
   });
+    //enable/disable SQM
     document.getElementById("en_luminosity").addEventListener("change", function() {
         var data = JSON.stringify({ en_luminosity: this.checked
         });

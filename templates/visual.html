@@ -12,6 +12,8 @@
 </head>
 
 <body>
+
+<!--   header with sensor name and date -->
 <header class='siteHeader2'>
 
     <div class='container'>
@@ -40,7 +42,7 @@
 <!--   some padding -->
 <br>
 <br>
-<!--   js for filter textfield -->
+<!--   js to filter sensors via textfield -->
 <script>
     window.isshowing = false;
     <!-- show dropdown menu with dat_files that match the filter -->
@@ -85,17 +87,13 @@
         }
     }
 
-
+//js to show the sensor value graph
 </script>
-
-
 <div class="chart" id="scatter"></div>
 <script>
     var graphs = {{ plot | safe}};
     Plotly.plot('scatter', graphs, {});
 </script>
 
-
 </body>
-
 </html>

@@ -1,29 +1,31 @@
-
+<!--
+    This file gets reloaded every 5 seconds by the browser with updated data from the server.
+    It is a part of the home page of the SQM web interface.
+-->
 <div id="load" class="load">
+    <!-- SQM and Seeing status -->
     <header class='siteHeader'>
-
         <div class='container'>
+            <!-- SQM status -->
             {% if (isRunning) %}
                 <span class="greendot"></span>
-
-
             {% else %}
                 <span class="reddot"></span>
-
             {% endif %}
-        <span class='siteHeader__title'>SQM&emsp;</span>
+            <span class='siteHeader__title'>SQM&emsp;</span>
+
+            <!-- Seeing status -->
             {% if (isSeeing==1) %}
                 <span class="greendot"></span>
             {% else %}
                 <span class="reddot"></span>
-
             {% endif %}
-         <span class='siteHeader__title'>Seeing</span>
+            <span class='siteHeader__title'>Seeing</span>
         </div>
     </header>
 
     <div class='container'>
-
+        <!-- last update time -->
         <section class='ongoingIssues'>
             <div class='issueBanner issueBanner--monitoring'>
                 <p class='issueBanner__state'>{{ min_ago }}</p>
@@ -32,9 +34,10 @@
             </div>
         </section>
 
+        <!-- Sensor names and values -->
         <section class='serviceGroup'>
             <ul class='serviceList serviceGroup__list'>
-
+                <!-- Rain sensor and cloud state -->
                 <li class='serviceList__item'>
                     {% if (raining>-100) %}
                         {% if (raining==0) %}
@@ -50,12 +53,13 @@
                     {% endif %}
                     <a href="/visual/{{abr_raining}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
 
-                </span></p>
+                    </span></p>
                     <p class='serviceList__name'>
                         Weather
                     </p>
 
                 </li>
+                <!-- ambient temperaure from the sensor -->
                 <li class='serviceList__item'>
                     {% if (ambient>-100) %}
                         <p class='serviceList__status'><span class="ok">{{ambient}} °C
@@ -65,11 +69,12 @@
 
                     {% endif %}
                     <a href="/visual/{{abr_ambient}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
-                </span></p>
+                    </span></p>
                     <p class='serviceList__name'>
                         Ambient temperature
                     </p>
                 </li>
+                <!-- object temperature from the sensor -->
                 <li class='serviceList__item'>
                     {% if (object>-100) %}
                         <p class='serviceList__status'><span class="ok">{{object}} °C
@@ -79,11 +84,12 @@
 
                     {% endif %}
                     <a href="/visual/{{abr_object}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
-                </span></p>
+                    </span></p>
                     <p class='serviceList__name'>
                         Object temperature
                     </p>
                 </li>
+                <!-- lux sensor -->
                 <li class='serviceList__item'>
                     {% if (lux>-100) %}
                         <p class='serviceList__status'><span class="ok">{{lux}} lux
@@ -93,11 +99,12 @@
 
                     {% endif %}
                     <a href="/visual/{{abr_lux}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
-                </span></p>
+                    </span></p>
                     <p class='serviceList__name'>
                         Brightness
                     </p>
                 </li>
+                <!-- SQM value -->
                 <li class='serviceList__item'>
                     {% if (luminosity>-100) %}
                         <p class='serviceList__status'><span class="ok">{{luminosity}} mpsas
@@ -107,12 +114,12 @@
 
                     {% endif %}
                     <a href="/visual/{{abr_luminosity}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
-                </span></p>
+                    </span></p>
                     <p class='serviceList__name'>
                         Luminosity (sky background brightness)
                     </p>
                 </li>
-
+                <!-- Seeing value -->
                 <li class='serviceList__item'>
                     {% if (seeing>-100) %}
                         <p class='serviceList__status'><span class="ok">{{seeing}}
@@ -122,26 +129,26 @@
 
                     {% endif %}
                     <a href="/visual/{{abr_seeing}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
-                </span></p>
+                    </span></p>
                     <p class='serviceList__name'>
                         Seeing
                     </p>
                 </li>
-
+                <!-- lightning distance to storm -->
                 <li class='serviceList__item'>
                     {% if (lightning_distanceToStorm>-100) %}
                         <p class='serviceList__status'><span class="ok">{{lightning_distanceToStorm}} km
                     {% else %}
-                            <p class='serviceList__status'><span class="ka">Nothing yet
+                        <p class='serviceList__status'><span class="ka">Nothing yet
                     {% endif %}
                     <a href="/visual/{{abr_lightning_distanceToStorm}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
-                </span></p>
+                    </span></p>
 
                     <p class='serviceList__name'>
                         Distance to Storm
                     </p>
                 </li>
-
+                <!-- NELM value -->
                 <li class='serviceList__item'>
                     {% if (nelm>-100) %}
                         <p class='serviceList__status'><span class="ok">{{nelm}}
@@ -151,12 +158,12 @@
 
                     {% endif %}
                     <a href="/visual/{{abr_nelm}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
-                </span></p>
+                    </span></p>
                     <p class='serviceList__name'>
                         Nelm (Naked Eye Limiting Magnitude)
                     </p>
                 </li>
-
+                <!-- dust concentration value -->
                 <li class='serviceList__item'>
                     {% if (concentration>-100) %}
                         <p class='serviceList__status'><span class="ok">{{concentration}}
@@ -166,13 +173,15 @@
 
                     {% endif %}
                     <a href="/visual/{{abr_concentration}}/newest"><img src="{{stats}}" alt="statisticsIcon" class="statisticsIcon"></a>
-                </span></p>
+                    </span></p>
                     <p class='serviceList__name'>
                         Air particle concentration
                     </p>
                 </li>
+                <!-- seperator -->
                 <li class='serviceList__item'>
                 </li>
+            <!-- sensor errors -->
                 <li class='serviceList__item'>
                     {% if (errors=="-33") %}
                         <p class='serviceList__status'><span class="outage">No info yet</span></p>
@@ -193,9 +202,11 @@
     </div>
 </div>
 
+<!-- javascript to open statistics page in new tab -->
 <script >
-    const el = document.getElementsByClassName("statisticsIcon");
+    const el = document.getElementsByClassName("statisticsIcon"); // get all icons
     el.forEach(function(item){
+        // set onclick to open new tab with the statistics page
         item.parentElement.setAttribute("onclick", "window.open('" + item.parentElement.href + "','_self')");
     });
 </script>

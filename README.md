@@ -9,7 +9,7 @@ https://github.com/Persie0/SQM-HTLHL-API/raw/master/dist/app.exe
 
 without console Windows
 
-`pyinstaller -w -F --add-data "templates;templates" --add-data "static;static" app.py`
+`pyinstaller -w -F --add-data "templates;templates" --add-data "static;static" --clean app.py `
 
 
 Linux (NOT TESTED):

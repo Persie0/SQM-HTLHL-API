@@ -210,9 +210,14 @@ def calculate_mag_limit():
         settings["calculated_mag_limit"] = round(
             (settings["set_sqm_limit"] - float(sensor_values["luminosity"]) + settings[
                 "actual_SQM"]), 2)
+        #set magnitude limit to the calculated value
+        settings["mag_limit"] = settings["calculated_mag_limit"]
         # save settings
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings, f3)
+        return True
+    else:
+        return False
 
 # visualize the selected date
 @app.route('/shortvisual/<sensor>')
@@ -231,6 +236,8 @@ def visualdate(sensor, datum):
     formatted_datum= datum[6:8] + "." + datum[4:6] + "." + "20" + datum[2:4]
     # get all dat files in the directory
     temp_path = str(SPECIFIC_DIRECTORY)+"/"+sensor+"/"+datetime.now().strftime("%Y")[2:4]
+    if(not os.path.exists(temp_path)):
+        return "No data available"
     dat_files = os.listdir(temp_path)
     # sort them by date
     dat_files.sort(key=lambda x: os.path.getmtime(temp_path + "/" + x), reverse=True)
@@ -311,7 +318,6 @@ def process():
                         f1.write(temp_val)
                         f1.close()
             get_cloud_state()
-            calculate_mag_limit()
             return ""
 
 
@@ -443,9 +449,17 @@ def calibrate():
         if actual_SQM is not None:
             settings["actual_SQM"] = actual_SQM
             settings["actual_SQM_time"] = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
-            calculate_mag_limit()
+            successful= calculate_mag_limit()
+            if not successful:
+                return redirect(url_for('error', er="SQM value older than 15 min"))
+        else:
+            #redirect to page showing error
+            return redirect(url_for('error', er="No value entered"))
         return redirect(url_for('statuspage'))
 
+@app.route('/error/<er>')
+def error(er):
+    return "Error: " + er
 
 # turbo-flask, update website every 5 sec
 def update_load():
@@ -456,29 +470,32 @@ def update_load():
                 with open(SPECIFIC_DIRECTORY / "last_measurement.txt", 'r') as f4:
                     # read last measurement time
                     loaded_time = datetime.strptime(f4.read(), "%d-%b-%Y (%H:%M:%S.%f)")
-                    now = datetime.now()
-                    # calculate time difference between now and last measurement
-                    difference = (now - loaded_time)
-                    # calculate time difference in seconds
-                    duration_in_s = difference.total_seconds()
-                    # calculate time difference in days, hours, minutes and seconds
-                    days = divmod(duration_in_s, 86400)  # Get days (without [0]!)
-                    hours = divmod(days[1], 3600)  # Use remainder of days to calc hours
-                    minutes = divmod(hours[1], 60)  # Use remainder of hours to calc minutes
-                    seconds = divmod(minutes[1], 1)  # Use remainder of minutes to calc seconds
-                    global last_transm, min_ago, isRunning
-                    # if last measurement is older than SLEEPTIME_s + 10 seconds, show "not running"
-                    if duration_in_s > (settings["SLEEPTIME_s"] + 10):
-                        isRunning = False
-                        sensor_values["isSeeing"] = False
-                    # else show "running"
-                    else:
-                        isRunning = True
-                    last_transm = loaded_time.strftime("%d %b %Y %H:%M:%S")
-                    min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
-                        days[0], hours[0], minutes[0], seconds[0])
+                    calculate_time_dif(loaded_time)
             turbo.push(turbo.replace(flask.render_template('replace_content.html', stats="static/statistics.svg"), 'load'))
             time.sleep(5)
+
+def calculate_time_dif(loaded_time):
+    now = datetime.now()
+    # calculate time difference between now and last measurement
+    difference = (now - loaded_time)
+    # calculate time difference in seconds
+    duration_in_s = difference.total_seconds()
+    # calculate time difference in days, hours, minutes and seconds
+    days = divmod(duration_in_s, 86400)  # Get days (without [0]!)
+    hours = divmod(days[1], 3600)  # Use remainder of days to calc hours
+    minutes = divmod(hours[1], 60)  # Use remainder of hours to calc minutes
+    seconds = divmod(minutes[1], 1)  # Use remainder of minutes to calc seconds
+    global last_transm, min_ago, isRunning
+    # if last measurement is older than SLEEPTIME_s + 10 seconds, show "not running"
+    if duration_in_s > (settings["SLEEPTIME_s"] + 10):
+        isRunning = False
+        sensor_values["isSeeing"] = False
+    # else show "running"
+    else:
+        isRunning = True
+    last_transm = loaded_time.strftime("%d %b %Y %H:%M:%S")
+    min_ago = "%d days, %d hours, %d minutes and %d seconds ago" % (
+        days[0], hours[0], minutes[0], seconds[0])
 
 
 # inject settings/sensor values into the website

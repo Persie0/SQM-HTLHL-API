@@ -17,14 +17,13 @@ def get_cloud_state():
 
 
 # calculates the magnitude limit, for calibration of the SQM-sensor
-def calculate_mag_limit():
+def calculate_mag_limit(loaded_time: datetime, actual_sqm: float):
     # look that the calibration SQM-value is ok and not older than 15min
-    if datetime.strptime(settings.SETTINGS["actual_SQM_time"], "%d-%b-%Y (%H:%M:%S.%f)") > datetime.now() - timedelta(
-            minutes=15) and settings.SENSOR_VALUES["luminosity"] != "-333":
+    if loaded_time > (datetime.now() - timedelta(
+            minutes=15)) and settings.SENSOR_VALUES["luminosity"] != "-333":
         # calculate the magnitude limit
         settings.SETTINGS["calculated_mag_limit"] = round(
-            (settings.SETTINGS["set_sqm_limit"] - float(settings.SENSOR_VALUES["luminosity"]) + settings.SETTINGS[
-                "actual_SQM"]), 2)
+            (settings.SETTINGS["set_sqm_limit"] - float(settings.SENSOR_VALUES["luminosity"]) + actual_sqm), 2)
         #set magnitude limit to the calculated value
         settings.SETTINGS["mag_limit"] = settings.SETTINGS["calculated_mag_limit"]
         # save settings

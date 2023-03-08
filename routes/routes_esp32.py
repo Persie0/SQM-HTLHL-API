@@ -6,7 +6,7 @@ from flask import request
 import functions.sensor_specific as sensor_specific
 
 esp32_bp = Blueprint('esp32', __name__)
-# send settings.SETTINGS to ESP32 as json response
+# send settings to ESP32 as json response
 @esp32_bp.route('/getsettings')
 def sendsettings():
     return settings.SETTINGS
@@ -29,32 +29,20 @@ def process():
                 f1.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
                 f1.close()
             # loop through sensor values
-            for key in jsonfile.keys():
-                # "-333" means no data
-                if jsonfile[key] == "":
+            for key, value in jsonfile.items():
+                # skip if value is empty, sensor error, or Seeing is on
+                if key in ["errors", "isSeeing"] or float(value) < -100:
                     continue
-                else:
-                    settings.SENSOR_VALUES[key] = jsonfile[key]
-                # don't write values if sensor error (-333) and don't write the errors & if Seeing is on
-                if key == "errors" or key == "isSeeing":
-                    continue
-                if float(jsonfile[key]) < -100:
-                    continue
-                # write the values to the sensor file if enabled
-                elif settings.SETTINGS["en_"+key] == 1:
+                # write the values to the ASCII file if enabled
+                elif settings.SETTINGS.get("en_"+key, 0) == 1:
+                    settings.SENSOR_VALUES[key] = value
                     # create a directory for each sensor and append the values to the sensor file
-                    # year only has 2 digits
-                    measurement_path = settings.SPECIFIC_DIRECTORY / settings.SETTINGS[key] / timestamp.strftime('%Y')[2:4]
-                    #create the directories if they don't exist
-                    if not measurement_path.is_dir():
-                        measurement_path.mkdir(parents=True)
+                    measurement_path = settings.SPECIFIC_DIRECTORY / settings.SETTINGS[key] / timestamp.strftime('%y')
+                    measurement_path.mkdir(parents=True, exist_ok=True)
                     # ASCII encode timestamp + value
-                    temp_val = (timestamp.strftime('%H:%M') + "\t" + str(jsonfile[key]).replace(".",",") + "\r\n").encode('ascii')
+                    temp_val = f"{timestamp.strftime('%H:%M')}\t{str(value).replace('.', ',')}\r\n".encode('ascii')
                     # write to .dat file
-                    with open(measurement_path / (settings.SETTINGS[key].upper() +
-                                                  timestamp.strftime('%Y')[2:4] +
-                                                  timestamp.strftime('%m%d') + ".dat"), 'ab') as f1:
+                    with open(measurement_path / f"{settings.SETTINGS[key].upper()}{timestamp.strftime('%y%m%d')}.dat", 'ab') as f1:
                         f1.write(temp_val)
-                        f1.close()
-            sensor_specific.get_cloud_state()
-            return ""
+                    sensor_specific.get_cloud_state()
+        return ""

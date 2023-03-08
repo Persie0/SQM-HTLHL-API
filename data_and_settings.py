@@ -20,8 +20,7 @@ SETTINGS = {
     "DISPLAY_TIMEOUT_s": 200,
     "DISPLAY_ON": 1,
     "PATH": "",
-    "actual_SQM": -333,
-    "actual_SQM_time": date(1, 1, 1).strftime("%d-%b-%Y (%H:%M:%S.%f)"),
+    "last_SQM_time": date(1, 1, 1).strftime("%d-%b-%Y (%H:%M:%S.%f)"),
     "calculated_mag_limit": -333,
     "set_sqm_limit": 21.83,
 

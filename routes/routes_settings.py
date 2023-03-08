@@ -1,6 +1,5 @@
 from flask import Blueprint, request, redirect, url_for, render_template
 from pathlib import Path
-#import the settings from functions/data_and_settings.py
 import data_and_settings as settings
 import json
 from datetime import datetime
@@ -11,50 +10,37 @@ set_bp = Blueprint('settings', __name__)
 # ESP32 settings page
 @set_bp.route('/settings', methods=["GET", "POST"])
 def settingspage():
-    # if sending/saving settings.SETTINGS
     if request.method == "POST":
-        # getting the input from the settings.SETTINGS page
-        # check if value x was entered
-        seeing_thr = request.form.get("seeing_thr", type=int)
-        if seeing_thr is not None:
-            settings.SETTINGS["seeing_thr"] = seeing_thr
-        if request.form.get("DISPLAY") is not None:
-            settings.SETTINGS["DISPLAY_ON"] = 1
-        else:
-            settings.SETTINGS["DISPLAY_ON"] = 0
-        setpoint1 = request.form.get("setpoint1", type=float)
-        if setpoint1 is not None:
-            settings.SETTINGS["setpoint1"] = setpoint1
-        setpoint2 = request.form.get("setpoint2", type=float)
-        if setpoint2 is not None:
-            settings.SETTINGS["setpoint2"] = setpoint2
-        max_lux = request.form.get("max_lux", type=float)
-        if max_lux is not None:
-            settings.SETTINGS["max_lux"] = max_lux
-        dto = request.form.get("DISPLAY_TIMEOUT_s", type=int)
-        if dto is not None:
-            settings.SETTINGS["DISPLAY_TIMEOUT_s"] = dto
-        sleep_t = request.form.get("SLEEPTIME_s", type=int)
-        if sleep_t is not None:
-            settings.SETTINGS["SLEEPTIME_s"] = sleep_t
-        path = request.form.get("PATH", type=str)
-        if path is not None and path != "":
-            settings.SETTINGS["PATH"] = path
+        # Define a dictionary of setting names and their corresponding types
+        setting_types = {
+        "seeing_thr": int,
+        "DISPLAY": bool,
+        "setpoint1": float,
+        "setpoint2": float,
+        "max_lux": float,
+        "DISPLAY_TIMEOUT_s": int,
+        "SLEEPTIME_s": int,
+        "PATH": str,
+        "set_sqm_limit": float
+        }
+        # Iterate over the settings and update the SETTINGS dictionary
+        for setting_name, setting_type in setting_types.items():
+            setting_value = request.form.get(setting_name, type=setting_type)
+            if setting_value is not None:
+                settings.SETTINGS[setting_name] = setting_value
+        # Update the SPECIFIC_DIRECTORY if the PATH setting has changed
+        if "PATH" in settings.SETTINGS and settings.SETTINGS["PATH"] != "":
             settings.SPECIFIC_DIRECTORY = Path(settings.SETTINGS["PATH"])
-        set_sqm_limit = request.form.get("set_sqm_limit", type=float)
-        if set_sqm_limit is not None:
-            settings.SETTINGS["set_sqm_limit"] = set_sqm_limit
-
         # save settings.SETTINGS
         with open("SQM_settings.json", 'w') as f3:
             json.dump(settings.SETTINGS, f3)
         # route to status page
         return redirect(url_for('statuspage'))
-    # else show settings.SETTINGS page
+    # if GET show settings page
     return render_template('settings.html')
 
 
-# abbreviation settings.SETTINGS page
+# abbreviation settings page
 @set_bp.route('/abriv', methods=["GET", "POST"])
 def abrivpage():
     # if sending/saving settings.SETTINGS
@@ -72,48 +58,18 @@ def abrivpage():
             json.dump(settings.SETTINGS, f3)
         # route to status page
         return redirect(url_for('statuspage'))
-    # else show settings.SETTINGS page
+    # else show settings page
     return render_template('abriv_settings.html')
 
-#ESP32 turn the sensors on/off
 @set_bp.route('/onoff', methods=["POST"])
 def onoffpage():
-    # sensors even enabled?, get the transmitted data from the index.html
-    # get JSON.stringify({ en_seeing: status });
-    if "en_seeing" in request.json and request.json["en_seeing"] is not None:
-        settings.SETTINGS["en_seeing"] = request.json["en_seeing"]
-
-    if "en_lux" in request.json and request.json["en_lux"] is not None:
-        settings.SETTINGS["en_lux"] = request.json["en_lux"]
-
-    if "en_luminosity" in request.json and request.json["en_luminosity"] is not None:
-        settings.SETTINGS["en_luminosity"] = request.json["en_luminosity"]
-
-    if "en_lux" in request.json and request.json["en_lux"] is not None:
-        settings.SETTINGS["en_lux"] = request.json["en_lux"]
-
-    if "en_nelm" in request.json and request.json["en_nelm"] is not None:
-        settings.SETTINGS["en_nelm"] = request.json["en_nelm"]
-
-    if "en_concentration" in request.json and request.json["en_concentration"] is not None:
-        settings.SETTINGS["en_concentration"] = request.json["en_concentration"]
-
-    if "en_ambient" in request.json and request.json["en_ambient"] is not None:
-        settings.SETTINGS["en_ambient"] = request.json["en_ambient"]
-
-    if "en_object" in request.json and request.json["en_object"] is not None:
-        settings.SETTINGS["en_object"] = request.json["en_object"]
-
-    if "en_lightning_distanceToStorm" in request.json and request.json["en_lightning_distanceToStorm"] is not None:
-        settings.SETTINGS["en_lightning_distanceToStorm"] = request.json["en_lightning_distanceToStorm"]
-
-    if "en_raining" in request.json and request.json["en_raining"] is not None:
-        settings.SETTINGS["en_raining"] = request.json["en_raining"]
-
-    # save settings.SETTINGS
+    # Update SETTINGS based on request.json data0
+    for key in request.json.keys():
+        if key in settings.SETTINGS.keys():
+            settings.SETTINGS[key] = request.json[key]
+    # Save updated SETTINGS to file
     with open("SQM_settings.json", 'w') as f3:
         json.dump(settings.SETTINGS, f3)
-
     return ""
 
 # SQM-sensor calibration
@@ -124,9 +80,13 @@ def calibrate():
         actual_SQM = request.form.get("actual_SQM", type=float)
         # if form field is not empty
         if actual_SQM is not None:
-            settings.SETTINGS["actual_SQM"] = actual_SQM
-            settings.SETTINGS["actual_SQM_time"] = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
-            successful= sensor_specific.calculate_mag_limit()
+            if (settings.SPECIFIC_DIRECTORY / "last_measurement.txt").is_file():
+                with open(settings.SPECIFIC_DIRECTORY / "last_measurement.txt", 'r') as f4:
+                    # read last measurement time
+                    loaded_time = datetime.strptime(f4.read(), "%d-%b-%Y (%H:%M:%S.%f)")
+            else:
+                return redirect(url_for('error', er="No SQM values available"))
+            successful= sensor_specific.calculate_mag_limit(loaded_time, actual_SQM)
             if not successful:
                 return redirect(url_for('error', er="SQM value older than 15 min"))
         else:

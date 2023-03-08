@@ -2,7 +2,6 @@ from flask import Blueprint, request, redirect, url_for, render_template
 from datetime import datetime
 import os
 from pathlib import Path
-#import the settings from functions/data_and_settings.py
 import data_and_settings as settings
 from functions.data_handling import dat_to_df, create_plot
 from functions.abriviation import get_all_abbreviations
@@ -56,5 +55,4 @@ def visualdate(sensor, datum):
     for i in dat_files:
         dates.append(datetime.strptime(i[2:8], "%y%m%d").strftime("%Y-%m-%d"))
     return render_template('visual.html', sens=settings.FULL_NAMES[get_all_abbreviations()[sensor]],
-                                 plot=settings.BAR, dat_files=dat_files, abr=sensor, min_date=earliest,
-                                 max_date=latest, formatted_date=formatted_datum)
+                                 plot=settings.BAR, dat_files=dat_files, abr=sensor, formatted_date=formatted_datum)

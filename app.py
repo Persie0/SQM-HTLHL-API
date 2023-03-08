@@ -111,7 +111,7 @@ def inject_load():
 if __name__ == '__main__':
     # start thread to update website with  current values, runs parallel to Flask app
     threading.Thread(target=update_load).start()
-    # create / read settings.SETTINGS file
+    # create / read settings file
     if not Path("SQM_settings.json").is_file():
         with open("SQM_settings.json", 'w') as f:
             json.dump(settings.SETTINGS, f)
@@ -120,8 +120,8 @@ if __name__ == '__main__':
             settings.SETTINGS = json.load(file)
             settings.SPECIFIC_DIRECTORY = Path(settings.SETTINGS["PATH"])
     # get ip of this server/PC
-    localIP = general_utils.get_ip()
+    settings.LOCAL_IP = general_utils.get_ip()
     # open IP in browser
-    webbrowser.open("http://" + str(localIP) + ":5000")
+    webbrowser.open("http://" + str(settings.LOCAL_IP) + ":5000")
     # run Flask app
     app.run(host='0.0.0.0', port=5000, threaded=True)

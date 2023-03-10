@@ -27,7 +27,7 @@ def calculate_mag_limit(loaded_time: datetime, actual_sqm: float):
         settings.SETTINGS["calculated_mag_limit"] = round(
             (settings.SETTINGS["set_sqm_limit"] - float(settings.SENSOR_VALUES["luminosity"]) + actual_sqm), 2)
         #set magnitude limit to the calculated value
-        settings.SETTINGS["mag_limit"] = settings.SETTINGS["calculated_mag_limit"]
+        settings.SETTINGS["set_sqm_limit"] = settings.SETTINGS["calculated_mag_limit"]
         # save settings
         with open("SQM_Settings.json", 'w') as f3:
             json.dump(settings.SETTINGS, f3)

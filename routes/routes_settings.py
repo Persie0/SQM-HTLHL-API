@@ -88,7 +88,7 @@ def calibrate():
                 return redirect(url_for('error', er="No SQM values available"))
             successful= sensor_specific.calculate_mag_limit(loaded_time, actual_SQM)
             if not successful:
-                return redirect(url_for('error', er="SQM value older than 15 min"))
+                return redirect(url_for('error', er="SQM value older than 15 min or no value for this session"))
         else:
             #redirect to page showing error
             return redirect(url_for('error', er="No value entered"))

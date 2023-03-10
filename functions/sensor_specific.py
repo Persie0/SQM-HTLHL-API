@@ -22,6 +22,8 @@ def calculate_mag_limit(loaded_time: datetime, actual_sqm: float):
     if loaded_time > (datetime.now() - timedelta(
             minutes=15)) and settings.SENSOR_VALUES["luminosity"] != "-333":
         # calculate the magnitude limit
+
+        # calculated_mag_limit = set_sqm_limit - actual_sqm + professionally_measured_sqm
         settings.SETTINGS["calculated_mag_limit"] = round(
             (settings.SETTINGS["set_sqm_limit"] - float(settings.SENSOR_VALUES["luminosity"]) + actual_sqm), 2)
         #set magnitude limit to the calculated value

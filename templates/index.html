@@ -14,7 +14,6 @@
 
 <!-- include replace_content.html, this part gets reloaded by the turbo framework -->
 {% include "replace_content.html" %}
-{% block content %}{% endblock %}
 
 <!-- Info & Calibration -->
 <div class='container'>
@@ -71,7 +70,7 @@
                 <li class='serviceList__item'>
                     <p class='serviceList__status'><span class="ok"><input type="number"  step=".01" id="actual_SQM" name="actual_SQM"></span></p>
                     <p class='serviceList__name'>
-                        Measured Luminosity <br>(with professional SQMeter, for calibration, valid for 15min,<br>compares it to a measured sensor value of the ESP32,<br> calculates a Limiting magnitude)
+                        Measured SQM <br>(with professional SQMeter, for calibration, valid for 15min,<br>compares it to a measured sensor value of the ESP32,<br> calculates a Limiting magnitude)
                     </p>
                 </li>
                 <li class='serviceList__item'>
@@ -194,20 +193,7 @@
 
     <section class='serviceGroup'>
         <ul class='serviceList serviceGroup__list'>
-
-            <li class='serviceList__item'>
-
-                <p class='serviceList__status'><span class="ok">{{abr_seeing}}</span></p>
-
-                <p class='serviceList__name'>
-                    <label class="switch">
-                        <input type="checkbox" id="en_seeing" name="en_seeing" {% if en_seeing %}checked{% endif %}>
-                        <span class="slider round"></span>
-                    </label>
-                    Seeing
-                </p>
-            </li>
-            <li class='serviceList__item'>
+     <li class='serviceList__item'>
                 <p class='serviceList__status'><span class="ok">{{abr_raining}}</span></p>
 
                 <p class='serviceList__name'>
@@ -218,7 +204,40 @@
                     Raining
                 </p>
             </li>
-            <li class='serviceList__item'>
+                <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_ambient}}</span></p>
+
+                <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_ambient" name="en_ambient" {% if en_ambient %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
+                    Ambient temperature
+                </p>
+            </li>
+              <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_object}}</span></p>
+
+                <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_object" name="en_object" {% if en_object %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
+                    Object temperature
+                </p>
+            </li>
+              <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_lux}}</span></p>
+
+                <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_lux" name="en_lux" {% if en_lux %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
+                    Brightness
+                </p>
+            </li>
+                    <li class='serviceList__item'>
                 <p class='serviceList__status'><span class="ok">{{abr_luminosity}}</span></p>
 
                 <p class='serviceList__name'>
@@ -226,9 +245,32 @@
                         <input type="checkbox" id="en_luminosity" name="en_luminosity" {% if en_luminosity %}checked{% endif %}>
                         <span class="slider round"></span>
                     </label>
-                    Luminosity
+                    SQM
                 </p>
             </li>
+
+            <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_seeing}}</span></p>
+                <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_seeing" name="en_seeing" {% if en_seeing %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
+                    Seeing
+                </p>
+            </li>
+                 <li class='serviceList__item'>
+                <p class='serviceList__status'><span class="ok">{{abr_lightning_distanceToStorm}}</span></p>
+
+                <p class='serviceList__name'>
+                    <label class="switch">
+                        <input type="checkbox" id="en_lightning_distanceToStorm" name="en_lightning_distanceToStorm" {% if en_lightning_distanceToStorm %}checked{% endif %}>
+                        <span class="slider round"></span>
+                    </label>
+                    Lightning distance
+                </p>
+            </li>
+
             <li class='serviceList__item'>
                 <p class='serviceList__status'><span class="ok">{{abr_nelm}}</span></p>
 
@@ -251,50 +293,7 @@
                     Air particle concentration
                 </p>
             </li>
-            <li class='serviceList__item'>
-                <p class='serviceList__status'><span class="ok">{{abr_object}}</span></p>
 
-                <p class='serviceList__name'>
-                    <label class="switch">
-                        <input type="checkbox" id="en_object" name="en_object" {% if en_object %}checked{% endif %}>
-                        <span class="slider round"></span>
-                    </label>
-                    Object temp.
-                </p>
-            </li>
-            <li class='serviceList__item'>
-                <p class='serviceList__status'><span class="ok">{{abr_ambient}}</span></p>
-
-                <p class='serviceList__name'>
-                    <label class="switch">
-                        <input type="checkbox" id="en_ambient" name="en_ambient" {% if en_ambient %}checked{% endif %}>
-                        <span class="slider round"></span>
-                    </label>
-                    Ambient temp.
-                </p>
-            </li>
-            <li class='serviceList__item'>
-                <p class='serviceList__status'><span class="ok">{{abr_lux}}</span></p>
-
-                <p class='serviceList__name'>
-                    <label class="switch">
-                        <input type="checkbox" id="en_lux" name="en_lux" {% if en_lux %}checked{% endif %}>
-                        <span class="slider round"></span>
-                    </label>
-                    Lux
-                </p>
-            </li>
-            <li class='serviceList__item'>
-                <p class='serviceList__status'><span class="ok">{{abr_lightning_distanceToStorm}}</span></p>
-
-                <p class='serviceList__name'>
-                    <label class="switch">
-                        <input type="checkbox" id="en_lightning_distanceToStorm" name="en_lightning_distanceToStorm" {% if en_lightning_distanceToStorm %}checked{% endif %}>
-                        <span class="slider round"></span>
-                    </label>
-                    Lightning distance
-                </p>
-            </li>
 
             <li class='serviceList__item'>
                 <p class='serviceList__status'><a href="/abriv"><span class="outage"><button class="button button5" type="submit">Change</button></span></a>

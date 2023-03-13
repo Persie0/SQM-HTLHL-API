@@ -740,3 +740,16 @@ input:checked + .slider:before {
   width: 36px; /* changed from 60px */
   height: 20px; /* changed from 34px */
 }
+
+/* flask flash message, centered */
+.flashes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 100;
+  /*white text on red background*/
+  color: #fff;
+  background-color: #f00;
+}

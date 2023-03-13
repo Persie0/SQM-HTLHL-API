@@ -3,8 +3,8 @@ from datetime import datetime
 import os
 from pathlib import Path
 import data_and_settings as settings
-from functions.data_handling import dat_to_df, create_plot
-from functions.abriviation import get_all_abbreviations
+from my_functions.data_handling import dat_to_df, create_plot
+from my_functions.abriviation import get_all_abbreviations
 
 vis_bp = Blueprint('visualize', __name__)
 

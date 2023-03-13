@@ -1,9 +1,9 @@
-from flask import Blueprint, request, redirect, url_for, render_template
+from flask import Blueprint, request, redirect, url_for, render_template, flash
 from pathlib import Path
 import data_and_settings as settings
 import json
 from datetime import datetime
-import functions.sensor_specific as sensor_specific
+import my_functions.sensor_specific as sensor_specific
 
 set_bp = Blueprint('settings', __name__)
 
@@ -34,6 +34,7 @@ def settingspage():
         # save settings.SETTINGS
         with open("SQM_settings.json", 'w') as f3:
             json.dump(settings.SETTINGS, f3)
+        flash('Settings saved')
         # route to status page
         return redirect(url_for('statuspage'))
     # if GET show settings page
@@ -57,6 +58,7 @@ def abrivpage():
         with open("SQM_settings.json", 'w') as f3:
             json.dump(settings.SETTINGS, f3)
         # route to status page
+        flash('Settings saved')
         return redirect(url_for('statuspage'))
     # else show settings page
     return render_template('abriv_settings.html')
@@ -92,4 +94,6 @@ def calibrate():
         else:
             #redirect to page showing error
             return redirect(url_for('error', er="No value entered"))
+        flash('Calibrated successfully')
+        # route to status page
         return redirect(url_for('statuspage'))

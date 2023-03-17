@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- website styling -->
+    <title>SQM Error Page</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='status.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='dark.css')}}">
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='northstar.png')}}">
+
+</head>
+<body>
+
+    <header class='siteHeader'>
+        <div class='container'>
+            <span class='siteHeader__title'>Error:</span>
+        </div>
+    </header>
+
+        <section class='serviceGroup'>
+            <ul class='serviceList serviceGroup__list'>
+                <li class='serviceList__item'>
+                    <p class='serviceList__name'>
+                        {{error_message}}
+                    </p>
+                </li>
+                
+                <li class='serviceList__item'>
+                    <p class='serviceList__status'><span class="outage"><button class="button button5" onclick="window.location.href='/'">Go back to main page</button></span></p>
+
+                </li>
+
+
+            </ul>
+        </section>
+    </form>

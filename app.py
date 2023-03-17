@@ -4,18 +4,18 @@ from datetime import datetime
 from pathlib import Path
 import json
 import flask
-from flask import Flask, url_for
+from flask import Flask, url_for, render_template, redirect
 from turbo_flask import Turbo
 import webbrowser
 import data_and_settings as settings
-from functions import general_utils
-from routes.routes_visualize import vis_bp
-from routes.routes_esp32 import esp32_bp
-from routes.routes_settings import set_bp
+from my_functions import general_utils
+from my_routes.routes_visualize import vis_bp
+from my_routes.routes_esp32 import esp32_bp
+from my_routes.routes_settings import set_bp
 
 # Create a Flask application instance
 app = Flask(__name__)
-
+app.secret_key = b'key_blabla'
 # register blueprints (routes)
 app.register_blueprint(vis_bp)
 app.register_blueprint(esp32_bp)
@@ -30,12 +30,18 @@ settings.SPECIFIC_DIRECTORY = Path(settings.SETTINGS["PATH"])
 # Homepage with status and current settings
 @app.route('/', methods=["GET"])
 def statuspage():
-    return flask.render_template('index.html', stats=url_for('static', filename='statistics.svg'))
+    return render_template('index.html', stats=url_for('static', filename='statistics.svg'))
 
 #error screen with info
 @app.route('/error/<er>')
 def error(er):
-    return "Error: " + er
+    return render_template('error.html', error_message=er)
+
+#redirect to error screen
+@app.errorhandler(404)
+def page_not_found(error):
+    return redirect("/error/url not found")
+    
 
 # turbo-flask, update website every 5 sec
 def update_load():
@@ -47,7 +53,7 @@ def update_load():
                     # read last measurement time
                     loaded_time = datetime.strptime(f4.read(), "%d-%b-%Y (%H:%M:%S.%f)")
                     general_utils.calculate_time_dif(loaded_time)
-            turbo.push(turbo.replace(flask.render_template('replace_content.html', stats="static/statistics.svg"), 'load'))
+            turbo.push(turbo.replace(render_template('replace_content.html', stats="static/statistics.svg"), 'load'))
             time.sleep(5)
 
 

@@ -3,7 +3,7 @@ from flask import Blueprint
 import data_and_settings as settings
 from datetime import datetime
 from flask import request
-import functions.sensor_specific as sensor_specific
+import my_functions.sensor_specific as sensor_specific
 
 esp32_bp = Blueprint('esp32', __name__)
 # send settings to ESP32 as json response

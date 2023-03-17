@@ -32,7 +32,7 @@ def visualdate(sensor, datum):
     dat_files.sort(key=lambda x: os.path.getmtime(temp_path + "/" + x), reverse=True)
     # check if date was passed
     if datum == "newest":
-        # if not, redirect to the newest date
+        # if not, redirect to the newest datebug fix
         return redirect('/visual/'+sensor+'/'+dat_files[0])
     else:
         # if yes, check if the date is in the list of dates
@@ -45,11 +45,11 @@ def visualdate(sensor, datum):
     # create the plot
     settings.BAR = create_plot(df)
     #get earliest and latest date
-    earliest = dat_files[0]
-    latest = dat_files[-1]
+    #earliest = dat_files[0]
+    #latest = dat_files[-1]
     #convert to html date format
-    earliest = datetime.strptime(earliest[2:8], "%y%m%d").strftime("%Y-%m-%d")
-    latest = datetime.strptime(latest[2:8], "%y%m%d").strftime("%Y-%m-%d")
+    #earliest = datetime.strptime(earliest[2:8], "%y%m%d").strftime("%Y-%m-%d")
+    #latest = datetime.strptime(latest[2:8], "%y%m%d").strftime("%Y-%m-%d")
     # get all dates in html date format
     dates = []
     for i in dat_files:

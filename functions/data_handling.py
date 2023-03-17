@@ -9,6 +9,8 @@ def dat_to_df(dat_file_full_path):
     df = pd.read_csv(dat_file_full_path, sep='\t', header=None, names=['time', 'value'])
     # sort the data by time
     df.sort_values(by=['time'], inplace=True)
+    # replace the , with a .
+    df['value'] = df['value'].str.replace(',', '.')
     # convert the values to float
     df['value'] = df['value'].astype(float)
     return df

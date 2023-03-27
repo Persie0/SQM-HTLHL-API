@@ -10,7 +10,7 @@ def dat_to_df(dat_file_full_path):
     # sort the data by time
     df.sort_values(by=['time'], inplace=True)
     # replace the , with a .
-    df['value'] = df['value'].str.replace(',', '.')
+    df['value'] = df['value'].astype(str).str.replace(',', '.')
     # convert the values to float
     df['value'] = df['value'].astype(float)
     return df

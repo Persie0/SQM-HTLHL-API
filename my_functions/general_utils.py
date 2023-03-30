@@ -32,7 +32,7 @@ def calculate_time_dif(loaded_time):
     minutes = divmod(hours[1], 60)  # Use remainder of hours to calc minutes
     seconds = divmod(minutes[1], 1)  # Use remainder of minutes to calc seconds
     # if last measurement is older than SLEEPTIME_s + 10 seconds, show "not running"
-    if duration_in_s > (settings.SETTINGS["SLEEPTIME_s"] + 10):
+    if duration_in_s > (settings.SETTINGS["SLEEPTIME_s"] * 2):
         settings.IS_RUNNING = False
         settings.SENSOR_VALUES["isSeeing"] = False
     # else show "running"

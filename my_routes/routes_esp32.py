@@ -30,11 +30,11 @@ def process():
                 f1.close()
             # loop through sensor values
             for key, value in jsonfile.items():
-                # skip if value is empty, sensor error, or Seeing is on
-                if key in ["errors", "isSeeing"] or float(value) < -100:
-                    continue
+                # if key is sensor errors or isSeeing
+                if key == "errors" or key == "isSeeing":
+                    settings.SENSOR_VALUES[key] = value
                 # write the values to the ASCII file if enabled
-                elif settings.SETTINGS.get("en_"+key, 0) == 1:
+                elif settings.SETTINGS.get("en_"+key, 0) == 1 and  float(value) > -100:
                     settings.SENSOR_VALUES[key] = value
                     # create a directory for each sensor and append the values to the sensor file
                     measurement_path = settings.SPECIFIC_DIRECTORY / settings.SETTINGS[key] / timestamp.strftime('%y')

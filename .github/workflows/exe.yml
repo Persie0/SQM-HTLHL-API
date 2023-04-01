@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller
+
+      - name: Build executable
+        run: |
+          pyinstaller -w -F --add-data "templates;templates" --add-data "static;static" app.py
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: myapp
+          path: dist/app

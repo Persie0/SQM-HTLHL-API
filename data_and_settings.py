@@ -5,6 +5,8 @@ BAR = None
 
 # directory for the data files
 SPECIFIC_DIRECTORY = ""
+SETTINGSPATH = ""
+FILEPATH = ""
 
 # running variables
 LAST_TRANSMISSION = "No data yet"

@@ -32,7 +32,7 @@ def settingspage():
         if "PATH" in settings.SETTINGS and settings.SETTINGS["PATH"] != "":
             settings.SPECIFIC_DIRECTORY = Path(settings.SETTINGS["PATH"])
         # save settings.SETTINGS
-        with open("SQM_settings.json", 'w') as f3:
+        with open(settings.SETTINGSPATH, 'w') as f3:
             json.dump(settings.SETTINGS, f3)
         flash('Settings saved')
         # route to status page
@@ -55,7 +55,7 @@ def abrivpage():
             if abr_value != "":
                 settings.SETTINGS[abr_key.replace("abr_", "")] = abr_value
         # save settings.SETTINGS
-        with open("SQM_settings.json", 'w') as f3:
+        with open(settings.SETTINGSPATH, 'w') as f3:
             json.dump(settings.SETTINGS, f3)
         # route to status page
         flash('Settings saved')
@@ -70,7 +70,7 @@ def onoffpage():
         if key in settings.SETTINGS.keys():
             settings.SETTINGS[key] = request.json[key]
     # Save updated SETTINGS to file
-    with open("SQM_settings.json", 'w') as f3:
+    with open(settings.SETTINGSPATH, 'w') as f3:
         json.dump(settings.SETTINGS, f3)
     return ""
 

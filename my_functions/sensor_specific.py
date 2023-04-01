@@ -29,7 +29,7 @@ def calculate_mag_limit(loaded_time: datetime, actual_sqm: float):
         #set magnitude limit to the calculated value
         settings.SETTINGS["set_sqm_limit"] = settings.SETTINGS["calculated_mag_limit"]
         # save settings
-        with open("SQM_Settings.json", 'w') as f3:
+        with open(settings.SETTINGSPATH, 'w') as f3:
             json.dump(settings.SETTINGS, f3)
         return True
     else:

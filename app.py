@@ -3,7 +3,6 @@ import time
 from datetime import datetime
 from pathlib import Path
 import json
-import flask
 from flask import Flask, url_for, render_template, redirect
 from turbo_flask import Turbo
 import webbrowser
@@ -12,6 +11,24 @@ from my_functions import general_utils
 from my_routes.routes_visualize import vis_bp
 from my_routes.routes_esp32 import esp32_bp
 from my_routes.routes_settings import set_bp
+import os
+
+# get the path of the current file
+settings.FILEPATH = os.path.dirname(os.path.realpath(__file__))
+# define the path of the settings file
+settings.SETTINGSPATH = settings.FILEPATH + "/SQM_settings.json"
+
+# check if "SQM_settings.json" exists
+if not Path(settings.SETTINGSPATH).is_file():
+    with open(settings.SETTINGSPATH, 'w') as f:
+        settings.SETTINGS["PATH"] = str(settings.FILEPATH)
+        json.dump(settings.SETTINGS, f)
+# if file exists, load settings
+else:
+    with open(settings.SETTINGSPATH, 'r') as file:
+        settings.SETTINGS = json.load(file)
+# set specific directory to the loaded path
+settings.SPECIFIC_DIRECTORY = Path(settings.SETTINGS["PATH"])
 
 # Create a Flask application instance
 app = Flask(__name__)
@@ -23,9 +40,6 @@ app.register_blueprint(set_bp)
 
 # Initialize Turbo-Flask with the Flask app instance
 turbo = Turbo(app)
-
-# if the files should be saved in a specified directory (eg "C:/Users")
-settings.SPECIFIC_DIRECTORY = Path(settings.SETTINGS["PATH"])
 
 # Homepage with status and current settings
 @app.route('/', methods=["GET"])
@@ -117,14 +131,6 @@ def inject_load():
 if __name__ == '__main__':
     # start thread to update website with  current values, runs parallel to Flask app
     threading.Thread(target=update_load).start()
-    # create / read settings file
-    if not Path("SQM_settings.json").is_file():
-        with open("SQM_settings.json", 'w') as f:
-            json.dump(settings.SETTINGS, f)
-    else:
-        with open("SQM_settings.json", 'r') as file:
-            settings.SETTINGS = json.load(file)
-            settings.SPECIFIC_DIRECTORY = Path(settings.SETTINGS["PATH"])
     # get ip of this server/PC
     settings.LOCAL_IP = general_utils.get_ip()
     # open IP in browser

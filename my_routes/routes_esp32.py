@@ -25,6 +25,7 @@ def process():
             # write the current datetime as last measurement datetime
             if not settings.SPECIFIC_DIRECTORY.is_dir():
                 settings.SPECIFIC_DIRECTORY.mkdir()
+            print(settings.SPECIFIC_DIRECTORY)
             with open(settings.SPECIFIC_DIRECTORY / "last_measurement.txt", 'w') as f1:
                 f1.write(timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)"))
                 f1.close()

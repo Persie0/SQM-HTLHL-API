@@ -133,7 +133,10 @@ if __name__ == '__main__':
     threading.Thread(target=update_load).start()
     # get ip of this server/PC
     settings.LOCAL_IP = general_utils.get_ip()
+    # run Flask app in a thread so it doesn't block the main thread
+    server_thread = threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 5000, 'threaded': True})
+    server_thread.start()
+    # wait some time for the server to start
+    time.sleep(1)
     # open IP in browser
     webbrowser.open("http://" + str(settings.LOCAL_IP) + ":5000")
-    # run Flask app
-    app.run(host='0.0.0.0', port=5000, threaded=True)

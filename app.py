@@ -16,8 +16,8 @@ import os
 # get the path of the current file
 settings.FILEPATH = os.path.dirname(os.path.realpath(__file__))
 # define the path of the settings file
-settings.SETTINGSPATH = settings.FILEPATH + "/SQM_settings.json"
-
+settings.SETTINGSPATH = Path(settings.FILEPATH) / "SQM_settings.json"
+print(settings.SETTINGSPATH)
 # check if "SQM_settings.json" exists
 if not Path(settings.SETTINGSPATH).is_file():
     with open(settings.SETTINGSPATH, 'w') as f:
@@ -137,6 +137,6 @@ if __name__ == '__main__':
     server_thread = threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 5000, 'threaded': True})
     server_thread.start()
     # wait some time for the server to start
-    time.sleep(1)
+    time.sleep(3)
     # open IP in browser
     webbrowser.open("http://" + str(settings.LOCAL_IP) + ":5000")

@@ -5,12 +5,12 @@ import json
 def post_data():
     sensorErrors = []  # sample sensor errors
     raining = 0  # sample sensor value
-    luminosity = 14  # sample sensor value
+    luminosity = 14.66  # sample sensor value
     seeing = -333  # sample sensor value
-    nelm = 0  # sample sensor value
+    nelm = 0.83  # sample sensor value
     concentration = 10390  # sample sensor value
-    objectt = 22  # sample sensor value
-    ambient = 20  # sample sensor value
+    objectt = 22.45  # sample sensor value
+    ambient = 20.11  # sample sensor value
     lux = 67  # sample sensor value
     lightning_distanceToStorm = 10  # sample sensor value
     SEEING_ENABLED = 0  # sample sensor value

@@ -14,8 +14,9 @@ from my_routes.routes_settings import set_bp
 import os
 
 # get the path of the current file
-settings.FILEPATH = os.path.dirname(os.path.realpath(__file__))
+settings.FILEPATH = os.path.expanduser("~")
 # define the path of the settings file
+print(settings.FILEPATH)
 settings.SETTINGSPATH = Path(settings.FILEPATH) / "SQM_settings.json"
 print(settings.SETTINGSPATH)
 # check if "SQM_settings.json" exists
@@ -29,6 +30,7 @@ else:
         settings.SETTINGS = json.load(file)
 # set specific directory to the loaded path
 settings.SPECIFIC_DIRECTORY = Path(settings.SETTINGS["PATH"])
+print(settings.SETTINGS)
 
 # Create a Flask application instance
 app = Flask(__name__)

@@ -14,7 +14,6 @@ def settingspage():
         # Define a dictionary of setting names and their corresponding types
         setting_types = {
         "seeing_thr": int,
-        "DISPLAY": bool,
         "setpoint1": float,
         "setpoint2": float,
         "max_lux": float,
@@ -25,11 +24,20 @@ def settingspage():
         }
         # Iterate over the settings and update the SETTINGS dictionary
         for setting_name, setting_type in setting_types.items():
-            setting_value = request.form.get(setting_name, type=setting_type)
-            if setting_value is not None:
-                settings.SETTINGS[setting_name] = setting_value
+            setting_value = request.form.get(setting_name)
+            if setting_value is not None and setting_value != "":
+                converted_value = setting_type(setting_value)
+                settings.SETTINGS[setting_name] = converted_value
         # Update the SPECIFIC_DIRECTORY if the PATH setting has changed
+
+        settings.SETTINGS["DISPLAY_ON"] = 0  # Default value if checkbox is not checked
+        if "DISPLAY_ON" in request.form.getlist("DISPLAY_ON"):
+            settings.SETTINGS["DISPLAY_ON"] = 1
+        else:
+            settings.SETTINGS["DISPLAY_ON"] = 0
+
         if "PATH" in settings.SETTINGS and settings.SETTINGS["PATH"] != "":
+            print("PATH changed to", settings.SETTINGS["PATH"])
             settings.SPECIFIC_DIRECTORY = Path(settings.SETTINGS["PATH"])
         # save settings.SETTINGS
         with open(settings.SETTINGSPATH, 'w') as f3:

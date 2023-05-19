@@ -31,10 +31,9 @@ def settingspage():
         # Update the SPECIFIC_DIRECTORY if the PATH setting has changed
 
         settings.SETTINGS["DISPLAY_ON"] = 0  # Default value if checkbox is not checked
-        if "DISPLAY_ON" in request.form.getlist("DISPLAY_ON"):
+        print(request.form.getlist("DISPLAY_ON"))
+        if "on" in request.form.getlist("DISPLAY_ON"):
             settings.SETTINGS["DISPLAY_ON"] = 1
-        else:
-            settings.SETTINGS["DISPLAY_ON"] = 0
 
         if "PATH" in settings.SETTINGS and settings.SETTINGS["PATH"] != "":
             print("PATH changed to", settings.SETTINGS["PATH"])
